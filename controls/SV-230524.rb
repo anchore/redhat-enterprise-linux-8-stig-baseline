@@ -15,8 +15,8 @@ rule language described in the usbguard-rules.conf file. The policy and the
 authorization state of USB devices can be modified during runtime using the
 usbguard tool.
 
-    The System Administrator (SA) must work with the site Information System
-Security Officer (ISSO) to determine a list of authorized peripherals and
+    The system administrator (SA) must work with the site information system
+security officer (ISSO) to determine a list of authorized peripherals and
 establish rules within the USBGuard software framework to allow only authorized
 devices.'
   desc 'check', 'Verify the USBGuard has a policy configured with the following command:
@@ -39,14 +39,18 @@ for any usb devices currently connect to the system.
 
     Note: Enabling and starting usbguard without properly configuring it for an
 individual system will immediately prevent any access over a usb device such as
-a keyboard or mouse'
+a keyboard or mouse.
+
+    Restart usbguard service after creation or update of rules with the following command:
+
+    $ sudo systemctl restart usbguard'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-230524'
-  tag rid: 'SV-230524r1014813_rule'
+  tag rid: 'SV-230524r1155418_rule'
   tag stig_id: 'RHEL-08-040140'
-  tag fix_id: 'F-33168r744025_fix'
+  tag fix_id: 'F-33168r1155417_fix'
   tag cci: ['CCI-001958']
   tag nist: ['IA-3']
   tag 'host'
