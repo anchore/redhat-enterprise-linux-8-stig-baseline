@@ -75,7 +75,7 @@ $ sudo reboot'
 
     # The required FIPS 140-3-compliant hash algorithms that must be present in
     # the "hash" value of the current crypto policy.
-    required_hashes = %w(SHA2-256 SHA2-384 SHA2-512 SHA2-224 SHA3-256 SHA3-384 SHA3-512)
+    required_hashes = %w[SHA2-256 SHA2-384 SHA2-512 SHA2-224 SHA3-256 SHA3-384 SHA3-512]
     min_rsa_size = 2048
 
     current_pol = file('/etc/crypto-policies/state/CURRENT.pol')

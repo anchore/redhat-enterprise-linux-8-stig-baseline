@@ -52,7 +52,7 @@ include "/etc/crypto-policies/back-ends/bind.config";'
       describe 'The /etc/named.conf include directives' do
         it 'must reference the system crypto policy back-end (/etc/crypto-policies/back-ends/bind.config)' do
           expect(include_lines).to(include(match(%r{include\s+"?/etc/crypto-policies/back-ends/bind\.config"?\s*;})),
-                                    "/etc/named.conf does not contain an active include for the system crypto policy.\n\tgot include lines: #{include_lines}")
+                                   "/etc/named.conf does not contain an active include for the system crypto policy.\n\tgot include lines: #{include_lines}")
         end
       end
     end
