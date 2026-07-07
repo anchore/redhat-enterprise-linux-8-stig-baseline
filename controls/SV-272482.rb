@@ -41,12 +41,11 @@ Note: Systemwide crypto policies are applied on application startup. It is recom
   tag 'host'
   tag 'container-conditional'
 
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable in a container' do
-      skip 'The host OS controls the FIPS mode settings. The host OS should also be scanned with the applicable OS validation profile.'
-    end
-  elsif input('use_fips') == false
+  only_if('This control is Not Applicable to containers', impact: 0.0) {
+    !virtualization.system.eql?('docker')
+  }
+
+  if input('use_fips') == false
     impact 0.0
     describe 'This control is Not Applicable as FIPS is not required for this system' do
       skip 'This control is Not Applicable as FIPS is not required for this system'

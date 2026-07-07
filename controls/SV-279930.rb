@@ -31,12 +31,11 @@ include /etc/crypto-policies/back-ends/libreswan.config'
   # concerns controlled by the host, not the container (mirrors the crypto-policies
   # family convention, e.g. SV-279932). Host-only with a container skip; and Not
   # Applicable when the IPsec service (libreswan) is not installed.
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable in a container' do
-      skip 'The host OS controls the systemwide cryptographic policy and IP tunnels. The host OS should also be scanned with the applicable OS validation profile.'
-    end
-  elsif !(package('libreswan').installed? || file('/etc/ipsec.conf').exist?)
+  only_if('This control is Not Applicable to containers', impact: 0.0) {
+    !virtualization.system.eql?('docker')
+  }
+
+  if !(package('libreswan').installed? || file('/etc/ipsec.conf').exist?)
     impact 0.0
     describe 'The IPsec service is not installed' do
       skip 'The IPsec service is not installed, this control is Not Applicable.'

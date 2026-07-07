@@ -35,7 +35,7 @@ If a separate entry for the file system/partition containing the nonprivileged i
   tag nist: ['CM-6 b']
   tag 'host'
 
-  only_if('This requirement is Not Applicable inside a container, the containers host manages the containers filesystems') {
+  only_if('This requirement is Not Applicable inside a container, the containers host manages the containers filesystems', impact: 0.0) {
     !virtualization.system.eql?('docker')
   }
 
@@ -47,6 +47,11 @@ If a separate entry for the file system/partition containing the nonprivileged i
     impact 0.0
     describe 'This system is not required to have sperate filesystems for each mount point' do
       skip 'The system is managing filesystems and space via other mechanisms; this requirement is Not Applicable'
+    end
+  elsif homes.empty?
+    impact 0.0
+    describe 'Non-privileged interactive user home directories' do
+      skip 'No non-privileged interactive users (UID >= 1000 with a login shell) exist on this system; there are no home-directory filesystems to evaluate.'
     end
   else
     homes.each do |home|

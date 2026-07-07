@@ -34,18 +34,15 @@ Note: Systemwide crypto policies are applied on application startup. It is recom
   tag nist: ['SC-13 b']
   tag 'host'
 
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable in a container' do
-      skip 'The host OS controls the systemwide cryptographic policy. The host OS should also be scanned with the applicable OS validation profile.'
-    end
-  else
-    # "update-crypto-policies --is-applied" reports whether the configured
-    # systemwide crypto policy matches the generated back-end configuration.
-    # When the policy has not been overridden, it returns
-    # "The configured policy is applied".
-    describe command('update-crypto-policies --is-applied') do
-      its('stdout.strip') { should cmp 'The configured policy is applied' }
-    end
+  only_if('This control is Not Applicable to containers', impact: 0.0) {
+    !virtualization.system.eql?('docker')
+  }
+
+  # "update-crypto-policies --is-applied" reports whether the configured
+  # systemwide crypto policy matches the generated back-end configuration.
+  # When the policy has not been overridden, it returns
+  # "The configured policy is applied".
+  describe command('update-crypto-policies --is-applied') do
+    its('stdout.strip') { should cmp 'The configured policy is applied' }
   end
 end
