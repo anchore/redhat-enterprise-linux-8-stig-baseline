@@ -26,7 +26,7 @@ $ sudo chage -M 60 [user]'
   tag 'container'
 
   value = input('pass_max_days')
-  exempt_users = input('exempt_home_users')
+  exempt_users = input('exempt_home_users') + input('known_system_accounts')
 
   in_scope_users = users.where { uid >= 1000 && !exempt_users.include?(username) }
   bad_users = in_scope_users.where { maxdays.nil? || maxdays <= 0 || maxdays > value }.usernames
