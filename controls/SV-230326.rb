@@ -31,9 +31,9 @@ $ sudo chown <user> <file>'
 
     failing_files = Set[]
 
-    command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'')
-      .stdout.strip.split("\n").each do |fs|
-      failing_files += command("find / -xdev -xautofs -fstype #{fs} -nouser").stdout.strip.split("\n")
+    command("df --local -P | awk '{ if (NR!=1) print $6 }'")
+      .stdout.strip.split("\n").each do |mountpoint|
+      failing_files += command("find #{mountpoint} -xdev -nouser").stdout.strip.split("\n")
     end
 
     describe 'All local files and directories' do
