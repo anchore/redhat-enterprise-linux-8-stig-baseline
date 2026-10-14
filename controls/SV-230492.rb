@@ -32,7 +32,7 @@ $ sudo dnf config-manager --set-disabled epel'
   tag 'host'
   tag 'container'
 
-  describe package('rsh-server') do
-    it { should_not be_installed }
+  describe command('dnf repolist') do
+    its('stdout') { should_not match(/epel/i) }
   end
 end
