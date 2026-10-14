@@ -28,48 +28,31 @@ Remove any configurations that conflict with the above from the following locati
 /etc/sudoers
 /etc/sudoers.d/'
   impact 0.5
+  tag check_id: 'C-76538r1134873_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000445-GPOS-00199'
   tag gid: 'V-272484'
   tag rid: 'SV-272484r1134875_rule'
   tag stig_id: 'RHEL-08-010455'
+  tag gtitle: 'SRG-OS-000445-GPOS-00199'
   tag fix_id: 'F-76444r1134874_fix'
+  tag 'documentable'
+  tag legacy: ['SV-70979', 'V-56719']
   tag cci: ['CCI-002235']
   tag nist: ['AC-6 (10)']
   tag 'host'
-  tag 'container-conditional'
 
-  only_if('This control is Not Applicable to containers without sudo installed', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !command('sudo').exist?)
-  }
-
-  # The actual STIG check is "grep -r sysadm_r /etc/sudoers /etc/sudoers.d". A compliant
-  # system must contain at least one sudo rule that elevates the SELinux type and role to
-  # "sysadm_t"/"sysadm_r", and must not contain any conflicting "sysadm_r" entries (i.e. any
-  # line referencing sysadm_r that does not properly elevate both TYPE=sysadm_t and
-  # ROLE=sysadm_r).
-  sysadm_r_lines = command('grep -rh sysadm_r /etc/sudoers /etc/sudoers.d 2>/dev/null')
-                   .stdout.lines
-                   .map(&:strip)
-                   .reject { |l| l.empty? || l.start_with?('#') }
-
-  # A well-formed elevation rule sets both TYPE=sysadm_t and ROLE=sysadm_r.
-  elevating_rules = sysadm_r_lines.select do |l|
-    l.match?(/\bTYPE=sysadm_t\b/) && l.match?(/\bROLE=sysadm_r\b/)
+  only_if('Control not applicable within a container without sudo enabled', impact: 0.0) do
+    !virtualization.container_system?
   end
 
-  # Any line mentioning sysadm_r that is not a well-formed elevation rule is a conflict.
-  conflicting_rules = sysadm_r_lines - elevating_rules
+  configured_admins = input('admin_user').map(&:to_s).reject(&:empty?) +
+                      input('admin_group').map { |group| "%#{group}" }.reject(&:empty?)
+  admin_pattern = Regexp.union(configured_admins).source
+  output = command('grep -r sysadm_r /etc/sudoers /etc/sudoers.d').stdout
 
-  describe 'A designated sudoers administrator rule elevating the SELinux context to sysadm_t/sysadm_r' do
-    it 'should be configured' do
-      expect(elevating_rules).not_to be_empty, 'No sudoers rule found that elevates the SELinux type and role to "sysadm_t"/"sysadm_r"'
-    end
-  end
-
-  describe 'Conflicting "sysadm_r" sudoers configurations' do
-    it 'should not be present' do
-      expect(conflicting_rules).to be_empty, "Conflicting sysadm_r configurations found:\n\t- #{conflicting_rules.join("\n\t- ")}"
+  describe 'The sudoers SELinux context rule' do
+    it 'should grant a designated administrator account or group the expected SELinux role and type' do
+      expect(output).to match(/(?:\A|\n)[^:\n]+:\s*(?:#{admin_pattern})\s+ALL\s*=\s*\(ALL\)\s+TYPE\s*=\s*sysadm_t\s+ROLE\s*=\s*sysadm_r\s+ALL\s*(?:#.*)?$/), "No sudoers rule found for designated administrator(s): #{configured_admins.join(', ')} that elevates to TYPE=sysadm_t ROLE=sysadm_r"
     end
   end
 end

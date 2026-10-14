@@ -45,76 +45,39 @@ To make the cryptographic settings effective for already running services and ap
 
 $ sudo reboot'
   impact 0.7
+  tag check_id: 'C-32892r1155354_chk'
   tag severity: 'high'
-  tag gtitle: 'SRG-OS-000033-GPOS-00014'
-  tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000125-GPOS-00065', 'SRG-OS-000396-GPOS-00176', 'SRG-OS-000423-GPOS-00187', 'SRG-OS-000478-GPOS-00223', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174']
   tag gid: 'V-230223'
   tag rid: 'SV-230223r1155356_rule'
   tag stig_id: 'RHEL-08-010020'
+  tag gtitle: 'SRG-OS-000033-GPOS-00014'
   tag fix_id: 'F-32867r1155355_fix'
-  tag cci: ['CCI-000068']
-  tag nist: ['AC-17 (2)']
+  tag satisfies: ['SRG-OS-000396-GPOS-00176', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174', 'SRG-OS-000033-GPOS-00014', 'SRG-OS-000125-GPOS-00065', 'SRG-OS-000423-GPOS-00187', 'SRG-OS-000478-GPOS-00223']
+  tag 'documentable'
+  tag cci: ['CCI-002450', 'CCI-002890', 'CCI-003123', 'CCI-000068']
+  tag nist: ['SC-13 b', 'MA-4 (6)', 'AC-17 (2)']
   tag 'host'
 
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable in a container' do
-      skip 'The host OS controls the FIPS mode settings. The host OS should also be scanned with the applicable OS validation profile.'
-    end
-  elsif input('use_fips') == false
-    impact 0.0
-    describe 'This control is Not Applicable as FIPS is not required for this system' do
-      skip 'This control is Not Applicable as FIPS is not required for this system'
-    end
-  else
-    # The systemwide crypto policy must be set to FIPS (optionally with a
-    # colon-separated subpolicy list, e.g. "FIPS:STIG").
-    describe command('update-crypto-policies --show') do
-      its('stdout.strip') { should match(/^FIPS(:\S+)?$/) }
-    end
+  only_if('This control is Not Applicable to containers', impact: 0.0) {
+    !virtualization.container_system?
+  }
 
-    # The required FIPS 140-3-compliant hash algorithms that must be present in
-    # the "hash" value of the current crypto policy.
-    required_hashes = %w[SHA2-256 SHA2-384 SHA2-512 SHA2-224 SHA3-256 SHA3-384 SHA3-512]
-    min_rsa_size = 2048
+  describe command('update-crypto-policies --show') do
+    its('stdout') { should match(/FIPS/) }
+  end
 
-    current_pol = file('/etc/crypto-policies/state/CURRENT.pol')
-
-    describe current_pol do
-      it { should exist }
-    end
-
-    if current_pol.exist?
-      pol = parse_config(current_pol.content.to_s)
-
-      hash_value = pol.params['hash'].to_s
-      configured_hashes = hash_value.split(/\s+/).reject(&:empty?)
-
-      describe 'The systemwide crypto-policy "hash" configuration' do
-        it 'must include all required FIPS 140-3-compliant hash algorithms' do
-          missing = required_hashes - configured_hashes
-          expect(missing).to be_empty, "Missing required hash algorithm(s): #{missing.join(', ')}\n\tgot: #{hash_value}"
-        end
-
-        it 'must not include any SHA1 algorithm' do
-          sha1 = configured_hashes.select { |h| h =~ /SHA1/i }
-          expect(sha1).to be_empty, "Disallowed SHA1 algorithm(s) present: #{sha1.join(', ')}"
-        end
-
-        it 'must not include any hash value with a length less than 224' do
-          weak = configured_hashes.select { |h| (m = h[/(\d+)\s*$/, 1]) && m.to_i < 224 }
-          expect(weak).to be_empty, "Disallowed hash value(s) less than 224: #{weak.join(', ')}"
-        end
-      end
-
-      rsa_value = pol.params['min_rsa_size'].to_s.strip
-
-      describe 'The systemwide crypto-policy "min_rsa_size" configuration' do
-        it 'must be set to a value of at least 2048' do
-          expect(rsa_value).not_to be_empty, 'min_rsa_size is not configured in /etc/crypto-policies/state/CURRENT.pol'
-          expect(rsa_value.to_i).to be >= min_rsa_size, "Expected min_rsa_size >= #{min_rsa_size}, got: #{rsa_value}"
-        end
-      end
-    end
+  describe parse_config_file('/etc/crypto-policies/state/CURRENT.pol') do
+    its(['min_rsa_size']) { should cmp >= 2048 }
+    its(['hash']) {
+      should include 'SHA2-256', 'SHA2-384', 'SHA2-512', 'SHA2-224',
+                     'SHA3-256', 'SHA3-384', 'SHA3-512'
+    }
+    its(['hash']) { should_not match(/SHA-?1\b/i) }
+    its(['hash']) {
+      is_expected.to satisfy('no hash size < 256 (except 224)') { |s|
+                       sizes = s.scan(/-(\d+)/).flatten.map(&:to_i)
+                       (sizes - [224]).all? { |n| n >= 256 }
+                     }
+    }
   end
 end

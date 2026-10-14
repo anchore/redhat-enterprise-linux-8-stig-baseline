@@ -38,18 +38,35 @@ $ sudo sysctl --system'
   tag rid: 'SV-230266r1184246_rule'
   tag stig_id: 'RHEL-08-010372'
   tag fix_id: 'F-32910r1184245_fix'
-  tag cci: ['CCI-001749', 'CCI-003992']
-  tag nist: ['CM-5 (3)', 'CM-14']
+  tag cci: ['CCI-001749', 'CCI-000366', 'CCI-003992']
+  tag nist: ['CM-5 (3)', 'CM-6 b', 'CM-14']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
-  # V2R7 (rNNN -> r1184246): the STIG check no longer requires verifying the on-disk
-  # sysctl.d config files / conflicts — it now asserts only the effective runtime value.
-  # Aligned to the new check intent to avoid false findings on compliant systems.
-  describe kernel_parameter('kernel.kexec_load_disabled') do
-    its('value') { should eq 1 }
+  parameter = 'kernel.kexec_load_disabled'
+  value = 1
+  regexp = /^\s*#{parameter}\s*=\s*#{value}\s*$/
+
+  describe kernel_parameter(parameter) do
+    its('value') { should eq value }
+  end
+
+  search_results = command("/usr/lib/systemd/systemd-sysctl --cat-config | egrep -v '^(#|;)' | grep -F #{parameter}").stdout.strip.split("\n")
+
+  correct_result = search_results.any? { |line| line.match(regexp) }
+  incorrect_results = search_results.map(&:strip).reject { |line| line.match(regexp) }
+
+  describe 'Kernel config files' do
+    it "should configure '#{parameter}'" do
+      expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
+    end
+    unless incorrect_results.nil?
+      it 'should not have incorrect or conflicting setting(s) in the config files' do
+        expect(incorrect_results).to be_empty, "Incorrect or conflicting setting(s) found:\n\t- #{incorrect_results.join("\n\t- ")}"
+      end
+    end
   end
 end

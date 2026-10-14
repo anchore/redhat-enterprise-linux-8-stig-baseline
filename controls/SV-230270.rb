@@ -42,17 +42,35 @@ $ sudo sysctl --system'
   tag rid: 'SV-230270r1184258_rule'
   tag stig_id: 'RHEL-08-010376'
   tag fix_id: 'F-32914r1184257_fix'
-  tag cci: ['CCI-001090']
-  tag nist: ['SC-4']
+  tag cci: ['CCI-001090', 'CCI-001082']
+  tag nist: ['SC-4', 'SC-2']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
-  action = 'kernel.perf_event_paranoid'
+  parameter = 'kernel.perf_event_paranoid'
+  value = 2
+  regexp = /^\s*#{parameter}\s*=\s*#{value}\s*$/
 
-  describe kernel_parameter(action) do
-    its('value') { should eq 2 }
+  describe kernel_parameter(parameter) do
+    its('value') { should eq value }
+  end
+
+  search_results = command("/usr/lib/systemd/systemd-sysctl --cat-config | egrep -v '^(#|;)' | grep -F #{parameter}").stdout.strip.split("\n")
+
+  correct_result = search_results.any? { |line| line.match(regexp) }
+  incorrect_results = search_results.map(&:strip).reject { |line| line.match(regexp) }
+
+  describe 'Kernel config files' do
+    it "should configure '#{parameter}'" do
+      expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
+    end
+    unless incorrect_results.nil?
+      it 'should not have incorrect or conflicting setting(s) in the config files' do
+        expect(incorrect_results).to be_empty, "Incorrect or conflicting setting(s) found:\n\t- #{incorrect_results.join("\n\t- ")}"
+      end
+    end
   end
 end

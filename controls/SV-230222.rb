@@ -24,15 +24,16 @@ If package updates have not been performed on the system within the timeframe th
 Typical update frequency may be overridden by Information Assurance Vulnerability Alert (IAVA) notifications from CYBERCOM.
 
 If the operating system is in non-compliance with the Information Assurance Vulnerability Management (IAVM) process, this is a finding.'
-  desc 'fix', 'Install the operating system patches or updated packages
-    available from Red Hat within 30 days or sooner as local policy dictates.'
+  desc 'fix', 'Install the operating system patches or updated packages available from Red Hat within 30 days or sooner as local policy dictates.'
   impact 0.5
+  tag check_id: 'C-32891r1184232_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230222'
   tag rid: 'SV-230222r1184233_rule'
   tag stig_id: 'RHEL-08-010010'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32866r567413_fix'
+  tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'

@@ -20,18 +20,20 @@ Add or update the following lines in the file "/etc/modprobe.d/blacklist.conf":
 
 Reboot the system for the settings to take effect.'
   impact 0.3
+  tag check_id: 'C-33168r1069239_chk'
   tag severity: 'low'
-  tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230499'
   tag rid: 'SV-230499r1069315_rule'
   tag stig_id: 'RHEL-08-040026'
+  tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag fix_id: 'F-33143r942932_fix'
+  tag 'documentable'
   tag cci: ['CCI-000381']
   tag nist: ['CM-7 a']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   describe kernel_module('firewire_core') do

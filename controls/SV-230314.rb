@@ -1,27 +1,17 @@
 control 'SV-230314' do
   title 'RHEL 8 must disable storing core dumps.'
-  desc 'It is detrimental for operating systems to provide, or install by
-default, functionality exceeding requirements or mission objectives. These
-unnecessary capabilities or services are often overlooked and therefore may
-remain unsecured. They increase the risk to the platform by providing
-additional attack vectors.
+  desc 'It is detrimental for operating systems to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
 
-    A core dump includes a memory image taken at the time the operating system
-terminates an application. The memory image could contain sensitive data and is
-generally useful only for developers trying to debug problems.'
+A core dump includes a memory image taken at the time the operating system terminates an application. The memory image could contain sensitive data and is generally useful only for developers trying to debug problems.'
   desc 'check', 'Note: If kernel dumps are disabled in accordance with RHEL-08-010671, this requirement is not applicable.
 
-Verify the operating system disables storing core dumps for all users by
-issuing the following command:
+Verify the operating system disables storing core dumps for all users by issuing the following command:
 
-    $ sudo grep -i storage /etc/systemd/coredump.conf
+$ sudo grep -i storage /etc/systemd/coredump.conf
 
-    Storage=none
+Storage=none
 
-    If the "Storage" item is missing or commented out, or the value is anything
-other than "none", and the need for core dumps is not documented with the
-information system security officer (ISSO) as an operational requirement for
-all domains that have the "core" item assigned, this is a finding.'
+If the "Storage" item is missing or commented out, or the value is anything other than "none", and the need for core dumps is not documented with the information system security officer (ISSO) as an operational requirement for all domains that have the "core" item assigned, this is a finding.'
   desc 'fix', 'Configure the operating system to disable storing core dumps for all users.
 
 Add or modify the following line in /etc/systemd/coredump.conf:
@@ -34,13 +24,13 @@ Storage=none'
   tag rid: 'SV-230314r1134881_rule'
   tag stig_id: 'RHEL-08-010674'
   tag fix_id: 'F-32958r567689_fix'
-  tag cci: ['CCI-000366']
+  tag cci: ['CCI-000366', 'CCI-000381']
   tag legacy: []
-  tag nist: ['CM-6 b']
+  tag nist: ['CM-6 b', 'CM-7 a']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   describe parse_config_file('/etc/systemd/coredump.conf') do

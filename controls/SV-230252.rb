@@ -36,13 +36,13 @@ Note: Systemwide crypto policies are applied on application startup. It is recom
   tag rid: 'SV-230252r1184241_rule'
   tag stig_id: 'RHEL-08-010291'
   tag fix_id: 'F-32896r1155363_fix'
-  tag cci: ['CCI-001453']
-  tag nist: ['AC-17 (2)']
+  tag cci: ['CCI-001453', 'CCI-000877']
+  tag nist: ['AC-17 (2)', 'MA-4 c']
   tag 'host'
   tag 'container-conditional'
 
   only_if('Control not applicable - SSH is not installed within containerized RHEL', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?)
+    !(virtualization.container_system? && !file('/etc/sysconfig/sshd').exist?)
   }
 
   required_ciphers = input('openssh_client_required_ciphers')

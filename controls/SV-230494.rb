@@ -1,17 +1,10 @@
 control 'SV-230494' do
   title 'RHEL 8 must disable the asynchronous transfer mode (ATM) protocol.'
-  desc 'It is detrimental for operating systems to provide, or install by
-default, functionality exceeding requirements or mission objectives. These
-unnecessary capabilities or services are often overlooked and therefore may
-remain unsecured. They increase the risk to the platform by providing
-additional attack vectors.
+  desc 'It is detrimental for operating systems to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
 
-    Failing to disconnect unused protocols can result in a system compromise.
+Failing to disconnect unused protocols can result in a system compromise.
 
-    The Asynchronous Transfer Mode (ATM) is a protocol operating on network,
-data link, and physical layers, based on virtual circuits and virtual paths.
-Disabling ATM protects the system against exploitation of any laws in its
-implementation.'
+The Asynchronous Transfer Mode (ATM) is a protocol operating on network, data link, and physical layers, based on virtual circuits and virtual paths. Disabling ATM protects the system against exploitation of any laws in its implementation.'
   desc 'check', 'Verify the operating system disables the ability to load the ATM protocol kernel module and ensure that the ATM protocol kernel module is disabled with the following command:
 
 $ sudo grep -r atm /etc/modprobe.d/* | grep "blacklist"
@@ -29,18 +22,20 @@ Add or update the following lines in the file "/etc/modprobe.d/blacklist.conf":
 
 Reboot the system for the settings to take effect.'
   impact 0.3
+  tag check_id: 'C-33163r1069229_chk'
   tag severity: 'low'
-  tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230494'
   tag rid: 'SV-230494r1069310_rule'
   tag stig_id: 'RHEL-08-040021'
+  tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag fix_id: 'F-33138r942917_fix'
+  tag 'documentable'
   tag cci: ['CCI-000381']
   tag nist: ['CM-7 a']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   describe kernel_module('atm') do

@@ -36,34 +36,34 @@ $ sudo sysctl --system'
   tag rid: 'SV-230547r1184283_rule'
   tag stig_id: 'RHEL-08-040283'
   tag fix_id: 'F-33191r1184282_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-001082', 'CCI-002824']
+  tag nist: ['CM-6 b', 'SC-2', 'SI-16']
   tag 'host'
 
-  only_if('This system is acting as a router on the network, this control is Not Applicable', impact: 0.0) {
-    !input('network_router')
+  only_if('Control not applicable within a container', impact: 0.0) {
+    !virtualization.container_system?
   }
 
-  # Define the kernel parameter to be checked
   parameter = 'kernel.kptr_restrict'
-  action = 'kernel pointer addresses'
   value = 1
+  regexp = /^\s*#{parameter}\s*=\s*#{value}\s*$/
 
-  # Get the current value of the kernel parameter
-  current_value = kernel_parameter(parameter)
+  describe kernel_parameter(parameter) do
+    its('value') { should eq value }
+  end
 
-  # Check if the system is a Docker container
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable within a container' do
-      skip 'Control not applicable within a container'
+  search_results = command("/usr/lib/systemd/systemd-sysctl --cat-config | egrep -v '^(#|;)' | grep -F #{parameter}").stdout.strip.split("\n")
+
+  correct_result = search_results.any? { |line| line.match(regexp) }
+  incorrect_results = search_results.map(&:strip).reject { |line| line.match(regexp) }
+
+  describe 'Kernel config files' do
+    it "should configure '#{parameter}'" do
+      expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
     end
-  else
-
-    describe kernel_parameter(parameter) do
-      it "is set to #{value} for #{action}" do
-        expect(current_value.value).to cmp value
-        expect(current_value.value).not_to be_nil
+    unless incorrect_results.nil?
+      it 'should not have incorrect or conflicting setting(s) in the config files' do
+        expect(incorrect_results).to be_empty, "Incorrect or conflicting setting(s) found:\n\t- #{incorrect_results.join("\n\t- ")}"
       end
     end
   end

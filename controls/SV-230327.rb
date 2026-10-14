@@ -6,20 +6,20 @@ control 'SV-230327' do
 $ df --local -P | awk {'if (NR!=1) print $6'} | sudo xargs -I '{}' find '{}' -xdev -nogroup
 
 If any files on the system do not have an assigned group, this is a finding."
-  desc 'fix', 'Either remove all files and directories from RHEL 8 that do not have a
-valid group, or assign a valid group to all files and directories on the system
-with the "chgrp" command:
+  desc 'fix', 'Either remove all files and directories from RHEL 8 that do not have a valid group, or assign a valid group to all files and directories on the system with the "chgrp" command:
 
-    $ sudo chgrp <group> <file>'
+$ sudo chgrp <group> <file>'
   impact 0.5
+  tag check_id: 'C-32996r1069177_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230327'
   tag rid: 'SV-230327r1069285_rule'
   tag stig_id: 'RHEL-08-010790'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32971r567728_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'documentable'
+  tag cci: ['CCI-000213', 'CCI-000366']
+  tag nist: ['AC-3', 'CM-6 b']
   tag 'host'
   tag 'container'
 

@@ -1,25 +1,16 @@
 control 'SV-230308' do
-  title 'RHEL 8 must prevent files with the setuid and setgid bit set from
-being executed on file systems that are imported via Network File System (NFS).'
-  desc 'The "nosuid" mount option causes the system not to execute
-"setuid" and "setgid" files with owner privileges. This option must be used
-for mounting any file system not containing approved "setuid" and "setguid"
-files. Executing files from untrusted file systems increases the opportunity
-for unprivileged users to attain unauthorized administrative access.'
+  title 'RHEL 8 must prevent files with the setuid and setgid bit set from being executed on file systems that are imported via Network File System (NFS).'
+  desc 'The "nosuid" mount option causes the system not to execute "setuid" and "setgid" files with owner privileges. This option must be used for mounting any file system not containing approved "setuid" and "setguid" files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access.'
   desc 'check', 'Note: If no NFS mounts are configured, this requirement is Not Applicable.
 
-Verify file systems being imported via NFS are mounted with the
-"nosuid" option with the following command:
+Verify file systems being imported via NFS are mounted with the "nosuid" option with the following command:
 
-    $ sudo grep nfs /etc/fstab | grep nosuid
+$ sudo grep nfs /etc/fstab | grep nosuid
 
-    UUID=e06097bb-cfcd-437b-9e4d-a691f5662a7d /store nfs rw,nosuid,nodev,noexec
-0 0
+UUID=e06097bb-cfcd-437b-9e4d-a691f5662a7d /store nfs rw,nosuid,nodev,noexec 0 0
 
-    If a file system found in "/etc/fstab" refers to NFS and it does not have
-the "nosuid" option set, this is a finding.'
-  desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on
-file systems that are being imported via NFS.'
+If a file system found in "/etc/fstab" refers to NFS and it does not have the "nosuid" option set, this is a finding.'
+  desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that are being imported via NFS.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
@@ -27,12 +18,12 @@ file systems that are being imported via NFS.'
   tag rid: 'SV-230308r1155390_rule'
   tag stig_id: 'RHEL-08-010650'
   tag fix_id: 'F-32952r567671_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-000213']
+  tag nist: ['CM-6 b', 'AC-3']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   option = 'nosuid'
@@ -40,10 +31,9 @@ file systems that are being imported via NFS.'
   failing_mounts = nfs_file_systems.reject { |mnt| mnt['mount_options'].include?(option) }
 
   if nfs_file_systems.empty?
-    describe 'No NFS' do
-      it 'is mounted' do
-        expect(nfs_file_systems).to be_empty
-      end
+    impact 0.0
+    describe 'N/A' do
+      skip 'No NFS mounts are configured'
     end
   else
     describe 'Any mounted Network File System (NFS)' do

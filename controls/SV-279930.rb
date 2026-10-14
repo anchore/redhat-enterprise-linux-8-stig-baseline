@@ -17,52 +17,29 @@ Add the following line to "/etc/ipsec.conf":
 
 include /etc/crypto-policies/back-ends/libreswan.config'
   impact 0.7
+  tag check_id: 'C-84490r1184238_chk'
   tag severity: 'high'
-  tag gtitle: 'SRG-OS-000033-GPOS-00014'
   tag gid: 'V-279930'
   tag rid: 'SV-279930r1184239_rule'
   tag stig_id: 'RHEL-08-010280'
+  tag gtitle: 'SRG-OS-000033-GPOS-00014'
   tag fix_id: 'F-84395r1156342_fix'
+  tag 'documentable'
   tag cci: ['CCI-000068']
   tag nist: ['AC-17 (2)']
   tag 'host'
 
-  # The systemwide crypto policy and IP tunnels are host-OS/kernel-networking
-  # concerns controlled by the host, not the container (mirrors the crypto-policies
-  # family convention, e.g. SV-279932). Host-only with a container skip; and Not
-  # Applicable when the IPsec service (libreswan) is not installed.
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
-  if !(package('libreswan').installed? || file('/etc/ipsec.conf').exist?)
-    impact 0.0
-    describe 'The IPsec service is not installed' do
-      skip 'The IPsec service is not installed, this control is Not Applicable.'
-    end
-  else
-    required_include = 'include /etc/crypto-policies/back-ends/libreswan.config'
+  expected_value = input('approved_crypto_backend')
 
-    # Gather the IPsec configuration files: /etc/ipsec.conf and any
-    # /etc/ipsec.d/*.conf files (matching the STIG check command).
-    ipsec_conf_files = ['/etc/ipsec.conf'] + command('ls /etc/ipsec.d/*.conf 2>/dev/null').stdout.split("\n").reject(&:empty?)
+  setting_check = command('grep include /etc/ipsec.conf /etc/ipsec.d/*.conf').stdout.strip.match?(/^.*:?[^#]include\s*#{expected_value}$/)
 
-    # Collect every "include" directive from all of the IPsec config files.
-    include_lines = ipsec_conf_files.flat_map do |conf|
-      f = file(conf)
-      next [] unless f.exist?
-
-      f.content.to_s.lines.map(&:strip).select { |l| l.start_with?('include') }
-    end
-
-    describe 'The IPsec/Libreswan configuration' do
-      it "must include the system crypto policy back-end (#{required_include})" do
-        present = include_lines.any? do |line|
-          # Normalize internal whitespace before comparing.
-          line.gsub(/\s+/, ' ').strip == required_include
-        end
-        expect(present).to eq(true), "The IPsec configuration files do not contain \"#{required_include}\".\n\tgot include directives: #{include_lines}"
-      end
+  describe 'RHEL 8 IPsec config' do
+    it "should include the conf file '#{expected_value}'" do
+      expect(setting_check).to eq(true), "Conf file '#{expected_value}' not included in ipsec config"
     end
   end
 end

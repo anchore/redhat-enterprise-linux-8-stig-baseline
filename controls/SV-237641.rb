@@ -1,11 +1,8 @@
 control 'SV-237641' do
   title 'RHEL 8 must restrict privilege elevation to authorized personnel.'
-  desc 'The sudo command allows a user to execute programs with elevated
-(administrator) privileges. It prompts the user for their password and confirms
-your request to execute a command by checking a file, called sudoers. If the
-"sudoers" file is not configured correctly, any user defined on the system
-can initiate privileged actions on the target system.'
+  desc 'The sudo command allows a user to execute programs with elevated (administrator) privileges. It prompts the user for their password and confirms your request to execute a command by checking a file, called sudoers. If the "sudoers" file is not configured correctly, any user defined on the system can initiate privileged actions on the target system.'
   desc 'check', %q(Verify the "sudoers" file restricts sudo access to authorized personnel.
+
 $ sudo grep -iwR 'ALL' /etc/sudoers /etc/sudoers.d/ | grep -v '#'
 
 If the either of the following entries are returned, this is a finding:
@@ -21,12 +18,13 @@ ALL     ALL=(ALL:ALL) ALL'
   tag rid: 'SV-237641r1101904_rule'
   tag stig_id: 'RHEL-08-010382'
   tag fix_id: 'F-40823r646892_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-002696']
+  tag nist: ['CM-6 b', 'SI-6 a']
   tag 'host'
+  tag 'container-conditional'
 
   only_if('This control is Not Applicable to containers without sudo installed', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !command('sudo').exist?)
+    !virtualization.container_system? || command('sudo').exist?
   }
 
   bad_sudoers_rules = sudoers(input('sudoers_config_files').join(' ')).rules.where {

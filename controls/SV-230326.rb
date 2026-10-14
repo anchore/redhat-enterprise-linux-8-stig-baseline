@@ -6,20 +6,20 @@ control 'SV-230326' do
 $ df --local -P | awk {'if (NR!=1) print $6'} | sudo xargs -I '{}' find '{}' -xdev -nouser
 
 If any files on the system do not have an assigned owner, this is a finding."
-  desc 'fix', 'Either remove all files and directories from the system that do not have a
-valid user, or assign a valid user to all unowned files and directories on RHEL
-8 with the "chown" command:
+  desc 'fix', 'Either remove all files and directories from the system that do not have a valid user, or assign a valid user to all unowned files and directories on RHEL 8 with the "chown" command:
 
-    $ sudo chown <user> <file>'
+$ sudo chown <user> <file>'
   impact 0.5
+  tag check_id: 'C-32995r1069175_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230326'
   tag rid: 'SV-230326r1069284_rule'
   tag stig_id: 'RHEL-08-010780'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32970r567725_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'documentable'
+  tag cci: ['CCI-000213', 'CCI-000366']
+  tag nist: ['AC-3', 'CM-6 b']
   tag 'host'
   tag 'container'
 
@@ -31,12 +31,12 @@ valid user, or assign a valid user to all unowned files and directories on RHEL
 
     failing_files = Set[]
 
-    command("df --local -P | awk '{ if (NR!=1) print $6 }'")
-      .stdout.strip.split("\n").each do |mountpoint|
-      failing_files += command("find #{mountpoint} -xdev -nouser").stdout.strip.split("\n")
+    command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'')
+      .stdout.strip.split("\n").each do |fs|
+      failing_files += command("find / -xdev -xautofs -fstype #{fs} -nouser").stdout.strip.split("\n")
     end
 
-    describe 'All files on RHEL 8' do
+    describe 'All local files and directories' do
       it 'should have an owner' do
         expect(failing_files).to be_empty, "Files with no owner:\n\t- #{failing_files.join("\n\t- ")}"
       end

@@ -6,8 +6,7 @@ control 'SV-230301' do
 $ sudo mount | grep '^/dev\S* on /\S' | grep --invert-match 'nodev'
 
 If any output is produced, this is a finding.)
-  desc 'fix', 'Configure the "/etc/fstab" to use the "nodev" option on all
-non-root local partitions.'
+  desc 'fix', 'Configure the "/etc/fstab" to use the "nodev" option on all non-root local partitions.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
@@ -15,18 +14,18 @@ non-root local partitions.'
   tag rid: 'SV-230301r1184262_rule'
   tag stig_id: 'RHEL-08-010580'
   tag fix_id: 'F-32945r567650_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-001764']
+  tag nist: ['CM-6 b', 'CM-7 (2)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   option = 'nodev'
 
   mount_stdout = command('mount').stdout.lines
-  failing_mount_points = mount_stdout.select { |mp| mp.match(%r{^/dev\S*\s+on\s+/\S}) }.reject { |mp| mp.match(/\(.*#{option}.*\)/) }
+  failing_mount_points = mount_stdout.select { |mp| mp.match(%r{^/dev\S*\s+on\s+/\S}) }.reject { |mp| mp.include?(' type vfat ') }.reject { |mp| mp.match(/\(.*#{option}.*\)/) }
 
   describe "All mounted devices outside of '/dev' directory" do
     it "should be mounted with the '#{option}' option" do

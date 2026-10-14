@@ -1,17 +1,10 @@
 control 'SV-230496' do
   title 'RHEL 8 must disable the stream control transmission protocol (SCTP).'
-  desc 'It is detrimental for operating systems to provide, or install by
-default, functionality exceeding requirements or mission objectives. These
-unnecessary capabilities or services are often overlooked and therefore may
-remain unsecured. They increase the risk to the platform by providing
-additional attack vectors.
+  desc 'It is detrimental for operating systems to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
 
-    Failing to disconnect unused protocols can result in a system compromise.
+Failing to disconnect unused protocols can result in a system compromise.
 
-    The Stream Control Transmission Protocol (SCTP) is a transport layer
-protocol, designed to support the idea of message-oriented communication, with
-several streams of messages within one connection. Disabling SCTP protects the
-system against exploitation of any flaws in its implementation.'
+The Stream Control Transmission Protocol (SCTP) is a transport layer protocol, designed to support the idea of message-oriented communication, with several streams of messages within one connection. Disabling SCTP protects the system against exploitation of any flaws in its implementation.'
   desc 'check', 'Verify the operating system disables the ability to load the SCTP kernel module and ensure that SCTP is disabled with the following command:
 
 $ sudo grep -r sctp /etc/modprobe.d/* | grep "blacklist"
@@ -40,7 +33,7 @@ Reboot the system for the settings to take effect.'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
   describe kernel_module('sctp') do
     it { should be_disabled }

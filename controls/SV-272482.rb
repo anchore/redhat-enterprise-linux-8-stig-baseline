@@ -30,56 +30,36 @@ Setting system policy to FIPS
 
 Note: Systemwide crypto policies are applied on application startup. It is recommended to restart the system for the change of policies to fully take place.'
   impact 0.7
+  tag check_id: 'C-76536r1155365_chk'
   tag severity: 'high'
-  tag gtitle: 'SRG-OS-000250-GPOS-00093'
   tag gid: 'V-272482'
   tag rid: 'SV-272482r1184242_rule'
   tag stig_id: 'RHEL-08-010296'
+  tag gtitle: 'SRG-OS-000250-GPOS-00093'
   tag fix_id: 'F-76442r1155366_fix'
-  tag cci: ['CCI-001453']
-  tag nist: ['AC-17 (2)']
+  tag 'documentable'
+  tag cci: ['CCI-001453', 'CCI-000877']
+  tag nist: ['AC-17 (2)', 'MA-4 c']
   tag 'host'
   tag 'container-conditional'
 
-  only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+  only_if('Control not applicable - SSH is not installed within containerized RHEL', impact: 0.0) {
+    !virtualization.container_system? || file('/etc/ssh/sshd_config').exist?
   }
 
-  if input('use_fips') == false
-    impact 0.0
-    describe 'This control is Not Applicable as FIPS is not required for this system' do
-      skip 'This control is Not Applicable as FIPS is not required for this system'
-    end
-  else
-    # Define the required MACs
-    required_macs = input('openssh_client_required_macs')
+  approved_macs = input('approved_openssh_client_conf')['macs']
 
-    crypto_policy_file = '/etc/crypto-policies/back-ends/openssh.config'
+  describe file('/etc/crypto-policies/back-ends/openssh.config') do
+    it { should exist }
+  end
 
-    # The SSH client crypto policy file uses bare ssh_config(5) directives
-    # (e.g. "MACs hmac-sha2-512-etm@openssh.com,..."), not the CRYPTO_POLICY
-    # variable format used by the SSH server (opensshserver.config) file.
-    config = file(crypto_policy_file)
+  options = { assignment_regex: /^(\S+)\s+(.+)$/ }
+  openssh_conf = parse_config_file('/etc/crypto-policies/back-ends/openssh.config', options).params.to_h { |k, v| [k.downcase, v.to_s.split(',').map(&:strip)] }
+  actual_macs = openssh_conf['macs'] || []
 
-    describe config do
-      it { should exist }
-    end
-
-    if config.exist?
-      # Grab the active (uncommented) MACs directive, case-insensitive, and
-      # split its comma-delimited value into the list of configured MACs.
-      macs_line = config.content.lines.grep(/^\s*MACs\s+/i).last
-      configured_macs = macs_line.nil? ? [] : macs_line.sub(/^\s*MACs\s+/i, '').strip.split(',')
-
-      # The MACs directive must be present and contain exactly the required
-      # algorithms. V2R7 removed the requirement that the algorithms appear in
-      # a specific order; only the set must match.
-      describe "The MACs option in the crypto policy file #{crypto_policy_file}" do
-        it 'is present and contains exactly the required algorithms' do
-          expect(macs_line).not_to be_nil, "The crypto policy file #{crypto_policy_file} \ndoes not contain an active MACs directive\n\n\texpected: #{required_macs}"
-          expect(configured_macs).to match_array(required_macs), "The MACs option in the crypto policy file does not contain exactly the required algorithms:\n\n\texpected (any order): #{required_macs}\n\tgot: #{configured_macs}"
-        end
-      end
+  describe 'OpenSSH client configuration' do
+    it 'implements approved MACs' do
+      expect(actual_macs).to eq(approved_macs), "OpenSSH client MAC configuration actual value:\n\t#{actual_macs.inspect}\ndoes not match the expected value:\n\t#{approved_macs.inspect}"
     end
   end
 end

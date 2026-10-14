@@ -1,7 +1,6 @@
 control 'SV-230287' do
   title 'The RHEL 8 SSH private host key files must have mode 0640 or less permissive.'
-  desc 'If an unauthorized user obtains the private SSH host key file, the
-host could be impersonated.'
+  desc 'If an unauthorized user obtains the private SSH host key file, the host could be impersonated.'
   desc 'check', 'Verify the SSH private host key files have mode "0640" or less permissive with the following command:
 
      $ sudo ls -l /etc/ssh/ssh_host*key
@@ -19,19 +18,21 @@ The SSH daemon must be restarted for the changes to take effect. To restart the 
 
      $ sudo systemctl restart sshd.service'
   impact 0.5
+  tag check_id: 'C-32956r880712_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230287'
   tag rid: 'SV-230287r1017098_rule'
   tag stig_id: 'RHEL-08-010490'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32931r880713_fix'
+  tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'
   tag 'container-conditional'
 
   only_if('This control is Not Applicable to containers without SSH installed', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !directory('/etc/ssh').exist?)
+    !(virtualization.container_system? && !directory('/etc/ssh').exist?)
   }
 
   ssh_host_key_dirs = input('ssh_host_key_dirs').join(' ')

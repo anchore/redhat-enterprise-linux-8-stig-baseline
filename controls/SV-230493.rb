@@ -1,17 +1,10 @@
 control 'SV-230493' do
-  title 'RHEL 8 must cover or disable the built-in or attached camera when not
-in use.'
-  desc 'It is detrimental for operating systems to provide, or install by
-default, functionality exceeding requirements or mission objectives. These
-unnecessary capabilities or services are often overlooked and therefore may
-remain unsecured. They increase the risk to the platform by providing
-additional attack vectors.
+  title 'RHEL 8 must cover or disable the built-in or attached camera when not in use.'
+  desc 'It is detrimental for operating systems to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
 
-    Failing to disconnect from collaborative computing devices (i.e., cameras)
-can result in subsequent compromises of organizational information. Providing
-easy methods to physically disconnect from such devices after a collaborative
-computing session helps to ensure participants actually carry out the
-disconnect activity without having to go through complex and tedious procedures.'
+Failing to disconnect from collaborative computing devices (i.e., cameras) can result in subsequent compromises of organizational information. Providing easy methods to physically disconnect from such devices after a collaborative computing session helps to ensure participants actually carry out the disconnect activity without having to go through complex and tedious procedures.
+
+'
   desc 'check', 'If the device or operating system does not have a camera installed, this is not applicable.
 
 This requirement is not applicable to mobile devices (smartphones and tablets), where the use of the camera is a local authorizing official (AO) decision.
@@ -41,19 +34,21 @@ Add or update the followind lines in the "/etc/modprobe.d/blacklist.conf" file:
 
 Reboot the system for the settings to take effect.'
   impact 0.5
+  tag check_id: 'C-33162r1184278_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000095-GPOS-00049'
-  tag satisfies: ['SRG-OS-000095-GPOS-00049', 'SRG-OS-000370-GPOS-00155']
   tag gid: 'V-230493'
   tag rid: 'SV-230493r1184280_rule'
   tag stig_id: 'RHEL-08-040020'
+  tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag fix_id: 'F-33137r1184279_fix'
+  tag satisfies: ['SRG-OS-000095-GPOS-00049', 'SRG-OS-000370-GPOS-00155']
+  tag 'documentable'
   tag cci: ['CCI-000381']
   tag nist: ['CM-7 a']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   if input('camera_installed')

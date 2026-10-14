@@ -40,17 +40,8 @@ retry = 3'
     os.version.minor >= 4
   }
 
-  retry_setting = parse_config(command('grep -rh retry /etc/security/pwquality.conf*').stdout.strip).params['retry']
-
-  describe 'The "retry" option in the pwquality configuration' do
-    it 'should be set' do
-      expect(retry_setting).not_to be_nil, 'The "retry" option is missing from /etc/security/pwquality.conf and /etc/security/pwquality.conf.d/*.conf'
-    end
-    unless retry_setting.nil?
-      it 'should be greater than "0" and not greater than the maximum permitted retries' do
-        expect(retry_setting.to_i).to be > 0, "The \"retry\" option is set to \"#{retry_setting}\", which is not permitted"
-        expect(retry_setting.to_i).to be <= input('min_retry').to_i, "The \"retry\" option is set to \"#{retry_setting}\", which exceeds the maximum permitted value of \"#{input('min_retry')}\""
-      end
-    end
+  describe 'System pwquality setting' do
+    subject { parse_config(command('grep -rh retry /etc/security/pwquality.conf*').stdout.strip) }
+    its('retry') { should cmp >= input('min_retry') }
   end
 end

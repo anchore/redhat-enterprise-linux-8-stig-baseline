@@ -28,39 +28,43 @@ The system configuration files need to be reloaded for the changes to take effec
 
 $ sudo sysctl --system)
   impact 0.5
+  tag check_id: 'C-33215r1155411_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230546'
   tag rid: 'SV-230546r1155413_rule'
   tag stig_id: 'RHEL-08-040282'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33190r1155412_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag satisfies: ['SRG-OS-000132-GPOS-00067', 'SRG-OS-000480-GPOS-00227']
+  tag 'documentable'
+  tag cci: ['CCI-000366', 'CCI-001082']
+  tag nist: ['CM-6 b', 'SC-2']
   tag 'host'
 
-  only_if('This system is acting as a router on the network, this control is Not Applicable', impact: 0.0) {
-    !input('network_router')
+  only_if('Control not applicable within a container', impact: 0.0) {
+    !virtualization.container_system?
   }
 
-  # Define the kernel parameter to be checked
   parameter = 'kernel.yama.ptrace_scope'
   value = 1
+  regexp = /^\s*#{parameter}\s*=\s*#{value}\s*$/
 
-  # Get the current value of the kernel parameter
-  current_value = kernel_parameter(parameter)
+  describe kernel_parameter(parameter) do
+    its('value') { should eq value }
+  end
 
-  # Check if the system is a Docker container
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable within a container' do
-      skip 'Control not applicable within a container'
+  search_results = command("/usr/lib/systemd/systemd-sysctl --cat-config | egrep -v '^(#|;)' | grep -F #{parameter}").stdout.strip.split("\n")
+
+  correct_result = search_results.any? { |line| line.match(regexp) }
+  incorrect_results = search_results.map(&:strip).reject { |line| line.match(regexp) }
+
+  describe 'Kernel config files' do
+    it "should configure '#{parameter}'" do
+      expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
     end
-  else
-
-    describe kernel_parameter(parameter) do
-      it "is set to #{value} in the running configuration" do
-        expect(current_value.value).to cmp value
-        expect(current_value.value).not_to be_nil
+    unless incorrect_results.nil?
+      it 'should not have incorrect or conflicting setting(s) in the config files' do
+        expect(incorrect_results).to be_empty, "Incorrect or conflicting setting(s) found:\n\t- #{incorrect_results.join("\n\t- ")}"
       end
     end
   end

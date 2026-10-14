@@ -20,8 +20,7 @@ The "logind" service must be restarted for the changes to take effect. To restar
 
 $ sudo systemctl restart systemd-logind'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
-  tag check_id: 'C-60942r1014791_chk'
+  tag check_id: 'C-60942r1069265_chk'
   tag severity: 'medium'
   tag gid: 'V-257258'
   tag rid: 'SV-257258r1069328_rule'
@@ -35,7 +34,7 @@ $ sudo systemctl restart systemd-logind'
   tag 'host'
 
   only_if('This check applies to RHEL versions 8.7 or newer, if the system is RHEL version 8.6  or below, this check is not applicable.', impact: 0.0) {
-    (os.version.minor) >= 7
+    os.version.minor >= 7
   }
   stop_idle_session_sec = input('stop_idle_session_sec')
 

@@ -14,16 +14,22 @@ If the crypto-policies package is not installed, this is a finding.'
 
 $ sudo dnf -y install crypto-policies'
   impact 0.7
+  tag check_id: 'C-84493r1156350_chk'
   tag severity: 'high'
-  tag gtitle: 'SRG-OS-000396-GPOS-00176'
   tag gid: 'V-279933'
   tag rid: 'SV-279933r1156352_rule'
   tag stig_id: 'RHEL-08-010015'
+  tag gtitle: 'SRG-OS-000396-GPOS-00176'
   tag fix_id: 'F-84398r1156351_fix'
-  tag cci: ['CCI-002450']
-  tag nist: ['SC-13 b']
+  tag satisfies: ['SRG-OS-000396-GPOS-00176', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174']
+  tag 'documentable'
+  tag cci: ['CCI-002450', 'CCI-002890', 'CCI-003123']
+  tag nist: ['SC-13 b', 'MA-4 (6)']
   tag 'host'
-  tag 'container'
+
+  only_if('This control is Not Applicable to containers', impact: 0.0) {
+    !virtualization.container_system?
+  }
 
   describe package('crypto-policies') do
     it { should be_installed }
