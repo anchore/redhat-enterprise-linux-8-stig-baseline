@@ -40,18 +40,12 @@ $ sudo systemctl restart tftp.service'
   tag 'host'
   tag 'container'
 
-  if input('tftp_required')
-    describe package('tftp-server') do
-      it { should be_installed }
-    end
+  only_if('If a TFTP server is not installed, this is Not Applicable.', impact: 0.0) {
+    package('tftp-server').installed?
+  }
 
-    describe file('/usr/lib/systemd/system/tftp.service') do
-      it { should exist }
-      its('content') { should match(/ExecStart=.*\s-s(\s|$)/) }
-    end
-  else
-    describe package('tftp-server') do
-      it { should_not be_installed }
-    end
+  describe file('/usr/lib/systemd/system/tftp.service') do
+    it { should exist }
+    its('content') { should match(/ExecStart=.*\s-s(\s|$)/) }
   end
 end
