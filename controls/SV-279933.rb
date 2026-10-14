@@ -26,10 +26,7 @@ $ sudo dnf -y install crypto-policies'
   tag cci: ['CCI-002450', 'CCI-002890', 'CCI-003123']
   tag nist: ['SC-13 b', 'MA-4 (6)']
   tag 'host'
-
-  only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.container_system?
-  }
+  tag 'container'
 
   describe package('crypto-policies') do
     it { should be_installed }
