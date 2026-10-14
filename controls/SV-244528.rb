@@ -40,6 +40,7 @@ $ sudo systemctl restart sshd.service'
   containerized = virtualization.container_system?
 
   if containerized
+    impact 0.0 unless openssh_present
     describe 'In a container Environment' do
       if openssh_present
         it 'the OpenSSH Server should be installed when allowed in Docker environment' do
