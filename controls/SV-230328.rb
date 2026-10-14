@@ -35,7 +35,7 @@ If a separate entry for the file system/partition containing the nonprivileged i
   tag nist: ['SC-5 a', 'CM-6 b']
   tag 'host'
 
-  only_if('This requirement is Not Applicable inside a container, the containers host manages the containers filesystems') {
+  only_if('This requirement is Not Applicable inside a container, the containers host manages the containers filesystems', impact: 0.0) {
     !virtualization.container_system?
   }
 
