@@ -32,10 +32,8 @@ include "/etc/crypto-policies/back-ends/bind.config";'
   tag cci: ['CCI-002418', 'CCI-002422']
   tag nist: ['SC-8', 'SC-8 (2)']
   tag 'host'
+  tag 'container-conditional'
 
-  only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.container_system?
-  }
   only_if('This control is Not Applicable since bind is not installed', impact: 0.0) {
     package('bind').installed?
   }
@@ -45,7 +43,7 @@ include "/etc/crypto-policies/back-ends/bind.config";'
   end
 
   bind_grep = command('grep include /etc/named.conf').stdout.lines.map(&:strip)
-  bind_conf = bind_grep.any? { |line| line.match?(%r{/etc/crypto-policies/back-ends/bind.config}i) }
+  bind_conf = bind_grep.any? { |line| line.match?(%r{^include\s+"?/etc/crypto-policies/back-ends/bind\.config}i) }
 
   describe 'Bind config file' do
     it 'should include system-wide crypto policies' do
