@@ -33,7 +33,7 @@ $ sudo systemctl restart sshd.service'
   tag 'host'
   tag 'container-conditional'
 
-  only_if('This requirement is Not Applicable inside a container, the containers host manages the containers filesystems') {
+  only_if('This control is Not Applicable to containers without SSH installed', impact: 0.0) {
     !virtualization.container_system? || file('/etc/ssh/sshd_config').exist?
   }
 
