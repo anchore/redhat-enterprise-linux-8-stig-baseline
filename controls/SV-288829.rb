@@ -29,8 +29,12 @@ Edit the "/etc/pki/tls/openssl.cnf" and add or modify the following line:
   tag cci: ['CCI-001453']
   tag nist: ['AC-17 (2)']
   tag 'host'
+  tag 'container'
 
-  describe 'TODO' do
-    skip 'Automated test for SV-288829 not yet implemented'
+  openssl_cnf = '/etc/pki/tls/openssl.cnf'
+
+  describe file(openssl_cnf) do
+    it { should exist }
+    its('content') { should match(%r{^\s*\.include\s*=?\s*/etc/crypto-policies/back-ends/opensslcnf\.config\s*$}i) }
   end
 end

@@ -31,8 +31,18 @@ $ sudo systemctl restart sshd'
   tag cci: ['CCI-001453']
   tag nist: ['AC-17 (2)']
   tag 'host'
+  tag 'container-conditional'
 
-  describe 'TODO' do
-    skip 'Automated test for SV-288830 not yet implemented'
+  only_if('This control is Not Applicable to containers without the OpenSSH server installed', impact: 0.0) {
+    !virtualization.container_system? || package('openssh-server').installed?
+  }
+
+  sshd_sysconfig = '/etc/sysconfig/sshd'
+  overrides = file(sshd_sysconfig).content.to_s.lines.map(&:strip).grep(/^CRYPTO_POLICY\s*=/)
+
+  describe "#{sshd_sysconfig}" do
+    it 'should not override the systemwide crypto policy with CRYPTO_POLICY' do
+      expect(overrides).to be_empty, "Uncommented CRYPTO_POLICY setting(s):\n\t- #{overrides.join("\n\t- ")}"
+    end
   end
 end
