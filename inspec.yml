@@ -126,13 +126,13 @@ inputs:
   - name: ssh_private_key_mode
     description: All private ssh keyfiles on the filesystem should be equal or less permissive than this octet
     type: String
-    value: '0640'
+    value: '0600'
 
     # SV-230471
   - name: audit_conf_mode
     description: All audit config files on the filesystem should be equal or less permissive than this octet
     type: String
-    value: '0640'
+    value: '0600'
 
   # SV-230472
   - name: audit_tool_mode
@@ -210,7 +210,7 @@ inputs:
   - name: pass_max_days
     description: "The maximum password lifetime restriction in days"
     type: Numeric
-    value: 60
+    value: 180
 
   # SV-230328
   - name: seperate_filesystem_exempt
@@ -569,7 +569,7 @@ inputs:
   - name: system_inactivity_timeout
     description: Maximum system inactivity timeout (time in seconds).
     type: Numeric
-    value: 900
+    value: 600
 
   # SV-230373
   - name: days_of_inactivity
@@ -1119,6 +1119,7 @@ inputs:
       'fchmodat'                      : 'perm_mod',
       '/usr/bin/sudo'                 : 'priv_cmd',
       '/usr/sbin/usermod'             : 'privileged-usermod',
+      '/usr/sbin/useradd'             : 'privileged-useradd',
       '/usr/bin/chacl'                : 'perm_mod',
       '/usr/bin/kmod'                 : 'modules',
       '/var/log/faillock'             : 'logins',
