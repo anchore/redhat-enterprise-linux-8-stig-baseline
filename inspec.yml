@@ -350,13 +350,13 @@ inputs:
       - "/lib/sysctl.d/*.conf"
       - "/etc/sysctl.conf"
 
-  # SV-230234
+  # SV-244521 (legacy UEFI path)
   - name: grub_uefi_main_cfg
     description: Main grub boot config file
     type: String
     value: "/boot/efi/EFI/redhat/grub.cfg"
 
-  # SV-230234
+  # SV-230234 (legacy UEFI path)
   - name: grub_uefi_user_boot_files
     description: Grub boot config files
     type: Array
@@ -387,7 +387,7 @@ inputs:
     type: Array
     value: ["vagrant"]
 
-  # SV-230235
+  # SV-244521, SV-244522
   - name: grub_main_cfg
     description: Main grub boot config file
     type: String
@@ -415,7 +415,7 @@ inputs:
       - -VERS-TLS1.1
       - -VERS-DTLS1.0
 
-  # SV-230235
+  # SV-230234, SV-230235
   - name: grub_user_boot_files
     description: Grub boot config files
     type: Array

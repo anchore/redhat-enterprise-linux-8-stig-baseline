@@ -52,19 +52,17 @@ Note for legacy RHEL 8 deployments: If using an older minor release requiring th
   }
 
   if file('/sys/firmware/efi').exist?
-    grubfile_path = input('grub_uefi_main_cfg')
-    grubfile = file(grubfile_path)
-    superusers_match = grubfile.content.to_s.match(/^\s*set\s+superusers=(?:"([^"]+)"|(\S+))/)
-    superusers_account = superusers_match && (superusers_match[1] || superusers_match[2])
+    # The unified /boot/grub2/grub.cfg first, then the legacy EFI-partition path.
+    grubfile_paths = [input('grub_main_cfg'), input('grub_uefi_main_cfg')].uniq
+    superusers_account = grubfile_paths.lazy.map { |path|
+      superusers_match = file(path).content.to_s.match(/^\s*set\s+superusers=(?:"([^"]+)"|(\S+))/)
+      superusers_match && (superusers_match[1] || superusers_match[2])
+    }.find(&:itself)
     disallowed_superusers = (input('disallowed_grub_superusers') + passwd.users).uniq
 
-    describe grubfile do
-      it { should exist }
-    end
-
     describe 'The GRUB superuser' do
-      it "should be set in the GRUB config file ('#{grubfile_path}')" do
-        expect(superusers_account).not_to be_nil, "No superuser account set in '#{grubfile_path}'"
+      it "should be set in a GRUB config file (#{grubfile_paths.join(', ')})" do
+        expect(superusers_account).not_to be_nil, "No superuser account set in #{grubfile_paths.join(' or ')}"
       end
 
       unless superusers_account.nil?

@@ -38,8 +38,32 @@ $ sudo systemctl daemon-reload'
     !virtualization.container_system?
   }
 
-  describe command('grep -iR CtrlAltDelBurstAction /etc/systemd/system*') do
-    its('exit_status') { should eq 0 }
-    its('stdout') { should match(/^(?:[^:\n]+:)?\s*CtrlAltDelBurstAction\s*=\s*none\s*$/i) }
+  # systemd reads system.conf, then the *.conf drop-ins in filename order (a file in /etc
+  # overrides one of the same name in /run or /usr/lib), and only [Manager] settings count.
+  # The last assignment wins; files without a .conf suffix are ignored.
+  dropin_dirs = ['/usr/lib/systemd/system.conf.d', '/run/systemd/system.conf.d', '/etc/systemd/system.conf.d']
+  dropins = dropin_dirs.each_with_object({}) { |dir, found|
+    command("find #{dir} -maxdepth 1 -name '*.conf' 2>/dev/null").stdout.split("\n").each { |f| found[File.basename(f)] = f }
+  }
+  config_files = ['/etc/systemd/system.conf'] + dropins.sort.map(&:last)
+
+  setting = nil
+  config_files.each do |f|
+    section = nil
+    file(f).content.to_s.each_line do |line|
+      line = line.strip
+      if line =~ /^\[(.+)\]$/
+        section = Regexp.last_match(1)
+      elsif section == 'Manager' && line =~ /^CtrlAltDelBurstAction\s*=\s*(.*)$/
+        setting = { file: f, value: Regexp.last_match(1).strip }
+      end
+    end
+  end
+
+  describe 'The systemd CtrlAltDelBurstAction setting' do
+    it 'should be set to none' do
+      expect(setting&.dig(:value)).to eq('none'),
+                                      setting ? "CtrlAltDelBurstAction is set to '#{setting[:value]}' in #{setting[:file]}" : "CtrlAltDelBurstAction is not set under [Manager] in #{config_files.join(', ')}"
+    end
   end
 end

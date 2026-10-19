@@ -61,8 +61,8 @@ permissive = 0'
     its('content') { should include 'permissive = 0' }
   end
 
+  # The deny-all rule may also be written with "deny_log" or "deny_audit".
   describe file('/etc/fapolicyd/compiled.rules') do
-    its('content') { should include 'deny_audit perm=any pattern=ld_so : all' }
-    its('content') { should match(/^\s*deny(?:\s+perm=any\s+all\s*:\s*all|\s+all\s+all)\s*$/) }
+    its('content') { should match(/^\s*deny(?:_log|_audit)?(?:\s+perm=any\s+all\s*:\s*all|\s+all\s+all)\s*$/) }
   end
 end

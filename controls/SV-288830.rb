@@ -33,12 +33,13 @@ $ sudo systemctl restart sshd'
   tag 'host'
   tag 'container-conditional'
 
-  only_if('This control is Not Applicable to containers without the OpenSSH server installed', impact: 0.0) {
-    !virtualization.container_system? || package('openssh-server').installed?
+  only_if('SSH is not installed on the system this requirement is Not Applicable', impact: 0.0) {
+    service('sshd').enabled? || package('openssh-server').installed?
   }
 
+  # A missing file sets no override, so the systemwide policy applies.
   sshd_sysconfig = '/etc/sysconfig/sshd'
-  overrides = file(sshd_sysconfig).content.to_s.lines.map(&:strip).grep(/^CRYPTO_POLICY\s*=/)
+  overrides = file(sshd_sysconfig).content.to_s.lines.map(&:strip).grep(/^(?:export\s+)?CRYPTO_POLICY\s*=/)
 
   describe "#{sshd_sysconfig}" do
     it 'should not override the systemwide crypto policy with CRYPTO_POLICY' do

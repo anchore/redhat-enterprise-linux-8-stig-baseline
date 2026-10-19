@@ -42,9 +42,15 @@ Note: Do not manually edit the GRUB configuration files to set this password; al
   end
 
   if file('/sys/firmware/efi').exist?
-    input('grub_uefi_user_boot_files').each do |grub_user_file|
-      describe parse_config_file(grub_user_file) do
-        its('GRUB2_PASSWORD') { should include 'grub.pbkdf2.sha512' }
+    # The unified /boot/grub2/user.cfg first, then the legacy EFI-partition path; a valid entry
+    # in either location meets the requirement.
+    grub_user_files = (input('grub_user_boot_files') + input('grub_uefi_user_boot_files')).uniq
+    passwords = grub_user_files.select { |f| file(f).exist? }.to_h { |f| [f, parse_config_file(f).params['GRUB2_PASSWORD'].to_s] }
+
+    describe 'The GRUB 2 superuser password' do
+      it "should be set with a grub.pbkdf2.sha512 hash in one of #{grub_user_files.join(', ')}" do
+        expect(passwords.values).to include(a_string_starting_with('grub.pbkdf2.sha512')),
+                                    passwords.empty? ? 'No GRUB user.cfg file found' : "No GRUB2_PASSWORD beginning with grub.pbkdf2.sha512 in #{passwords.keys.join(', ')}"
       end
     end
   else
