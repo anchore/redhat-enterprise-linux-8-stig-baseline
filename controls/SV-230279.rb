@@ -32,19 +32,18 @@ $ sudo reboot'
   tag rid: 'SV-230279r1069286_rule'
   tag stig_id: 'RHEL-08-010423'
   tag fix_id: 'F-32923r1069180_fix'
-  tag cci: ['CCI-001084']
-  tag nist: ['SC-3']
+  tag cci: ['CCI-001084', 'CCI-002824']
+  tag nist: ['SC-3', 'SI-16']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
-  setting = /init_on_free\s*=\s*1/
+  grub_stdout = command('grep -i grub_cmdline_linux /etc/default/grub').stdout.strip
 
-  describe 'GRUB config' do
-    it 'should enable init_on_free to clear memory when it is freed' do
-      expect(parse_config_file('/etc/default/grub')['GRUB_CMDLINE_LINUX']).to match(setting), '"init_on_free=1" is missing or commented out in GRUB_CMDLINE_LINUX'
-    end
+  describe 'GRUB2 is configured to mitigate use-after-free vulnerabilities by employing memory poisoning' do
+    subject { grub_stdout }
+    it { should match(/\binit_on_free=1\b/i) }
   end
 end

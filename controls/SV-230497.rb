@@ -1,17 +1,10 @@
 control 'SV-230497' do
-  title 'RHEL 8 must disable the transparent inter-process communication (TIPC)
-protocol.'
-  desc 'It is detrimental for operating systems to provide, or install by
-default, functionality exceeding requirements or mission objectives. These
-unnecessary capabilities or services are often overlooked and therefore may
-remain unsecured. They increase the risk to the platform by providing
-additional attack vectors.
+  title 'RHEL 8 must disable the transparent inter-process communication (TIPC) protocol.'
+  desc 'It is detrimental for operating systems to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
 
-    Failing to disconnect unused protocols can result in a system compromise.
+Failing to disconnect unused protocols can result in a system compromise.
 
-    The Transparent Inter-Process Communication (TIPC) protocol is designed to
-provide communications between nodes in a cluster. Disabling TIPC protects the
-system against exploitation of any flaws in its implementation.'
+The Transparent Inter-Process Communication (TIPC) protocol is designed to provide communications between nodes in a cluster. Disabling TIPC protects the system against exploitation of any flaws in its implementation.'
   desc 'check', 'Verify the operating system disables the ability to load the TIPC protocol kernel module and ensure that TIPC is disabled with the following command:
 
 $ sudo grep -r tipc /etc/modprobe.d/* | grep "blacklist"
@@ -40,7 +33,7 @@ Reboot the system for the settings to take effect.'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   describe kernel_module('tipc') do

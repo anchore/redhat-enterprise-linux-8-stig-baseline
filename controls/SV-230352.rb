@@ -1,15 +1,8 @@
 control 'SV-230352' do
-  title 'RHEL 8 must automatically lock graphical user sessions after 15
-minutes of inactivity.'
-  desc 'A session lock is a temporary action taken when a user stops work and
-moves away from the immediate physical vicinity of the information system but
-does not want to log out because of the temporary nature of the absence.
+  title 'RHEL 8 must automatically lock graphical user sessions after 15 minutes of inactivity.'
+  desc 'A session lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not want to log out because of the temporary nature of the absence.
 
-    The session lock is implemented at the point where session activity can be
-determined. Rather than be forced to wait for a period of time to expire before
-the user session can be locked, RHEL 8 needs to provide users with the ability
-to manually invoke a session lock so users can secure their session if it is
-necessary to temporarily vacate the immediate physical vicinity.'
+The session lock is implemented at the point where session activity can be determined. Rather than be forced to wait for a period of time to expire before the user session can be locked, RHEL 8 needs to provide users with the ability to manually invoke a session lock so users can secure their session if it is necessary to temporarily vacate the immediate physical vicinity.'
   desc 'check', 'Verify RHEL 8 initiates a session lock after a 15-minute period of inactivity for graphical user interfaces with the following command:
 
 Note: This requirement assumes the use of the RHEL 8 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.
@@ -42,25 +35,18 @@ $ sudo dconf update'
   tag rid: 'SV-230352r1155401_rule'
   tag stig_id: 'RHEL-08-020060'
   tag fix_id: 'F-32996r1155400_fix'
-  tag cci: ['CCI-000057']
-  tag nist: ['AC-11 a']
+  tag cci: ['CCI-000057', 'CCI-000060']
+  tag nist: ['AC-11 a', 'AC-11 (1)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   if package('gnome-desktop3').installed?
-    idle_delay = command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2").stdout.strip.to_i
-    # V2R7: a finding if idle-delay is "0" (auto-lock disabled) OR greater than the max (default 900).
-    # A pass therefore requires 1 <= idle-delay <= max.
-    describe "The GNOME session idle-delay (#{idle_delay} seconds)" do
-      it 'must not be 0 (a value of 0 disables automatic session lock)' do
-        expect(idle_delay).to be > 0
-      end
-      it "must not exceed #{input('system_inactivity_timeout')} seconds" do
-        expect(idle_delay).to be <= input('system_inactivity_timeout').to_i
-      end
+    describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
+      its('stdout.strip') { should cmp > 0 }
+      its('stdout.strip') { should cmp <= input('system_inactivity_timeout') }
     end
   else
     impact 0.0

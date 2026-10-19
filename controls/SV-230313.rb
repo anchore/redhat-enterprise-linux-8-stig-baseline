@@ -30,13 +30,13 @@ Remove or comment out any entries for users or groups with a value set to anythi
   tag rid: 'SV-230313r1155379_rule'
   tag stig_id: 'RHEL-08-010673'
   tag fix_id: 'F-32957r1155378_fix'
-  tag cci: ['CCI-000366']
+  tag cci: ['CCI-000366', 'CCI-000381']
   tag legacy: []
-  tag nist: ['CM-6 b']
+  tag nist: ['CM-6 b', 'CM-7 a']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   setting = 'core'

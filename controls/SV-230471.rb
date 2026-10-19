@@ -1,7 +1,5 @@
 control 'SV-230471' do
-  title 'RHEL 8 must allow only the Information System Security Manager (ISSM)
-(or individuals or roles appointed by the ISSM) to select which auditable
-events are to be audited.'
+  title 'RHEL 8 must allow only the Information System Security Manager (ISSM) (or individuals or roles appointed by the ISSM) to select which auditable events are to be audited.'
   desc "Without the capability to restrict the roles and individuals that can
 select which events are audited, unauthorized personnel may be able to prevent
 the auditing of critical events. Misconfigured audits may degrade the system's
@@ -19,13 +17,11 @@ $ sudo ls -l /etc/audit/auditd.conf
 -rw-r----- 1 root root 621 Sep 22 17:19 auditd.conf
 
 If the files in the "/etc/audit/rules.d/" directory or the "/etc/audit/auditd.conf" file have a mode more permissive than "0640", this is a finding.'
-  desc 'fix', 'Configure the files in directory "/etc/audit/rules.d/" and the
-"/etc/audit/auditd.conf" file to have a mode of "0640" with the following
-commands:
+  desc 'fix', 'Configure the files in directory "/etc/audit/rules.d/" and the "/etc/audit/auditd.conf" file to have a mode of "0640" with the following commands:
 
-    $ sudo chmod 0640 /etc/audit/rules.d/audit.rules
-    $ sudo chmod 0640 /etc/audit/rules.d/[customrulesfile].rules
-    $ sudo chmod 0640 /etc/audit/auditd.conf'
+$ sudo chmod 0640 /etc/audit/rules.d/audit.rules
+$ sudo chmod 0640 /etc/audit/rules.d/[customrulesfile].rules
+$ sudo chmod 0640 /etc/audit/auditd.conf'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000063-GPOS-00032'
@@ -38,15 +34,16 @@ commands:
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   rules_files = bash('ls -d /etc/audit/rules.d/*.rules').stdout.strip.split.append('/etc/audit/auditd.conf')
 
-  failing_files = rules_files.select { |rf| file(rf).more_permissive_than?(input('audit_conf_mode')) }
+  audit_conf_mode = input('audit_conf_mode')
+  failing_files = rules_files.select { |rf| file(rf).more_permissive_than?(audit_conf_mode) }
 
   describe 'Audit configuration files' do
-    it "should be no more permissive than '#{input('audit_conf_mode')}'" do
+    it "should be no more permissive than '#{audit_conf_mode}'" do
       expect(failing_files).to be_empty, "Failing files:\n\t- #{failing_files.join("\n\t- ")}"
     end
   end

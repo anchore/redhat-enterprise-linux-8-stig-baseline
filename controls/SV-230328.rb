@@ -1,8 +1,6 @@
 control 'SV-230328' do
-  title 'A separate RHEL 8 filesystem must be used for user home directories
-(such as /home or an equivalent).'
-  desc 'The use of separate file systems for different paths can protect the
-system from failures resulting from a file system becoming full or failing.'
+  title 'A separate RHEL 8 filesystem must be used for user home directories (such as /home or an equivalent).'
+  desc 'The use of separate file systems for different paths can protect the system from failures resulting from a file system becoming full or failing.'
   desc 'check', %q(Verify a separate file system has been created for nonprivileged local interactive user home directories.
 
 Check the home directory assignment for all nonprivileged users, users with a User Identifier (UID) greater than 1000, on the system with the following command:
@@ -25,18 +23,20 @@ $ sudo grep /home /etc/fstab
 If a separate entry for the file system/partition containing the nonprivileged interactive user home directories does not exist, this is a finding.)
   desc 'fix', 'Migrate the "/home" directory onto a separate file system.'
   impact 0.5
+  tag check_id: 'C-32997r1155409_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230328'
   tag rid: 'SV-230328r1155410_rule'
   tag stig_id: 'RHEL-08-010800'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32972r902722_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'documentable'
+  tag cci: ['CCI-002385', 'CCI-000366']
+  tag nist: ['SC-5 a', 'CM-6 b']
   tag 'host'
 
   only_if('This requirement is Not Applicable inside a container, the containers host manages the containers filesystems', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   ignore_shells = input('non_interactive_shells').join('|')
@@ -47,11 +47,6 @@ If a separate entry for the file system/partition containing the nonprivileged i
     impact 0.0
     describe 'This system is not required to have sperate filesystems for each mount point' do
       skip 'The system is managing filesystems and space via other mechanisms; this requirement is Not Applicable'
-    end
-  elsif homes.empty?
-    impact 0.0
-    describe 'Non-privileged interactive user home directories' do
-      skip 'No non-privileged interactive users (UID >= 1000 with a login shell) exist on this system; there are no home-directory filesystems to evaluate.'
     end
   else
     homes.each do |home|

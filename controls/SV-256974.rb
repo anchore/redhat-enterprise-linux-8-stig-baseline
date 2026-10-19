@@ -33,14 +33,7 @@ If "mailx" package is not installed, this is a finding.'
 
   mail_package = input('mail_package')
 
-  # V2R7 relaxed this requirement: either "mailx" (the configured mail_package)
-  # or "s-nail" is acceptable and satisfies the control.
-  describe.one do
-    describe package(mail_package) do
-      it { should be_installed }
-    end
-    describe package('s-nail') do
-      it { should be_installed }
-    end
+  describe package(mail_package) do
+    it { should be_installed }
   end
 end

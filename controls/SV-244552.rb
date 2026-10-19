@@ -46,12 +46,14 @@ Load settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-47827r833376_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244552'
   tag rid: 'SV-244552r1017352_rule'
   tag stig_id: 'RHEL-08-040249'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-47784r858802_fix'
+  tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'
@@ -69,7 +71,7 @@ $ sudo sysctl --system'
   current_value = kernel_parameter(parameter)
 
   # Check if the system is a Docker container
-  if virtualization.system.eql?('docker')
+  if virtualization.container_system?
     impact 0.0
     describe 'Control not applicable within a container' do
       skip 'Control not applicable within a container'

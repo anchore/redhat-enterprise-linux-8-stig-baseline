@@ -63,8 +63,8 @@ This must be documented with the information system security officer (ISSO) as a
   tag gtitle: 'SRG-OS-000324-GPOS-00125'
   tag fix_id: 'F-57953r1069272_fix'
   tag 'documentable'
-  tag cci: ['CCI-002265', 'CCI-002235']
-  tag nist: ['AC-16 b', 'AC-6 (10)']
+  tag cci: ['CCI-002235']
+  tag nist: ['AC-6 (10)']
   tag 'host'
   tag 'container'
 

@@ -1,11 +1,8 @@
 control 'SV-230271' do
-  title 'RHEL 8 must require users to provide a password for privilege
-escalation.'
-  desc 'Without reauthentication, users may access resources or perform tasks
-for which they do not have authorization.
+  title 'RHEL 8 must require users to provide a password for privilege escalation.'
+  desc 'Without reauthentication, users may access resources or perform tasks for which they do not have authorization.
 
-    When operating systems provide the capability to escalate a functional
-capability, it is critical the user reauthenticate.'
+When operating systems provide the capability to escalate a functional capability, it is critical the user reauthenticate.'
   desc 'check', %q(Verify that "/etc/sudoers" has no occurrences of "NOPASSWD".
 
 Check that the "/etc/sudoers" file has no occurrences of "NOPASSWD" by running the following command:
@@ -15,8 +12,7 @@ $ sudo grep -iR 'NOPASSWD' /etc/sudoers /etc/sudoers.d/
 %admin ALL=(ALL) NOPASSWD: ALL
 
 If any occurrences of "NOPASSWD" are returned from the command and have not been documented with the information system security officer (ISSO) as an organizationally defined administrative group utilizing multifactor authentication (MFA), this is a finding.)
-  desc 'fix', 'Remove any occurrence of "NOPASSWD" found in "/etc/sudoers"
-file or files in the "/etc/sudoers.d" directory.'
+  desc 'fix', 'Remove any occurrence of "NOPASSWD" found in "/etc/sudoers" file or files in the "/etc/sudoers.d" directory.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
@@ -31,7 +27,7 @@ file or files in the "/etc/sudoers.d" directory.'
   tag 'container-conditional'
 
   only_if('Control not applicable within a container without sudo installed', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !command('sudo').exist?)
+    !virtualization.container_system? || command('sudo').exist?
   }
 
   # TODO: figure out why this .where throws an exception if we don't explicitly filter out nils via 'tags.nil?'

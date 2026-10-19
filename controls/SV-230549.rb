@@ -30,45 +30,50 @@ Load settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-33218r1184284_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230549'
   tag rid: 'SV-230549r1184286_rule'
   tag stig_id: 'RHEL-08-040285'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33193r1184285_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag satisfies: ['SRG-OS-000420-GPOS-00186', 'SRG-OS-000142-GPOS-00076']
+  tag 'documentable'
+  tag cci: ['CCI-002385', 'CCI-001100', 'CCI-000366']
+  tag nist: ['SC-5 a', 'SC-7 (2)', 'CM-6 b']
   tag 'host'
 
-  only_if('This system is acting as a router on the network, this control is Not Applicable', impact: 0.0) {
-    !input('network_router')
+  only_if('Control not applicable within a container', impact: 0.0) {
+    !virtualization.container_system?
   }
 
-  # Define the kernel parameter to be checked
   parameter = 'net.ipv4.conf.all.rp_filter'
-  action = 'IPv4 reverse path filtering'
   value = 1
+  regexp = /^\s*#{parameter}\s*=\s*#{value}\s*$/
 
-  # Get the current value of the kernel parameter
-  current_value = kernel_parameter(parameter)
-
-  # Check if the system is a Docker container
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable within a container' do
-      skip 'Control not applicable within a container'
-    end
-  elsif input('ipv4_enabled') == false
+  if input('ipv4_enabled') == false
     impact 0.0
     describe 'IPv4 is disabled on the system, this requirement is Not Applicable.' do
       skip 'IPv4 is disabled on the system, this requirement is Not Applicable.'
     end
   else
-
     describe kernel_parameter(parameter) do
-      it "is set to the required value for #{action}" do
-        expect(current_value.value).to cmp value
-        expect(current_value.value).not_to be_nil
+      its('value') { should eq value }
+    end
+
+    search_results = command("/usr/lib/systemd/systemd-sysctl --cat-config | egrep -v '^(#|;)' | grep -F #{parameter}").stdout.strip.split("\n")
+
+    correct_result = search_results.any? { |line| line.match(regexp) }
+    incorrect_results = search_results.map(&:strip).reject { |line| line.match(regexp) }
+
+    describe 'Kernel config files' do
+      it "should configure '#{parameter}'" do
+        expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
+      end
+      unless incorrect_results.nil?
+        it 'should not have incorrect or conflicting setting(s) in the config files' do
+          expect(incorrect_results).to be_empty, "Incorrect or conflicting setting(s) found:\n\t- #{incorrect_results.join("\n\t- ")}"
+        end
       end
     end
   end

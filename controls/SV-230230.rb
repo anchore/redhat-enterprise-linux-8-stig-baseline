@@ -1,9 +1,6 @@
 control 'SV-230230' do
-  title 'RHEL 8, for certificate-based authentication, must enforce authorized
-access to the corresponding private key.'
-  desc 'If an unauthorized user obtains access to a private key without a
-passcode, that user would have unauthorized access to any system where the
-associated public key has been installed.'
+  title 'RHEL 8, for certificate-based authentication, must enforce authorized access to the corresponding private key.'
+  desc 'If an unauthorized user obtains access to a private key without a passcode, that user would have unauthorized access to any system where the associated public key has been installed.'
   desc 'check', 'Verify the SSH private key files have a passcode.
 
 For each private key stored on the system, use the following command:
@@ -26,7 +23,7 @@ $ sudo ssh-keygen -p -f /path/to/file'
   tag nist: ['IA-5 (2) (b)', 'IA-5 (2) (a) (1)']
   tag 'host'
 
-  if virtualization.system.eql?('docker')
+  if virtualization.container_system?
     impact 0.0
     describe 'N/A' do
       skip 'Control not applicable within a container'
@@ -34,11 +31,16 @@ $ sudo ssh-keygen -p -f /path/to/file'
   elsif input('private_key_files').empty?
     impact 0.0
     describe 'N/A' do
-      skip 'No private key files were given in the input, this control is Not Applicable'
+      skip 'No private key files were given in the input; this control is Not Applicable'
     end
   elsif input('private_key_files').map { |kf| file(kf).exist? }.uniq.first == false
     describe 'no files found' do
-      skip 'No private key files given in the input were found on the system; please check the input accurately lists all private keys on this system'
+      skip 'No private key files given in the input were found on the system; check that the input accurately lists all private keys on this system'
+    end
+  elsif !input('alternate_mfa_method').to_s.empty?
+    impact 0.0
+    describe 'N/A' do
+      skip 'The system is using an approved alternative MFA method; this control is Not Applicable.'
     end
   else
     passwordless_keys = input('private_key_files').select { |kf|

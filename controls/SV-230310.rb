@@ -1,12 +1,8 @@
 control 'SV-230310' do
   title 'RHEL 8 must disable kernel dumps unless needed.'
-  desc 'Kernel core dumps may contain the full contents of system memory at
-the time of the crash. Kernel core dumps may consume a considerable amount of
-disk space and may result in denial of service by exhausting the available
-space on the target file system partition.
+  desc 'Kernel core dumps may contain the full contents of system memory at the time of the crash. Kernel core dumps may consume a considerable amount of disk space and may result in denial of service by exhausting the available space on the target file system partition.
 
-    RHEL 8 installation media presents the option to enable or disable the
-kdump service at the time of system installation.'
+RHEL 8 installation media presents the option to enable or disable the kdump service at the time of system installation.'
   desc 'check', 'Verify RHEL 8 kernel core dumps are disabled unless needed with the following command:
 
 $ sudo systemctl status kdump.service
@@ -18,25 +14,26 @@ o kdump.service - Crash recovery kernel arming
 If the "kdump" service is active, ask the system administrator if the use of the service is required and documented with the information system security officer (ISSO).
 
 If the service is active and is not documented, this is a finding.'
-  desc 'fix', 'If kernel core dumps are not required, disable the "kdump" service with
-the following command:
+  desc 'fix', 'If kernel core dumps are not required, disable the "kdump" service with the following command:
 
-    # systemctl disable kdump.service
+# systemctl disable kdump.service
 
-    If kernel core dumps are required, document the need with the ISSO.'
+If kernel core dumps are required, document the need with the ISSO.'
   impact 0.5
+  tag check_id: 'C-32979r1155382_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230310'
   tag rid: 'SV-230310r1155383_rule'
   tag stig_id: 'RHEL-08-010670'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32954r567677_fix'
+  tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   kernel_dump = input('kernel_dump_expected_value')

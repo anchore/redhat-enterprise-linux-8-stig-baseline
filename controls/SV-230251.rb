@@ -6,7 +6,9 @@ Remote access (e.g., RDP) is access to DOD nonpublic information systems by an a
 
 Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while maintaining the confidentiality of the secret key used to generate the hash.
 
-RHEL 8 incorporates systemwide crypto policies by default. The SSH configuration file has no effect on the ciphers, MACs, or algorithms unless specifically defined in the /etc/sysconfig/sshd file. The employed algorithms can be viewed in the /etc/crypto-policies/back-ends/opensshserver.config file.'
+RHEL 8 incorporates systemwide crypto policies by default. The SSH configuration file has no effect on the ciphers, MACs, or algorithms unless specifically defined in the /etc/sysconfig/sshd file. The employed algorithms can be viewed in the /etc/crypto-policies/back-ends/opensshserver.config file.
+
+'
   desc 'check', 'Verify the RHEL 8 SSH server is configured to use only MACs employing FIPS 140-3-approved algorithms.
 
 To verify the MACs in the systemwide SSH configuration file, use the following command:
@@ -30,19 +32,21 @@ Setting system policy to FIPS
 
 Note: Systemwide crypto policies are applied on application startup. It is recommended to restart the system for the change of policies to fully take place.'
   impact 0.7
+  tag check_id: 'C-32920r1155368_chk'
   tag severity: 'high'
-  tag gtitle: 'SRG-OS-000250-GPOS-00093'
-  tag satisfies: ['SRG-OS-000250-GPOS-00093', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174', 'SRG-OS-000125-GPOS-00065']
   tag gid: 'V-230251'
   tag rid: 'SV-230251r1184240_rule'
   tag stig_id: 'RHEL-08-010290'
+  tag gtitle: 'SRG-OS-000250-GPOS-00093'
   tag fix_id: 'F-32895r1155369_fix'
+  tag satisfies: ['SRG-OS-000250-GPOS-00093', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174', 'SRG-OS-000125-GPOS-00065']
+  tag 'documentable'
   tag cci: ['CCI-001453']
   tag nist: ['AC-17 (2)']
   tag 'host'
   tag 'container-conditional'
 
-  if virtualization.system.eql?('docker')
+  if virtualization.container_system?
     impact 0.0
     describe 'Control not applicable in a container' do
       skip 'The host OS controls the FIPS mode settings. The host OS should also be scanned with the applicable OS validation profile.'
@@ -77,11 +81,10 @@ Note: Systemwide crypto policies are applied on application startup. It is recom
       end
     end
 
-    # Test that the MACS option in the crypto policy file contains exactly the required algorithms
-    # (V2R7 removed the requirement that the algorithms appear in a specific order; only the set must match)
+    # Test that the MACS option in the crypto policy file contains the required algorithms in the correct order
     describe 'The MACs option in the crypto policy file' do
-      it 'contains the required algorithms' do
-        expect(config_options['MACS']).to match_array(required_algorithms), "The MACS option in the crypto policy file does not contain exactly the required algorithms:\n\n\texpected (any order): #{required_algorithms}\n\tgot:#{config_options['MACS']}"
+      it 'contains the required algorithms in the correct order' do
+        expect(config_options['MACS']).to eq(required_algorithms), "The MACS option in the crypto policy file does not contain the required algorithms in the *exact order*:\n\n\texpected: #{required_algorithms}\n\tgot:#{config_options['MACS']}"
       end
     end
   end

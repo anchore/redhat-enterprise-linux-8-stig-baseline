@@ -20,34 +20,31 @@ To load the rules to the kernel immediately, use the following command:
 
 $ sudo augenrules --load'
   impact 0.5
+  tag check_id: 'C-78978r1106147_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000471-GPOS-00215'
   tag gid: 'V-274877'
   tag rid: 'SV-274877r1155381_rule'
   tag stig_id: 'RHEL-08-030655'
+  tag gtitle: 'SRG-OS-000471-GPOS-00215'
   tag fix_id: 'F-78883r1155380_fix'
+  tag 'documentable'
   tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   audit_paths = ['/etc/cron.d', '/var/spool/cron']
-  audit_key = 'cronjobs'
 
-  audit_paths.each do |audit_path|
-    describe "The audit rule for #{audit_path}" do
-      audit_rule = auditd.file(audit_path)
-      it 'exists' do
+  describe 'Cron directories auditing' do
+    audit_paths.each do |audit_path|
+      it "#{audit_path} is audited properly" do
+        audit_rule = auditd.file(audit_path)
         expect(audit_rule).to exist
-      end
-      it 'is configured to watch for write and attribute changes' do
         expect(audit_rule.permissions.flatten).to include('w', 'a')
-      end
-      it "uses the '#{audit_key}' key" do
-        expect(audit_rule.key.uniq).to include(audit_key)
+        expect(audit_rule.key.uniq).to include(input('audit_rule_keynames').merge(input('audit_rule_keynames_overrides'))[audit_path])
       end
     end
   end

@@ -16,49 +16,32 @@ Add or edit the following line in "/etc/profile.d/tmout.sh":
 
 declare -xr TMOUT=600'
   impact 0.5
+  tag check_id: 'C-84489r1156338_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000163-GPOS-00072'
-  tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000029-GPOS-00010']
   tag gid: 'V-279929'
   tag rid: 'SV-279929r1156340_rule'
   tag stig_id: 'RHEL-08-020360'
+  tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag fix_id: 'F-84394r1156339_fix'
-  tag cci: ['CCI-001133']
-  tag nist: ['SC-10']
+  tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000029-GPOS-00010']
+  tag 'documentable'
+  tag cci: ['CCI-000057', 'CCI-001133']
+  tag nist: ['AC-11 a', 'SC-10']
   tag 'host'
   tag 'container'
 
-  timeout = input('shell_session_timeout')
+  system_inactivity_timeout = input('system_inactivity_timeout')
 
-  # Match the manual check: grep -i tmout /etc/profile /etc/profile.d/*.sh
-  # Collect every uncommented `TMOUT=<value>` assignment from the profile scripts.
-  profile_files = ['/etc/profile'] + command('ls /etc/profile.d/*.sh 2>/dev/null').stdout.split("\n").map(&:strip).reject(&:empty?)
+  tmout_lines = command('grep -i tmout /etc/profile /etc/profile.d/*.sh').stdout.strip
+  tmout_value = tmout_lines.match(/^[^#]+TMOUT\s*=\s*(\d+)/i)
 
-  tmout_regexp = /^\s*(?:(?:declare|export|typeset|readonly)\s+(?:-\S+\s+)*)?TMOUT\s*=\s*(?<value>\d+)/i
-
-  tmout_settings = profile_files.each_with_object({}) do |path, settings|
-    next unless file(path).exist?
-
-    file(path).content.lines.each do |line|
-      stripped = line.strip
-      next if stripped.empty? || stripped.start_with?('#')
-
-      match = tmout_regexp.match(line)
-      settings[path] = match[:value].to_i if match
+  describe 'The system' do
+    it 'should set a TMOUT value' do
+      expect(tmout_value).to_not be_nil, 'No TMOUT value set in /etc/profile or /etc/profile.d/*.sh'
     end
-  end
-
-  describe 'The interactive shell session timeout (TMOUT)' do
-    it 'should be set in a profile script under /etc/profile.d/ or in /etc/profile' do
-      expect(tmout_settings).not_to be_empty, 'TMOUT is not set (or is commented out) in /etc/profile or any /etc/profile.d/*.sh script'
-    end
-  end
-
-  tmout_settings.each do |path, value|
-    describe "The TMOUT value configured in #{path}" do
-      subject { value }
-      it "should be #{timeout} seconds or less" do
-        expect(value).to be <= timeout
+    unless tmout_value.nil?
+      it "should exit after #{system_inactivity_timeout} seconds of inactivity" do
+        expect(tmout_value.captures.first.to_i).to be <= system_inactivity_timeout
       end
     end
   end

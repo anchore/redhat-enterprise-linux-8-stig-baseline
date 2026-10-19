@@ -19,13 +19,14 @@ Configure the operating system to disable use of the EPEL repository with the fo
 
 $ sudo dnf config-manager --set-disabled epel'
   impact 0.5
+  tag check_id: 'C-33161r1134886_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000095-GPOS-00049'
-  tag satisfies: ['SRG-OS-000095-GPOS-00049', 'SRG-OS-000074-GPOS-00042']
   tag gid: 'V-230492'
   tag rid: 'SV-230492r1184277_rule'
   tag stig_id: 'RHEL-08-040010'
+  tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag fix_id: 'F-33136r1134887_fix'
+  tag 'documentable'
   tag cci: ['CCI-000381']
   tag nist: ['CM-7 a']
   tag 'host'
