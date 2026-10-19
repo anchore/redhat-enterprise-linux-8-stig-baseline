@@ -34,6 +34,7 @@ Reload settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-32937r1184250_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000312-GPOS-00122'
   tag satisfies: ['SRG-OS-000312-GPOS-00122', 'SRG-OS-000312-GPOS-00123', 'SRG-OS-000312-GPOS-00124', 'SRG-OS-000324-GPOS-00125']
@@ -41,8 +42,8 @@ $ sudo sysctl --system'
   tag rid: 'SV-230268r1184252_rule'
   tag stig_id: 'RHEL-08-010374'
   tag fix_id: 'F-32912r1184251_fix'
-  tag cci: ['CCI-002165', 'CCI-002235']
-  tag nist: ['AC-3 (4)', 'AC-6 (10)']
+  tag cci: ['CCI-002165']
+  tag nist: ['AC-3 (4)']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {

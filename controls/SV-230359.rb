@@ -21,6 +21,7 @@ dcredit = -1
 
 Remove any configurations that conflict with the above value.'
   impact 0.5
+  tag check_id: 'C-33028r833316_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000071-GPOS-00039'
   tag gid: 'V-230359'

@@ -20,6 +20,7 @@ If the telnet-server package is installed, this is a finding.'
 
 $ sudo yum remove telnet-server'
   impact 0.7
+  tag check_id: 'C-33156r568207_chk'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230487'

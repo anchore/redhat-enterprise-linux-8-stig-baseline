@@ -19,15 +19,16 @@ Add or update the following lines in the file "/etc/modprobe.d/blacklist.conf":
 
 Reboot the system for the settings to take effect.'
   impact 0.5
+  tag check_id: 'C-33172r1069241_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000114-GPOS-00059'
-  tag satisfies: ['SRG-OS-000114-GPOS-00059', 'SRG-OS-000378-GPOS-00163', 'SRG-OS-000480-GPOS-00227']
+  tag satisfies: ['SRG-OS-000114-GPOS-00059', 'SRG-OS-000378-GPOS-00163']
   tag gid: 'V-230503'
   tag rid: 'SV-230503r1069316_rule'
   tag stig_id: 'RHEL-08-040080'
   tag fix_id: 'F-33147r942935_fix'
-  tag cci: ['CCI-000778', 'CCI-000366', 'CCI-001958', 'CCI-003959']
-  tag nist: ['IA-3', 'CM-6 b', 'CM-7 (9) (b)']
+  tag cci: ['CCI-000778']
+  tag nist: ['IA-3']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

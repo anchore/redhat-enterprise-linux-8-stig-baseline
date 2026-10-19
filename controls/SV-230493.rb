@@ -27,7 +27,7 @@ $ sudo grep -r uvcvideo /etc/modprobe.d/* | grep "blacklist"
 If the command does not return uncommented output and the collaborative computing device has not been authorized for use, this is a finding.'
   desc 'fix', 'Configure the operating system to disable the built-in or attached camera when not in use.
 
-Add or update the followind lines in the "/etc/modprobe.d/blacklist.conf" file:
+Add or update the following lines in the "/etc/modprobe.d/blacklist.conf" file:
 
      install uvcvideo /bin/false
      blacklist uvcvideo
@@ -37,10 +37,10 @@ Reboot the system for the settings to take effect.'
   tag check_id: 'C-33162r1184278_chk'
   tag severity: 'medium'
   tag gid: 'V-230493'
-  tag rid: 'SV-230493r1184280_rule'
+  tag rid: 'SV-230493r1262162_rule'
   tag stig_id: 'RHEL-08-040020'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
-  tag fix_id: 'F-33137r1184279_fix'
+  tag fix_id: 'F-33137r1261884_fix'
   tag satisfies: ['SRG-OS-000095-GPOS-00049', 'SRG-OS-000370-GPOS-00155']
   tag 'documentable'
   tag cci: ['CCI-000381']

@@ -48,14 +48,15 @@ Load settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-33212r833354_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230543'
   tag rid: 'SV-230543r1017305_rule'
   tag stig_id: 'RHEL-08-040270'
   tag fix_id: 'F-33187r858815_fix'
-  tag cci: ['CCI-000366', 'CCI-002385', 'CCI-001107']
-  tag nist: ['CM-6 b', 'SC-5 a', 'SC-7 (4) (e)']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This system is acting as a router on the network, this control is Not Applicable', impact: 0.0) {

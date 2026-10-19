@@ -14,14 +14,15 @@ If an entry for "/var/log/audit" does not exist, ask the System Administrator if
 If a separate file system/partition does not exist for the system audit data path, this is a finding.'
   desc 'fix', 'Migrate the system audit data path onto a separate file system.'
   impact 0.3
+  tag check_id: 'C-32963r567628_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230294'
   tag rid: 'SV-230294r1017105_rule'
   tag stig_id: 'RHEL-08-010542'
   tag fix_id: 'F-32938r567629_fix'
-  tag cci: ['CCI-000366', 'CCI-001849']
-  tag nist: ['CM-6 b', 'AU-4']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

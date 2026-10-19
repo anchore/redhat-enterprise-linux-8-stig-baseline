@@ -21,14 +21,15 @@ UUID=a411dc99-f2a1-4c87-9e05-184977be8539 /home xfs rw,relatime,discard,data=ord
 If a file system found in "/etc/fstab" refers to the user home directory file system and it does not have the "nosuid" option set, this is a finding.)
   desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that contain user home directories for interactive users.'
   impact 0.5
+  tag check_id: 'C-32968r567643_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230299'
   tag rid: 'SV-230299r1017109_rule'
   tag stig_id: 'RHEL-08-010570'
   tag fix_id: 'F-32943r567644_fix'
-  tag cci: ['CCI-000366', 'CCI-001764']
-  tag nist: ['CM-6 b', 'CM-7 (2)']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

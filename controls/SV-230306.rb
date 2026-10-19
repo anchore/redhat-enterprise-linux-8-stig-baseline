@@ -12,14 +12,15 @@ UUID=e06097bb-cfcd-437b-9e4d-a691f5662a7d /store nfs rw,nosuid,nodev,noexec 0 0
 If a file system found in "/etc/fstab" refers to NFS and it does not have the "noexec" option set, this is a finding.'
   desc 'fix', 'Configure the "/etc/fstab" to use the "noexec" option on file systems that are being imported via NFS.'
   impact 0.5
+  tag check_id: 'C-32975r1155385_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230306'
   tag rid: 'SV-230306r1155386_rule'
   tag stig_id: 'RHEL-08-010630'
   tag fix_id: 'F-32950r567665_fix'
-  tag cci: ['CCI-000366', 'CCI-000213']
-  tag nist: ['CM-6 b', 'AC-3']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

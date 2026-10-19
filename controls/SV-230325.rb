@@ -26,8 +26,8 @@ Note: The example will be for the smithj user, who has a home directory of "/hom
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32969r917878_fix'
   tag 'documentable'
-  tag cci: ['CCI-000213', 'CCI-000366']
-  tag nist: ['AC-3', 'CM-6 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container'
 

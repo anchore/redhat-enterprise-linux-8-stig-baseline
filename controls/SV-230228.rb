@@ -2,7 +2,7 @@ control 'SV-230228' do
   title 'All RHEL 8 remote access methods must be monitored.'
   desc 'Remote access services, such as those providing remote access to network devices and information systems, which lack automated monitoring capabilities, increase risk and make remote user access management difficult at best.
 
-Remote access is access to DOD nonpublic information systems by an authorized user (or an information system) communicating through an external, nonorganization-controlled network. Remote access methods include, for example, dial-up, broadband, and wireless.
+Remote access is access to DoW nonpublic information systems by an authorized user (or an information system) communicating through an external, nonorganization-controlled network. Remote access methods include, for example, dial-up, broadband, and wireless.
 
 Automated monitoring of remote access sessions allows organizations to detect cyber attacks and ensure ongoing compliance with remote access policies by auditing connection activities of remote access capabilities, such as Remote Desktop Protocol (RDP), on a variety of information system components (e.g., servers, workstations, notebook computers, smartphones, and tablets).'
   desc 'check', %q(Verify that RHEL 8 monitors all remote access methods.
@@ -29,7 +29,7 @@ $ sudo systemctl restart rsyslog.service'
   tag check_id: 'C-32897r1069207_chk'
   tag severity: 'medium'
   tag gid: 'V-230228'
-  tag rid: 'SV-230228r1069299_rule'
+  tag rid: 'SV-230228r1262185_rule'
   tag stig_id: 'RHEL-08-010070'
   tag gtitle: 'SRG-OS-000032-GPOS-00013'
   tag fix_id: 'F-32872r567431_fix'

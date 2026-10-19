@@ -40,14 +40,15 @@ If manually configuring DNS, edit the "/etc/resolv.conf" file to uncomment or ad
 
 $ sudo echo -n > /etc/resolv.conf'
   impact 0.5
+  tag check_id: 'C-32985r1044800_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230316'
   tag rid: 'SV-230316r1044801_rule'
   tag stig_id: 'RHEL-08-010680'
   tag fix_id: 'F-32960r567695_fix'
-  tag cci: ['CCI-000366', 'CCI-002385']
-  tag nist: ['CM-6 b', 'SC-5 a']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container'
 

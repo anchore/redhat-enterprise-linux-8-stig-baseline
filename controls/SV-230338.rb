@@ -38,6 +38,7 @@ The "sssd" service must be restarted for the changes to take effect. To restart 
 
 $ sudo systemctl restart sssd.service'
   impact 0.5
+  tag check_id: 'C-33007r1184269_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
@@ -45,8 +46,8 @@ $ sudo systemctl restart sssd.service'
   tag rid: 'SV-230338r1184270_rule'
   tag stig_id: 'RHEL-08-020016'
   tag fix_id: 'F-32982r567761_fix'
-  tag cci: ['CCI-000044', 'CCI-002238']
-  tag nist: ['AC-7 a', 'AC-7 b']
+  tag cci: ['CCI-000044']
+  tag nist: ['AC-7 a']
   tag 'host'
   tag 'container'
 

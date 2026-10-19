@@ -20,6 +20,7 @@ overflow_action = syslog
 
 The audit daemon must be restarted for changes to take effect.'
   impact 0.5
+  tag check_id: 'C-33149r568186_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']

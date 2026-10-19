@@ -18,15 +18,16 @@ Add or modify the following line in /etc/systemd/coredump.conf:
 
 Storage=none'
   impact 0.5
+  tag check_id: 'C-32983r1134880_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230314'
   tag rid: 'SV-230314r1134881_rule'
   tag stig_id: 'RHEL-08-010674'
   tag fix_id: 'F-32958r567689_fix'
-  tag cci: ['CCI-000366', 'CCI-000381']
+  tag cci: ['CCI-000366']
   tag legacy: []
-  tag nist: ['CM-6 b', 'CM-7 a']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

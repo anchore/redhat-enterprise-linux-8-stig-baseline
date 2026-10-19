@@ -31,8 +31,8 @@ If a separate entry for the file system/partition containing the nonprivileged i
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32972r902722_fix'
   tag 'documentable'
-  tag cci: ['CCI-002385', 'CCI-000366']
-  tag nist: ['SC-5 a', 'CM-6 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This requirement is Not Applicable inside a container, the containers host manages the containers filesystems', impact: 0.0) {

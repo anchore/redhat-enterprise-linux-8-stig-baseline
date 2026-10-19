@@ -29,6 +29,7 @@ Restart usbguard service after creation or update of rules with the following co
 
 $ sudo systemctl restart usbguard'
   impact 0.5
+  tag check_id: 'C-33193r1014812_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-230524'

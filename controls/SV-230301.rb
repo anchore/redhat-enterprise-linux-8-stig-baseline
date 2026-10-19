@@ -8,14 +8,15 @@ $ sudo mount | grep '^/dev\S* on /\S' | grep --invert-match 'nodev'
 If any output is produced, this is a finding.)
   desc 'fix', 'Configure the "/etc/fstab" to use the "nodev" option on all non-root local partitions.'
   impact 0.5
+  tag check_id: 'C-32970r1184261_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230301'
   tag rid: 'SV-230301r1184262_rule'
   tag stig_id: 'RHEL-08-010580'
   tag fix_id: 'F-32945r567650_fix'
-  tag cci: ['CCI-000366', 'CCI-001764']
-  tag nist: ['CM-6 b', 'CM-7 (2)']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

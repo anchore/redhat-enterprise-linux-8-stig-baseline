@@ -12,14 +12,15 @@ $ sudo mount | grep '\s/boot/efi\s'
 If the /boot/efi file system does not have the "nosuid" option set, this is a finding.)
   desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on the /boot/efi directory.'
   impact 0.5
+  tag check_id: 'C-47805r1184259_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244530'
   tag rid: 'SV-244530r1184260_rule'
   tag stig_id: 'RHEL-08-010572'
   tag fix_id: 'F-47762r743838_fix'
-  tag cci: ['CCI-000366', 'CCI-001764', 'CCI-000213']
-  tag nist: ['CM-6 b', 'CM-7 (2)', 'AC-3']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {

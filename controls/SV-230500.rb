@@ -28,6 +28,7 @@ Ask the system administrator (SA) for the site or program Ports, Protocols, and 
 If there are additional ports, protocols, or services that are not in the PPSM CLSA, or there are ports, protocols, or services that are prohibited by the PPSM Category Assurance List (CAL), this is a finding.'
   desc 'fix', "Update the host's firewall settings and/or running services to comply with the PPSM Component Local Service Assessment (CLSA) for the site or program and the PPSM CAL."
   impact 0.5
+  tag check_id: 'C-33169r1101899_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000096-GPOS-00050'
   tag gid: 'V-230500'

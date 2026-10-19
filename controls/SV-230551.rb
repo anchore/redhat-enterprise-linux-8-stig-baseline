@@ -26,14 +26,15 @@ If the "xattrs" rule is not being used on all uncommented selection lines in the
 
 If AIDE is installed, ensure the "xattrs" rule is present on all uncommented file and directory selection lists.'
   impact 0.3
+  tag check_id: 'C-33220r568399_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230551'
   tag rid: 'SV-230551r1017313_rule'
   tag stig_id: 'RHEL-08-040300'
   tag fix_id: 'F-33195r568400_fix'
-  tag cci: ['CCI-000366', 'CCI-002475']
-  tag nist: ['CM-6 b', 'SC-28 (1)']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

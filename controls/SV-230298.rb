@@ -1,6 +1,6 @@
 control 'SV-230298' do
   title 'The rsyslog service must be running in RHEL 8.'
-  desc 'Configuring RHEL 8 to implement organization-wide security implementation guides and security checklists ensures compliance with federal standards and establishes a common security baseline across the DoD that reflects the most restrictive security posture consistent with operational requirements.
+  desc 'Configuring RHEL 8 to implement organizationwide security implementation guides and security checklists ensures compliance with federal standards and establishes a common security baseline across the DoW that reflects the most restrictive security posture consistent with operational requirements.
 
 Configuration settings are the set of parameters that can be changed in hardware, software, or firmware components of the system that affect the security posture and/or functionality of the system. Security-related parameters are those parameters impacting the security state of the system, including the parameters required to satisfy other security control requirements. Security-related parameters include, for example: registry settings; account, file, directory permission settings; and settings for functions, ports, protocols, services, and remote connections.'
   desc 'check', 'Verify the rsyslog service is enabled and active with the following commands:
@@ -23,7 +23,7 @@ $ sudo systemctl enable rsyslog.service'
   tag check_id: 'C-32967r567640_chk'
   tag severity: 'medium'
   tag gid: 'V-230298'
-  tag rid: 'SV-230298r1017108_rule'
+  tag rid: 'SV-230298r1262206_rule'
   tag stig_id: 'RHEL-08-010561'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32942r567641_fix'

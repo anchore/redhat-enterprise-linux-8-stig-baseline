@@ -48,14 +48,15 @@ Load settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-33204r833339_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230535'
   tag rid: 'SV-230535r1017297_rule'
   tag stig_id: 'RHEL-08-040210'
   tag fix_id: 'F-33179r858792_fix'
-  tag cci: ['CCI-000366', 'CCI-002385', 'CCI-001101']
-  tag nist: ['CM-6 b', 'SC-5 a', 'SC-7 (3)']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {

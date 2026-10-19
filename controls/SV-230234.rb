@@ -1,30 +1,37 @@
 control 'SV-230234' do
   title 'RHEL 8 operating systems booted with United Extensible Firmware Interface (UEFI) must require authentication upon booting into single-user mode and maintenance.'
   desc 'If the system does not require valid authentication before it boots into single-user or maintenance mode, anyone who invokes single-user or maintenance mode is granted privileged access to all files on the system. GRUB 2 is the default boot loader for RHEL 8 and is designed to require a password to boot into single-user mode or make modifications to the boot menu.'
-  desc 'check', 'For systems that use BIOS, this is Not Applicable.
+  desc 'check', 'Note: For systems that use BIOS, this is Not Applicable.
 
-Check to see if an encrypted grub superusers password is set. On systems that use UEFI, use the following command:
-
-$ sudo grep -iw grub2_password /boot/efi/EFI/redhat/user.cfg
-
+Check the unified configuration file where the grub2 password is stored:
+# grep -iw "GRUB2_PASSWORD" /boot/grub2/user.cfg
 GRUB2_PASSWORD=grub.pbkdf2.sha512.[password_hash]
 
-If the grub superusers password does not begin with "grub.pbkdf2.sha512", this is a finding.'
-  desc 'fix', 'Configure the system to require a grub bootloader password for the grub superusers account with the grub2-setpassword command, which creates/overwrites the /boot/efi/EFI/redhat/user.cfg file.
+If the "GRUB2_PASSWORD" entry exists and begins with "grub.pbkdf2.sha512", this is not a finding.
 
-Generate an encrypted grub2 password for the grub superusers account with the following command:
+Note for legacy RHEL 8 deployments: Older versions of RHEL 8 may have stored this file in the EFI partition. If the file is not found in `/boot/grub2/`, check the legacy UEFI path:
+# grep -iw GRUB2_PASSWORD /boot/efi/EFI/redhat/user.cfg
 
-$ sudo grub2-setpassword
-Enter password:
-Confirm password:'
+If the "GRUB2_PASSWORD" entry does not exist in either location, or does not begin with "grub.pbkdf2.sha512", this is a finding.'
+  desc 'fix', 'Configure the system to require a GRUB bootloader password for the grub superusers account.
+
+Use the "grub2-setpassword" command, which automatically creates and sets the correct permissions for the unified "/boot/grub2/user.cfg" file using the required PBKDF2 SHA512 hashing algorithm.
+
+Generate the encrypted GRUB 2 password with the following command:
+
+# grub2-setpassword
+Enter password: 
+Confirm password: 
+
+Note: Do not manually edit the GRUB configuration files to set this password; always use the provided utility to ensure the correct hashing algorithm is applied and the file is placed in the active configuration directory.'
   impact 0.7
-  tag check_id: 'C-32903r743920_chk'
+  tag check_id: 'C-32903r1261907_chk'
   tag severity: 'high'
   tag gid: 'V-230234'
-  tag rid: 'SV-230234r1137691_rule'
+  tag rid: 'SV-230234r1262176_rule'
   tag stig_id: 'RHEL-08-010140'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
-  tag fix_id: 'F-32878r743921_fix'
+  tag fix_id: 'F-32878r1261908_fix'
   tag 'documentable'
   tag cci: ['CCI-000213']
   tag nist: ['AC-3']

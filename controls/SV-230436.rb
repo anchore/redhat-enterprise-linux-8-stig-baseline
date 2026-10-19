@@ -27,8 +27,8 @@ The audit daemon must be restarted for the changes to take effect.'
   tag fix_id: 'F-33080r568055_fix'
   tag satisfies: ['SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000062-GPOS-00031', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000462-GPOS-00206', 'SRG-OS-000471-GPOS-00215']
   tag 'documentable'
-  tag cci: ['CCI-000130', 'CCI-000135', 'CCI-000169', 'CCI-002884', 'CCI-000172']
-  tag nist: ['AU-3 a', 'AU-3 (1)', 'AU-12 a', 'MA-4 (1) (a)', 'AU-12 c']
+  tag cci: ['CCI-000169']
+  tag nist: ['AU-12 a']
   tag 'host'
 
   audit_command = '/usr/sbin/pam_timestamp_check'

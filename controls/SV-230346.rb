@@ -18,6 +18,7 @@ Add the following line to the top of the /etc/security/limits.conf or in a ".con
 
 * hard maxlogins 10'
   impact 0.3
+  tag check_id: 'C-33015r1069221_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000027-GPOS-00008'
   tag gid: 'V-230346'

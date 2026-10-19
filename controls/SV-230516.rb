@@ -24,6 +24,7 @@ If results are returned and the "noexec" option is missing, or if /var/log is mo
 
 /dev/mapper/rhel-var-log /var/log xfs defaults,nodev,nosuid,noexec 0 0'
   impact 0.5
+  tag check_id: 'C-33185r568294_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag gid: 'V-230516'

@@ -25,6 +25,7 @@ $ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 Reboot the system:
 $ sudo reboot'
   impact 0.5
+  tag check_id: 'C-32948r1069179_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000134-GPOS-00068'
   tag satisfies: ['SRG-OS-000134-GPOS-00068', 'SRG-OS-000433-GPOS-00192']
@@ -32,8 +33,8 @@ $ sudo reboot'
   tag rid: 'SV-230279r1069286_rule'
   tag stig_id: 'RHEL-08-010423'
   tag fix_id: 'F-32923r1069180_fix'
-  tag cci: ['CCI-001084', 'CCI-002824']
-  tag nist: ['SC-3', 'SI-16']
+  tag cci: ['CCI-001084']
+  tag nist: ['SC-3']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

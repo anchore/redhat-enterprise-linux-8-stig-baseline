@@ -26,8 +26,8 @@ The SSH service must be restarted for changes to "sshd_config" to take effect.'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33026r567893_fix'
   tag 'documentable'
-  tag cci: ['CCI-002696', 'CCI-000052']
-  tag nist: ['SI-6 a', 'AC-9']
+  tag cci: ['CCI-000052']
+  tag nist: ['AC-9']
   tag 'host'
   tag 'container-conditional'
 

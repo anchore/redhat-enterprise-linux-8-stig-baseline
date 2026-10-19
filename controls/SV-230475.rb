@@ -35,14 +35,15 @@ If any of the audit tools listed above do not have an appropriate selection line
 /usr/sbin/rsyslogd p+i+n+u+g+s+b+acl+xattrs+sha512
 /usr/sbin/augenrules p+i+n+u+g+s+b+acl+xattrs+sha512'
   impact 0.5
+  tag check_id: 'C-33144r880721_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000278-GPOS-00108'
   tag gid: 'V-230475'
   tag rid: 'SV-230475r1017266_rule'
   tag stig_id: 'RHEL-08-030650'
   tag fix_id: 'F-33119r568172_fix'
-  tag cci: ['CCI-001496', 'CCI-001493', 'CCI-001494', 'CCI-001495']
-  tag nist: ['AU-9 (3)', 'AU-9 a', 'AU-9']
+  tag cci: ['CCI-001496']
+  tag nist: ['AU-9 (3)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

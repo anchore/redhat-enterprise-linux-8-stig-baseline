@@ -22,6 +22,7 @@ If results are returned and the "nosuid" option is missing, or if /dev/shm is mo
 
 tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0'
   impact 0.5
+  tag check_id: 'C-33178r568273_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag gid: 'V-230509'

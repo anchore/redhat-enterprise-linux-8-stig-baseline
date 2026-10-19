@@ -8,7 +8,7 @@ RHEL 8 utilizes "pwquality" as a mechanism to enforce password complexity. Confi
 
 The "minlen", sometimes noted as minimum length, acts as a "score" of complexity based on the credit components of the "pwquality" module. By setting the credit components to a negative value, not only will those components be required, they will not count towards the total "score" of "minlen". This will enable "minlen" to require a 15-character minimum.
 
-The DoD minimum password requirement is 15 characters.'
+The DoW minimum password requirement is 15 characters.'
   desc 'check', 'Verify the operating system enforces a minimum 15-character password length. The "minlen" option sets the minimum number of characters in a new password.
 
 Check for the value of the "minlen" option with the following command:
@@ -30,7 +30,7 @@ Remove any configurations that conflict with the above value.'
   tag check_id: 'C-33038r833326_chk'
   tag severity: 'medium'
   tag gid: 'V-230369'
-  tag rid: 'SV-230369r1017181_rule'
+  tag rid: 'SV-230369r1262207_rule'
   tag stig_id: 'RHEL-08-020230'
   tag gtitle: 'SRG-OS-000078-GPOS-00046'
   tag fix_id: 'F-33013r858784_fix'

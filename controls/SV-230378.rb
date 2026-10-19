@@ -1,6 +1,6 @@
 control 'SV-230378' do
   title 'RHEL 8 must enforce a delay of at least four seconds between logon prompts following a failed logon attempt.'
-  desc 'Configuring the operating system to implement organization-wide security implementation guides and security checklists verifies compliance with federal standards and establishes a common security baseline across the DoD that reflects the most restrictive security posture consistent with operational requirements.
+  desc 'Configuring the operating system to implement organization-wide security implementation guides and security checklists verifies compliance with federal standards and establishes a common security baseline across the DoW that reflects the most restrictive security posture consistent with operational requirements.
 
 Configuration settings are the set of parameters that can be changed in hardware, software, or firmware components of the system that affect the security posture and/or functionality of the system. Security-related parameters are those parameters impacting the security state of the system, including the parameters required to satisfy other security control requirements. Security-related parameters include, for example, registry settings; account, file, and directory permission settings; and settings for functions, ports, protocols, services, and remote connections.'
   desc 'check', 'Verify the operating system enforces a delay of at least four seconds between console logon prompts following a failed logon attempt with the following command:
@@ -16,14 +16,15 @@ Modify the "/etc/login.defs" file to set the "FAIL_DELAY" parameter to "4" or gr
 
 FAIL_DELAY 4'
   impact 0.5
+  tag check_id: 'C-33047r567880_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00226'
   tag gid: 'V-230378'
-  tag rid: 'SV-230378r1017189_rule'
+  tag rid: 'SV-230378r1262211_rule'
   tag stig_id: 'RHEL-08-020310'
   tag fix_id: 'F-33022r567881_fix'
-  tag cci: ['CCI-000366', 'CCI-002238']
-  tag nist: ['CM-6 b', 'AC-7 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container'
 

@@ -14,14 +14,15 @@ If the policycoreutils package is not installed, this is a finding.'
 
 $ sudo yum install policycoreutils'
   impact 0.3
+  tag check_id: 'C-32910r567469_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000134-GPOS-00068'
   tag gid: 'V-230241'
   tag rid: 'SV-230241r1017060_rule'
   tag stig_id: 'RHEL-08-010171'
   tag fix_id: 'F-32885r567470_fix'
-  tag cci: ['CCI-001084', 'CCI-000366']
-  tag nist: ['SC-3', 'CM-6 b']
+  tag cci: ['CCI-001084']
+  tag nist: ['SC-3']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) do

@@ -27,6 +27,7 @@ If there is no evidence that the transfer of the audit logs being off-loaded to 
 $DefaultNetstreamDriver gtls
 $ActionSendStreamDriverMode 1'
   impact 0.5
+  tag check_id: 'C-33150r818839_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']

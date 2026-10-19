@@ -28,14 +28,15 @@ SELINUX=enforcing
 
 A reboot is required for the changes to take effect.'
   impact 0.5
+  tag check_id: 'C-32909r567466_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000134-GPOS-00068'
   tag gid: 'V-230240'
   tag rid: 'SV-230240r1017059_rule'
   tag stig_id: 'RHEL-08-010170'
   tag fix_id: 'F-32884r567467_fix'
-  tag cci: ['CCI-001084', 'CCI-002696']
-  tag nist: ['SC-3', 'SI-6 a']
+  tag cci: ['CCI-001084']
+  tag nist: ['SC-3']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) do

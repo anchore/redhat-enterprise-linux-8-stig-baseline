@@ -24,6 +24,7 @@ If results are returned and the "nodev" option is missing, or if /dev/shm is mou
 
 tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0'
   impact 0.5
+  tag check_id: 'C-33177r568270_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag gid: 'V-230508'

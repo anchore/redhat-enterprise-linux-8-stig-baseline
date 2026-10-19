@@ -23,10 +23,9 @@ SHA_CRYPT_MIN_ROUNDS 100000'
   tag stig_id: 'RHEL-08-010130'
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag fix_id: 'F-32877r1044789_fix'
-  tag satisfies: ['SRG-OS-000073-GPOS-00041', 'SRG-OS-000120-GPOS-00061']
   tag 'documentable'
-  tag cci: ['CCI-004062', 'CCI-000803', 'CCI-000196']
-  tag nist: ['IA-5 (1) (d)', 'IA-7', 'IA-5 (1) (c)']
+  tag cci: ['CCI-000196', 'CCI-004062']
+  tag nist: ['IA-5 (1) (c)', 'IA-5 (1) (d)']
   tag 'host'
   tag 'container'
 

@@ -55,10 +55,9 @@ $ sudo sysctl --system'
   tag stig_id: 'RHEL-08-040240'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33182r858800_fix'
-  tag satisfies: ['SRG-OS-000420-GPOS-00186', 'SRG-OS-000142-GPOS-00087']
   tag 'documentable'
-  tag cci: ['CCI-002385', 'CCI-001111', 'CCI-000366']
-  tag nist: ['SC-5 a', 'SC-7 (7)', 'CM-6 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {

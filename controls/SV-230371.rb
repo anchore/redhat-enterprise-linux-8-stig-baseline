@@ -25,8 +25,8 @@ If output is produced, and the accounts listed are interactive user accounts, th
   tag fix_id: 'F-33015r567860_fix'
   tag satisfies: ['SRG-OS-000104-GPOS-00051', 'SRG-OS-000121-GPOS-00062', 'SRG-OS-000042-GPOS-00020']
   tag 'documentable'
-  tag cci: ['CCI-000764', 'CCI-000804']
-  tag nist: ['IA-2', 'IA-8']
+  tag cci: ['CCI-000764']
+  tag nist: ['IA-2']
   tag 'host'
   tag 'container'
 

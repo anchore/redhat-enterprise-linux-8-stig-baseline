@@ -23,14 +23,15 @@ Remove any configurations that conflict with the above from the following locati
      /etc/sudoers
      /etc/sudoers.d/'
   impact 0.5
+  tag check_id: 'C-40861r880725_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-237642'
   tag rid: 'SV-237642r991589_rule'
   tag stig_id: 'RHEL-08-010383'
   tag fix_id: 'F-40824r880726_fix'
-  tag cci: ['CCI-002227', 'CCI-000366', 'CCI-002038']
-  tag nist: ['AC-6 (5)', 'CM-6 b', 'IA-11']
+  tag cci: ['CCI-002227']
+  tag nist: ['AC-6 (5)']
   tag 'host'
   tag 'container-conditional'
 

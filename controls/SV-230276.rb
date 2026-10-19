@@ -19,6 +19,7 @@ flags : fpu vme de pse tsc ms nx rdtscp lm constant_tsc
 If "flags" does not contain the "nx" flag, this is a finding.'
   desc 'fix', 'The NX bit execute protection must be enabled in the system BIOS.'
   impact 0.5
+  tag check_id: 'C-32945r567574_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000433-GPOS-00192'
   tag gid: 'V-230276'

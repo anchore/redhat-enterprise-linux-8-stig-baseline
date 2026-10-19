@@ -4,7 +4,7 @@ control 'SV-230370' do
 
 Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password length is one factor of several that helps to determine strength and how long it takes to crack a password. Use of more characters in a password helps to increase exponentially the time and/or resources required to compromise the password.
 
-The DoD minimum password requirement is 15 characters.'
+The DoW minimum password requirement is 15 characters.'
   desc 'check', 'Verify that RHEL 8 enforces a minimum 15-character password length for new user accounts by running the following command:
 
 $ sudo grep -i  pass_min_len /etc/login.defs
@@ -21,7 +21,7 @@ PASS_MIN_LEN 15'
   tag check_id: 'C-33039r567856_chk'
   tag severity: 'medium'
   tag gid: 'V-230370'
-  tag rid: 'SV-230370r1017182_rule'
+  tag rid: 'SV-230370r1262208_rule'
   tag stig_id: 'RHEL-08-020231'
   tag gtitle: 'SRG-OS-000078-GPOS-00046'
   tag fix_id: 'F-33014r567857_fix'

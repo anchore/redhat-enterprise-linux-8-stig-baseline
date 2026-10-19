@@ -18,15 +18,16 @@ Add or modify the following line in /etc/systemd/coredump.conf:
 
 ProcessSizeMax=0'
   impact 0.5
+  tag check_id: 'C-32984r1134882_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230315'
   tag rid: 'SV-230315r1134883_rule'
   tag stig_id: 'RHEL-08-010675'
   tag fix_id: 'F-32959r567692_fix'
-  tag cci: ['CCI-000366', 'CCI-000381']
+  tag cci: ['CCI-000366']
   tag legacy: []
-  tag nist: ['CM-6 b', 'CM-7 a']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

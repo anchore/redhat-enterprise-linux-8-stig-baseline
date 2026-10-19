@@ -16,6 +16,7 @@ Set the "clean_requirements_on_remove" option to "True" in the "/etc/dnf/dnf.con
 
 clean_requirements_on_remove=True'
   impact 0.3
+  tag check_id: 'C-32950r567589_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000437-GPOS-00194'
   tag gid: 'V-230281'

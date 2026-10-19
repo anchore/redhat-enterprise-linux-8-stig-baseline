@@ -23,8 +23,8 @@ $ sudo dnf -y install crypto-policies'
   tag fix_id: 'F-84398r1156351_fix'
   tag satisfies: ['SRG-OS-000396-GPOS-00176', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174']
   tag 'documentable'
-  tag cci: ['CCI-002450', 'CCI-002890', 'CCI-003123']
-  tag nist: ['SC-13 b', 'MA-4 (6)']
+  tag cci: ['CCI-002450']
+  tag nist: ['SC-13 b']
   tag 'host'
   tag 'container'
 

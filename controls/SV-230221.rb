@@ -1,9 +1,19 @@
 control 'SV-230221' do
   title 'RHEL 8 must be a vendor-supported release.'
-  desc 'An operating system release is considered "supported" if the vendor continues to provide security patches for the product. With an unsupported release, it will not be possible to resolve security issues discovered in the system software.
+  desc 'An operating system release is considered supported if the vendor continues to provide security patches for the product. With an unsupported release, it will not be possible to resolve security issues discovered in the system software.
 
 Red Hat offers the Extended Update Support (EUS) add-on to a Red Hat Enterprise Linux subscription, for a fee, for those customers who wish to standardize on a specific minor release for an extended period. The RHEL 8 minor releases eligible for EUS are 8.1, 8.2, 8.4, 8.6, and 8.8. Each RHEL 8 EUS stream is available for 24 months from the availability of the minor release. RHEL 8.10 will be the final minor release overall. For more details on the Red Hat Enterprise Linux Life Cycle  visit https://access.redhat.com/support/policy/updates/errata/.
-Note: The life-cycle time spans and dates are subject to adjustment.'
+Note: The life-cycle time spans and dates are subject to adjustment.
+
+The version is still supported but has been superseded and must be removed from the enclave network or upgraded to a supported version.
+
+Red Hat Enterprise Linux 8
+General Availability: May 7, 2019
+Full Support: May 7, 2019 to May 31, 2024
+Maintenance Support: Jun 1, 2024 to May 31, 2029
+Extended Life Cycle (ELC): Jun 1, 2029 to May 31, 2033
+Long-Life Add-On: Jun 1, 2033 to Ongoing
+Final Minor Release: 8.10'
   desc 'check', 'Verify the version of the operating system is vendor supported.
 
 Note: The lifecycle time spans and dates are subject to adjustment.
@@ -35,14 +45,15 @@ Current End of Maintenance Support for RHEL 8.10 is 31 May 2029.
 If the release is not supported by the vendor, this is a finding.'
   desc 'fix', 'Upgrade to a supported version of RHEL 8.'
   impact 0.7
+  tag check_id: 'C-32890r858733_chk'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230221'
-  tag rid: 'SV-230221r1017040_rule'
+  tag rid: 'SV-230221r1262181_rule'
   tag stig_id: 'RHEL-08-010000'
   tag fix_id: 'F-32865r567410_fix'
-  tag cci: ['CCI-000366', 'CCI-003376']
-  tag nist: ['CM-6 b', 'SA-22 a']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container'
 

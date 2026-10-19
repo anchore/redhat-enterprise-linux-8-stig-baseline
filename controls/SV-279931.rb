@@ -1,5 +1,5 @@
 control 'SV-279931' do
-  title 'RHEL 8 must implement DOD-approved encryption in the bind package.'
+  title 'RHEL 8 must implement DoW-approved encryption in the bind package.'
   desc 'Without cryptographic integrity protections, information can be altered by unauthorized users without detection.
 
 Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while maintaining the confidentiality of the secret key used to generate the hash.
@@ -23,14 +23,14 @@ include "/etc/crypto-policies/back-ends/bind.config";'
   tag check_id: 'C-84491r1156344_chk'
   tag severity: 'high'
   tag gid: 'V-279931'
-  tag rid: 'SV-279931r1184237_rule'
+  tag rid: 'SV-279931r1262194_rule'
   tag stig_id: 'RHEL-08-010275'
   tag gtitle: 'SRG-OS-000423-GPOS-00187'
   tag fix_id: 'F-84396r1156345_fix'
   tag satisfies: ['SRG-OS-000423-GPOS-00187', 'SRG-OS-000426-GPOS-00190']
   tag 'documentable'
-  tag cci: ['CCI-002418', 'CCI-002422']
-  tag nist: ['SC-8', 'SC-8 (2)']
+  tag cci: ['CCI-002418']
+  tag nist: ['SC-8']
   tag 'host'
   tag 'container-conditional'
 

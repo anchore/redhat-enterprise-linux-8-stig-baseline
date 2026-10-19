@@ -57,10 +57,9 @@ $ sudo sysctl --system'
   tag stig_id: 'RHEL-08-040262'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33186r858813_fix'
-  tag satisfies: ['SRG-OS-000420-GPOS-00186', 'SRG-OS-000142-GPOS-00089']
   tag 'documentable'
-  tag cci: ['CCI-002385', 'CCI-001113', 'CCI-000366']
-  tag nist: ['SC-5 a', 'SC-7 (8)', 'CM-6 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This system is acting as a router on the network, this control is Not Applicable', impact: 0.0) {

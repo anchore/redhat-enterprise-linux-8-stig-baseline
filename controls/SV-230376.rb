@@ -26,6 +26,7 @@ Add or change the following line in "/etc/sssd/sssd.conf" just below the line "[
 
      offline_credentials_expiration = 1'
   impact 0.5
+  tag check_id: 'C-33045r1069223_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000383-GPOS-00166'
   tag gid: 'V-230376'

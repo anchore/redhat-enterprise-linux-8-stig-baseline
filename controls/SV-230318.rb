@@ -22,8 +22,8 @@ $ sudo chown [root or system account] [Public Directory]'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32962r1155351_fix'
   tag 'documentable'
-  tag cci: ['CCI-001090', 'CCI-000366']
-  tag nist: ['SC-4', 'CM-6 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container'
 
