@@ -9,38 +9,38 @@ The sysctl --system command will load settings from all system configuration fil
 /usr/lib/sysctl.d/*.conf
 /lib/sysctl.d/*.conf
 /etc/sysctl.conf'
-  desc 'check', 'Verify RHEL 8 uses reverse path filtering on IPv4 interfaces with the following commands:
+  desc 'check', 'Verify RHEL 8 uses reverse path filtering on all IPv4 interfaces.
+
+Check the value of the "rp_filter" variable with the following command:
 
 $ sudo sysctl net.ipv4.conf.all.rp_filter
-
 net.ipv4.conf.all.rp_filter = 1
 
 If "net.ipv4.conf.all.rp_filter" is not set to "1" or is missing, this is a finding.'
-  desc 'fix', 'Configure RHEL 8 to use reverse path filtering on IPv4 interfaces by default.
-
-Add or edit the following line in a single system configuration file in the "/etc/sysctl.d/" directory:
+  desc 'fix', 'Configure RHEL 8 to use reverse path filtering on all IPv4 interfaces.
 
 Create a configuration file if it does not already exist:
 
 $ sudo vi /etc/sysctl.d/ipv4_rp_filter.conf
 
+Add the following line to the file:
+
 net.ipv4.conf.all.rp_filter = 1
 
-Load settings from all system configuration files with the following command:
+Reload settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
-  tag check_id: 'C-33218r1184284_chk'
+  tag check_id: 'C-33218r1208408_chk'
   tag severity: 'medium'
   tag gid: 'V-230549'
-  tag rid: 'SV-230549r1184286_rule'
+  tag rid: 'SV-230549r1208761_rule'
   tag stig_id: 'RHEL-08-040285'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag fix_id: 'F-33193r1184285_fix'
-  tag satisfies: ['SRG-OS-000420-GPOS-00186', 'SRG-OS-000142-GPOS-00076']
+  tag fix_id: 'F-33193r1208760_fix'
   tag 'documentable'
-  tag cci: ['CCI-002385', 'CCI-001100', 'CCI-000366']
-  tag nist: ['SC-5 a', 'SC-7 (2)', 'CM-6 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {

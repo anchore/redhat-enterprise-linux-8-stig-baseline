@@ -6,7 +6,7 @@ Audit records can be generated from various components within the information sy
 
 The list of audited events is the set of events for which audits are to be generated. This set of events is typically a subset of the list of all events for which the system is capable of generating audit records.
 
-DoD has defined the list of events for which RHEL 8 will provide an audit record generation capability as the following:
+DoW has defined the list of events for which RHEL 8 will provide an audit record generation capability as the following:
 
 1) Successful and unsuccessful attempts to access, modify, or delete privileges, security objects, security levels, or categories of information (e.g., classification levels);
 
@@ -16,9 +16,7 @@ DoD has defined the list of events for which RHEL 8 will provide an audit record
 
 4) All kernel module load, unload, and restart actions.
 
-From "Pam_Faillock man" pages: Note the default directory that pam_faillock uses is usually cleared on system boot so the access will be reenabled after system reboot. If that is undesirable a different tally directory must be set with the "dir" option.
-
-'
+From "Pam_Faillock man" pages: Note the default directory that pam_faillock uses is usually cleared on system boot so the access will be reenabled after system reboot. If that is undesirable a different tally directory must be set with the "dir" option.'
   desc 'check', 'Verify RHEL 8 generates an audit record when successful/unsuccessful modifications to the "faillock" file occur. First, determine where the faillock tallies are stored with the following commands:
 
 For RHEL versions 8.0 and 8.1:
@@ -49,7 +47,7 @@ The audit daemon must be restarted for the changes to take effect.'
   tag check_id: 'C-33135r568144_chk'
   tag severity: 'medium'
   tag gid: 'V-230466'
-  tag rid: 'SV-230466r1017258_rule'
+  tag rid: 'SV-230466r1262213_rule'
   tag stig_id: 'RHEL-08-030590'
   tag gtitle: 'SRG-OS-000062-GPOS-00031'
   tag fix_id: 'F-33110r568145_fix'

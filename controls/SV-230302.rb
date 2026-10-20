@@ -21,14 +21,15 @@ UUID=a411dc99-f2a1-4c87-9e05-184977be8539 /home ext4 rw,relatime,discard,data=or
 If a file system found in "/etc/fstab" refers to the user home directory file system and it does not have the "noexec" option set, this is a finding.)
   desc 'fix', 'Configure the "/etc/fstab" to use the "noexec" option on file systems that contain user home directories for interactive users.'
   impact 0.5
+  tag check_id: 'C-32971r567652_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230302'
   tag rid: 'SV-230302r1017112_rule'
   tag stig_id: 'RHEL-08-010590'
   tag fix_id: 'F-32946r567653_fix'
-  tag cci: ['CCI-000366', 'CCI-000213']
-  tag nist: ['CM-6 b', 'AC-3']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

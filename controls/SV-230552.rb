@@ -1,8 +1,15 @@
 control 'SV-230552' do
   title 'The RHEL 8 file integrity tool must be configured to verify Access Control Lists (ACLs).'
-  desc '<path> [object Object]<#text> ACLs can provide permissions beyond those permitted through the file mode and must be verified by file integrity tools.
+  desc 'ACLs can provide permissions beyond those permitted through the file mode and must be verified by file integrity tools.
 
-Selection lines in the aide.conf file determine which files and directories AIDE will monitor for changes. They follow this format:'
+Selection lines in the aide.conf file determine which files and directories AIDE will monitor for changes. They follow this format:
+
+<path> <rules>
+
+The <path> specifies a file, directory or wildcard pattern to monitor.
+The <rules>define which attributes (hashes, permissions, timestamps, etc.) to check.
+
+RHEL 8 installation media come with a file integrity tool, Advanced Intrusion Detection Environment (AIDE).'
   desc 'check', 'Verify the file integrity tool is configured to verify ACLs.
 
 Note: AIDE is highly configurable at install time. This requirement assumes the "aide.conf" file is under the "/etc" directory.
@@ -22,14 +29,15 @@ If the "acl" rule is not being used on all selection lines in the "/etc/aide.con
 
 If AIDE is installed, ensure the "acl" rule is present on all file and directory selection lists.'
   impact 0.3
+  tag check_id: 'C-33221r1101901_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230552'
   tag rid: 'SV-230552r1101902_rule'
   tag stig_id: 'RHEL-08-040310'
   tag fix_id: 'F-33196r568403_fix'
-  tag cci: ['CCI-000366', 'CCI-002475']
-  tag nist: ['CM-6 b', 'SC-28 (1)']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

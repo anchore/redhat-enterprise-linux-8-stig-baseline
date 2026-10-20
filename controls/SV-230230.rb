@@ -13,6 +13,7 @@ If the contents of the key are displayed, this is a finding.'
 
 $ sudo ssh-keygen -p -f /path/to/file'
   impact 0.5
+  tag check_id: 'C-32899r1069182_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000067-GPOS-00035'
   tag gid: 'V-230230'

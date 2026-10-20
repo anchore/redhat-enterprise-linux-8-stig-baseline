@@ -35,10 +35,10 @@ GRUB_CMDLINE_LINUX="vsyscall=none"'
   tag stig_id: 'RHEL-08-010422'
   tag gtitle: 'SRG-OS-000134-GPOS-00068'
   tag fix_id: 'F-32922r743947_fix'
-  tag satisfies: ['SRG-OS-000480-GPOS-00227', 'SRG-OS-000134-GPOS-00068', 'SRG-OS-000433-GPOS-00192']
+  tag satisfies: ['SRG-OS-000134-GPOS-00068', 'SRG-OS-000433-GPOS-00192']
   tag 'documentable'
-  tag cci: ['CCI-000366', 'CCI-001084']
-  tag nist: ['CM-6 b', 'SC-3']
+  tag cci: ['CCI-001084']
+  tag nist: ['SC-3']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

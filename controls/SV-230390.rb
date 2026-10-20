@@ -29,10 +29,9 @@ If availability has been determined to be more important, and this decision is d
   tag stig_id: 'RHEL-08-030040'
   tag gtitle: 'SRG-OS-000047-GPOS-00023'
   tag fix_id: 'F-33034r567917_fix'
-  tag satisfies: ['SRG-OS-000046-GPOS-00022', 'SRG-OS-000047-GPOS-00023']
   tag 'documentable'
-  tag cci: ['CCI-000139', 'CCI-000140']
-  tag nist: ['AU-5 a', 'AU-5 b']
+  tag cci: ['CCI-000140']
+  tag nist: ['AU-5 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

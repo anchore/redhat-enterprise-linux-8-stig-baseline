@@ -37,6 +37,7 @@ SELINUXTYPE=targeted
 
 A reboot is required for the changes to take effect.'
   impact 0.5
+  tag check_id: 'C-32951r567592_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000445-GPOS-00199'
   tag gid: 'V-230282'

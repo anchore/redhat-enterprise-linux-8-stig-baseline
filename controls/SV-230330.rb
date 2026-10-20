@@ -28,8 +28,8 @@ $ sudo systemctl restart sshd.service'
   tag gtitle: 'SRG-OS-000480-GPOS-00229'
   tag fix_id: 'F-32974r567737_fix'
   tag 'documentable'
-  tag cci: ['CCI-000381', 'CCI-000366']
-  tag nist: ['CM-7 a', 'CM-6 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container-conditional'
 

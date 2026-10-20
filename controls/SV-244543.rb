@@ -18,6 +18,7 @@ space_left_action = email
 
 Note: Option names and values in the auditd.conf file are case insensitive.'
   impact 0.5
+  tag check_id: 'C-47818r743876_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000343-GPOS-00134'
   tag gid: 'V-244543'

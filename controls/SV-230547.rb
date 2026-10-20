@@ -30,14 +30,15 @@ Reload settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-33216r1184281_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230547'
   tag rid: 'SV-230547r1184283_rule'
   tag stig_id: 'RHEL-08-040283'
   tag fix_id: 'F-33191r1184282_fix'
-  tag cci: ['CCI-000366', 'CCI-001082', 'CCI-002824']
-  tag nist: ['CM-6 b', 'SC-2', 'SI-16']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {

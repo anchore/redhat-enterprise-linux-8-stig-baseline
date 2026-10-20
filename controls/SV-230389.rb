@@ -26,6 +26,7 @@ Add/update the following line in "/etc/aliases":
 
 postmaster: root'
   impact 0.5
+  tag check_id: 'C-33058r567913_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000046-GPOS-00022'
   tag gid: 'V-230389'

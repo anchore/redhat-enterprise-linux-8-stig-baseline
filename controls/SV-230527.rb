@@ -24,15 +24,16 @@ Restart the SSH daemon for the settings to take effect.
 
 $ sudo systemctl restart sshd.service'
   impact 0.5
+  tag check_id: 'C-33196r951615_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000033-GPOS-00014'
-  tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000420-GPOS-00186', 'SRG-OS-000424-GPOS-00188', 'SRG-OS-000423-GPOS-00187']
+  tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000420-GPOS-00186', 'SRG-OS-000424-GPOS-00188']
   tag gid: 'V-230527'
   tag rid: 'SV-230527r1017288_rule'
   tag stig_id: 'RHEL-08-040161'
   tag fix_id: 'F-33171r568328_fix'
-  tag cci: ['CCI-000068', 'CCI-002418', 'CCI-002421']
-  tag nist: ['AC-17 (2)', 'SC-8', 'SC-8 (1)']
+  tag cci: ['CCI-000068']
+  tag nist: ['AC-17 (2)']
   tag 'host'
   tag 'container-conditional'
 

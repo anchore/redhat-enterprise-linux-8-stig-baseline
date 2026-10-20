@@ -33,8 +33,8 @@ Note: Systemwide crypto policies are applied on application startup. It is recom
   tag fix_id: 'F-84397r1156348_fix'
   tag satisfies: ['SRG-OS-000396-GPOS-00176', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174']
   tag 'documentable'
-  tag cci: ['CCI-002450', 'CCI-002890', 'CCI-003123']
-  tag nist: ['SC-13 b', 'MA-4 (6)']
+  tag cci: ['CCI-002450']
+  tag nist: ['SC-13 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers or crypto policy is waived', impact: 0.0) {

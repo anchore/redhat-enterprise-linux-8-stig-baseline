@@ -29,10 +29,9 @@ Note: The example will be for the user "smithj", who has a home directory of "/h
   tag stig_id: 'RHEL-08-010740'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-32966r880716_fix'
-  tag satisfies: ['SRG-OS-000080-GPOS-00048', 'SRG-OS-000420-GPOS-00186']
   tag 'documentable'
-  tag cci: ['CCI-000213', 'CCI-002385', 'CCI-000366']
-  tag nist: ['AC-3', 'SC-5 a', 'CM-6 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

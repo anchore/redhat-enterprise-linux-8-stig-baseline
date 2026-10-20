@@ -32,14 +32,15 @@ Add or modify the following line in "/etc/default/grub" to ensure the configurat
 
 GRUB_CMDLINE_LINUX="pti=on"'
   impact 0.3
+  tag check_id: 'C-33160r818841_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230491'
   tag rid: 'SV-230491r1017274_rule'
   tag stig_id: 'RHEL-08-040004'
   tag fix_id: 'F-33135r568220_fix'
-  tag cci: ['CCI-000381', 'CCI-002824']
-  tag nist: ['CM-7 a', 'SI-16']
+  tag cci: ['CCI-000381']
+  tag nist: ['CM-7 a']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

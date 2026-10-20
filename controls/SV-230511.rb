@@ -24,6 +24,7 @@ If results are returned and the "nodev" option is missing, or if /tmp is mounted
 
 /dev/mapper/rhel-tmp /tmp xfs defaults,nodev,nosuid,noexec 0 0'
   impact 0.5
+  tag check_id: 'C-33180r568279_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag gid: 'V-230511'

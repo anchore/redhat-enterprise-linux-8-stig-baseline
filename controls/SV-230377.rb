@@ -19,14 +19,15 @@ dictcheck=1
 
 Remove any configurations that conflict with the above value.'
   impact 0.5
+  tag check_id: 'C-33046r833330_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00225'
   tag gid: 'V-230377'
   tag rid: 'SV-230377r1017188_rule'
   tag stig_id: 'RHEL-08-020300'
   tag fix_id: 'F-33021r858788_fix'
-  tag cci: ['CCI-000366', 'CCI-004066']
-  tag nist: ['CM-6 b', 'IA-5 (1) (h)']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container'
 

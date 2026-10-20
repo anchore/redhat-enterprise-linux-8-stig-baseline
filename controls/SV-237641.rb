@@ -12,14 +12,15 @@ ALL     ALL=(ALL:ALL) ALL)
 ALL     ALL=(ALL) ALL
 ALL     ALL=(ALL:ALL) ALL'
   impact 0.5
+  tag check_id: 'C-40860r1101903_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-237641'
   tag rid: 'SV-237641r1101904_rule'
   tag stig_id: 'RHEL-08-010382'
   tag fix_id: 'F-40823r646892_fix'
-  tag cci: ['CCI-000366', 'CCI-002696']
-  tag nist: ['CM-6 b', 'SI-6 a']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container-conditional'
 

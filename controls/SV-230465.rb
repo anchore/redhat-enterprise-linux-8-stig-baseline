@@ -6,17 +6,15 @@ Audit records can be generated from various components within the information sy
 
 The list of audited events is the set of events for which audits are to be generated. This set of events is typically a subset of the list of all events for which the system is capable of generating audit records.
 
-DoD has defined the list of events for which RHEL 8 will provide an audit record generation capability as the following:
+DoW has defined the list of events for which RHEL 8 will provide an audit record generation capability as the following:
 
 1) Successful and unsuccessful attempts to access, modify, or delete privileges, security objects, security levels, or categories of information (e.g., classification levels);
 
 2) Access actions, such as successful and unsuccessful logon attempts, privileged activities or other system-level access, starting and ending time for user access to the system, concurrent logons from different workstations, successful and unsuccessful accesses to objects, all program initiations, and all direct access to the information system;
 
-3) All account creations, modifications, disabling, and terminations; and
+3) All account creations, modifications, disabling, and terminations; and 
 
-4) All kernel module load, unload, and restart actions.
-
-'
+4) All kernel module load, unload, and restart actions.'
   desc 'check', 'Verify if RHEL 8 is configured to audit the execution of the module management program "kmod", by running the following command:
 
 $ sudo grep "/usr/bin/kmod" /etc/audit/audit.rules
@@ -33,7 +31,7 @@ The audit daemon must be restarted for the changes to take effect.'
   tag check_id: 'C-33134r568141_chk'
   tag severity: 'medium'
   tag gid: 'V-230465'
-  tag rid: 'SV-230465r1017257_rule'
+  tag rid: 'SV-230465r1262212_rule'
   tag stig_id: 'RHEL-08-030580'
   tag gtitle: 'SRG-OS-000062-GPOS-00031'
   tag fix_id: 'F-33109r568142_fix'

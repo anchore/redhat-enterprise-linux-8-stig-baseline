@@ -63,7 +63,6 @@
 | W        | SV-230282 |                       | Y        | Y      | Y     | N                                | None                                                                                                      |
 | W        | SV-230283 |                       | Y        | Y      | Y     | N                                | None                                                                                                      |
 | W        | SV-230284 |                       | Y        | Y      | Y     | N                                | None                                                                                                      |
-| W        | SV-230285 | Y                     | Y        | Y      | Y     | N                                | None                                                                                                      |
 | W        | SV-230286 |                       | Y        | Y      | Y     | N                                | `ssh_host_key_dirs`, `ssh_pub_key_mode`                                                                   |
 | W        | SV-230287 | Y                     | Y        | Y      | Y     | N                                | `ssh_host_key_dirs`, `ssh_private_key_mode`                                                               |
 | W        | SV-230288 |                       | Y        | Y      | Y     | N                                | None                                                                                                      |
@@ -375,3 +374,9 @@
 | A        | SV-256973 |                       | Y        | Y      | Y     | N                                | `rpm_gpg_file<br>``rpm_gpg_keys`                                                                        |
 | A        | SV-256974 |                       | Y        | Y      | Y     | N                                | `mail_package`                                                                                          |
 | A        | SV-257258 |                       | Y        | Y      | Y     | N                                | `stop_idle_session_sec`                                                                                 |
+|          | SV-284947 |                       | N        | N      | N     | N                                | None                                                                                                      |
+|          | SV-284948 |                       | N        | N      | N     | N                                | None                                                                                                      |
+|          | SV-284949 |                       | N        | N      | N     | N                                | None                                                                                                      |
+|          | SV-288829 |                       | N        | N      | N     | N                                | None                                                                                                      |
+|          | SV-288830 |                       | N        | N      | N     | N                                | None                                                                                                      |
+|          | SV-288831 |                       | N        | N      | N     | N                                | `audit_rule_keynames`, `audit_rule_keynames_overrides`                                                    |

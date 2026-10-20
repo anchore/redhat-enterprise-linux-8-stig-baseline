@@ -35,7 +35,7 @@ Replace "[audit_tool]" with each audit tool not owned by "root".'
   tag fix_id: 'F-33117r568166_fix'
   tag satisfies: ['SRG-OS-000256-GPOS-00097', 'SRG-OS-000257-GPOS-00098', 'SRG-OS-000258-GPOS-00099']
   tag 'documentable'
-  tag cci: ['CCI-001493', 'CCI-001494', 'CCI-001495']
+  tag cci: ['CCI-001493']
   tag nist: ['AU-9 a', 'AU-9']
   tag 'host'
 

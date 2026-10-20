@@ -30,14 +30,15 @@ Add or modify the following line in "/etc/default/grub" to ensure the configurat
 
 GRUB_CMDLINE_LINUX="audit_backlog_limit=8192"'
   impact 0.3
+  tag check_id: 'C-33138r792905_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000341-GPOS-00132'
   tag gid: 'V-230469'
   tag rid: 'SV-230469r958752_rule'
   tag stig_id: 'RHEL-08-030602'
   tag fix_id: 'F-33113r568154_fix'
-  tag cci: ['CCI-001849', 'CCI-001464', 'CCI-000130', 'CCI-000135', 'CCI-000169', 'CCI-002884', 'CCI-000172']
-  tag nist: ['AU-4', 'AU-14 (1)', 'AU-3 a', 'AU-3 (1)', 'AU-12 a', 'MA-4 (1) (a)', 'AU-12 c']
+  tag cci: ['CCI-001849']
+  tag nist: ['AU-4']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

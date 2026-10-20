@@ -21,6 +21,7 @@ maxrepeat = 3
 
 Remove any configurations that conflict with the above value.'
   impact 0.5
+  tag check_id: 'C-33030r833320_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000072-GPOS-00040'
   tag gid: 'V-230361'

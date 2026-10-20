@@ -25,8 +25,8 @@ declare -xr TMOUT=600'
   tag fix_id: 'F-84394r1156339_fix'
   tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000029-GPOS-00010']
   tag 'documentable'
-  tag cci: ['CCI-000057', 'CCI-001133']
-  tag nist: ['AC-11 a', 'SC-10']
+  tag cci: ['CCI-001133']
+  tag nist: ['SC-10']
   tag 'host'
   tag 'container'
 

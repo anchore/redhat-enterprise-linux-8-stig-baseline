@@ -29,6 +29,7 @@ Update the system databases:
 
 $ sudo dconf update'
   impact 0.5
+  tag check_id: 'C-47810r743852_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
   tag satisfies: ['SRG-OS-000029-GPOS-00010', 'SRG-OS-000031-GPOS-00012', 'SRG-OS-000480-GPOS-00227']
@@ -36,8 +37,8 @@ $ sudo dconf update'
   tag rid: 'SV-244535r1017342_rule'
   tag stig_id: 'RHEL-08-020031'
   tag fix_id: 'F-47767r743853_fix'
-  tag cci: ['CCI-000057', 'CCI-000060']
-  tag nist: ['AC-11 a', 'AC-11 (1)']
+  tag cci: ['CCI-000057']
+  tag nist: ['AC-11 a']
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {

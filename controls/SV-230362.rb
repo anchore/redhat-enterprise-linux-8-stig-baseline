@@ -21,6 +21,7 @@ minclass = 4
 
 Remove any configurations that conflict with the above value.'
   impact 0.5
+  tag check_id: 'C-33031r833322_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000072-GPOS-00040'
   tag gid: 'V-230362'

@@ -4,29 +4,28 @@ control 'SV-230265' do
 
 Accordingly, patches, service packs, device drivers, or operating system components must be signed with a certificate recognized and approved by the organization.
 
-Verifying the authenticity of the software prior to installation validates the integrity of the patch or upgrade received from a vendor. This verifies the software has not been tampered with and that it has been provided by a trusted vendor. Self-signed certificates are disallowed by this requirement. The operating system should not have to verify the software again. This requirement does not mandate DoD certificates for this purpose; however, the certificate used to verify the software must be from an approved CA.'
+Verifying the authenticity of the software prior to installation validates the integrity of the patch or upgrade received from a vendor. This verifies the software has not been tampered with and that it has been provided by a trusted vendor. Self-signed certificates are disallowed by this requirement. The operating system should not have to verify the software again. This requirement does not mandate DoW certificates for this purpose; however, the certificate used to verify the software must be from an approved CA.'
   desc 'check', 'Verify the operating system prevents the installation of patches, service packs, device drivers, or operating system components from a repository without verification that they have been digitally signed using a certificate that is recognized and approved by the organization.
 
-Check if YUM is configured to perform a signature check on local packages with the following command:
+Determine if YUM is configured to perform a signature check on local packages with the following command:
 
 $ sudo grep -i localpkg_gpgcheck /etc/dnf/dnf.conf
+localpkg_gpgcheck=1
 
-localpkg_gpgcheck =True
-
-If "localpkg_gpgcheck" is not set to either "1", "True", or "yes", commented out, or is missing from "/etc/dnf/dnf.conf", this is a finding.'
+If "localpkg_gpgcheck" is not set to "1", "True", or "yes", is commented out, or is missing from "/etc/dnf/dnf.conf", this is a finding.'
   desc 'fix', 'Configure the operating system to remove all software components after updated versions have been installed.
 
 Set the "localpkg_gpgcheck" option to "True" in the "/etc/dnf/dnf.conf" file:
 
-localpkg_gpgcheck=True'
+localpkg_gpgcheck=1'
   impact 0.7
-  tag check_id: 'C-32934r567541_chk'
+  tag check_id: 'C-32934r1208741_chk'
   tag severity: 'high'
   tag gid: 'V-230265'
-  tag rid: 'SV-230265r1017378_rule'
+  tag rid: 'SV-230265r1262200_rule'
   tag stig_id: 'RHEL-08-010371'
   tag gtitle: 'SRG-OS-000366-GPOS-00153'
-  tag fix_id: 'F-32909r567542_fix'
+  tag fix_id: 'F-32909r1208406_fix'
   tag 'documentable'
   tag cci: ['CCI-001749', 'CCI-003992']
   tag nist: ['CM-5 (3)', 'CM-14']

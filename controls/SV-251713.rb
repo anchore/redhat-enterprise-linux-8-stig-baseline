@@ -5,31 +5,30 @@ control 'SV-251713' do
 RHEL 8 uses "pwquality" as a mechanism to enforce password complexity. This is set in both:
 /etc/pam.d/password-auth
 /etc/pam.d/system-auth'
-  desc 'check', 'Verify the operating system uses "pwquality" to enforce the password complexity rules.
+  desc 'check', 'Verify the operating system uses "pwquality" to enforce the password complexity rules. 
 
 Check for the use of "pwquality" in the system-auth file with the following command:
 
-     $ sudo cat /etc/pam.d/system-auth | grep pam_pwquality
-
-     password requisite pam_pwquality.so
+$ sudo cat /etc/pam.d/system-auth | grep pam_pwquality
+password required pam_pwquality.so
 
 If the command does not return a line containing the value "pam_pwquality.so" as shown, or the line is commented out, this is a finding.'
   desc 'fix', 'Configure the operating system to use "pwquality" to enforce password complexity rules.
 
 Add the following line to the "/etc/pam.d/system-auth" file (or modify the line to have the required value):
 
-     password requisite pam_pwquality.so'
+password required pam_pwquality.so'
   impact 0.5
-  tag check_id: 'C-55150r902738_chk'
+  tag check_id: 'C-55150r1261916_chk'
   tag severity: 'medium'
   tag gid: 'V-251713'
-  tag rid: 'SV-251713r1017366_rule'
+  tag rid: 'SV-251713r1262179_rule'
   tag stig_id: 'RHEL-08-020101'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag fix_id: 'F-55104r902739_fix'
+  tag fix_id: 'F-55104r1261917_fix'
   tag 'documentable'
-  tag cci: ['CCI-000366', 'CCI-004066']
-  tag nist: ['CM-6 b', 'IA-5 (1) (h)']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container'
 

@@ -2,11 +2,11 @@ control 'SV-230269' do
   title 'RHEL 8 must restrict access to the kernel message buffer.'
   desc 'Preventing unauthorized information transfers mitigates the risk of information, including encrypted representations of information, produced by the actions of prior users/roles (or the actions of processes acting on behalf of prior users/roles) from being available to any current users/roles (or current processes) that obtain access to shared system resources (e.g., registers, main memory, hard disks) after those resources have been released back to information systems. The control of information in shared resources is also commonly referred to as object reuse and residual information protection.
 
-This requirement generally applies to the design of an information technology product, but it can also apply to the configuration of particular information system components that are, or use, such products. This can be verified by acceptance/validation processes in DoD or other government agencies.
+This requirement generally applies to the design of an information technology product, but it can also apply to the configuration of particular information system components that are, or use, such products. This can be verified by acceptance/validation processes in DoW or other government agencies.
 
 There may be shared resources with configurable protections (e.g., files in storage) that may be assessed on specific information system components.
 
-Restricting access to the kernel message buffer limits access to only root. This prevents attackers from gaining additional system information as a non-privileged user.
+Restricting access to the kernel message buffer limits access to only root. This prevents attackers from gaining additional system information as a nonprivileged user.
 
 The sysctl --system command will load settings from all system configuration files. All configuration files are sorted by their filename in lexicographic order, regardless of which of the directories they reside in. If multiple files specify the same option, the entry in the file with the lexicographically latest name will take precedence. Files are read from directories in the following list from top to bottom. Once a file of a given filename is loaded, any file of the same name in subsequent directories is ignored.
 /etc/sysctl.d/*.conf
@@ -36,14 +36,15 @@ Reload settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.3
+  tag check_id: 'C-32938r1184253_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000138-GPOS-00069'
   tag gid: 'V-230269'
-  tag rid: 'SV-230269r1184255_rule'
+  tag rid: 'SV-230269r1262201_rule'
   tag stig_id: 'RHEL-08-010375'
   tag fix_id: 'F-32913r1184254_fix'
-  tag cci: ['CCI-001090', 'CCI-001082']
-  tag nist: ['SC-4', 'SC-2']
+  tag cci: ['CCI-001090']
+  tag nist: ['SC-4']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {

@@ -1,10 +1,10 @@
 control 'SV-272483' do
-  title 'The RHEL 8 SSH client must be configured to use only DOD-approved encryption ciphers employing FIPS 140-3-validated cryptographic hash algorithms to protect the confidentiality of SSH client connections.'
-  desc 'Without cryptographic integrity protections, information can be altered by unauthorized users without detection.
+  title 'The RHEL 8 SSH client must be configured to use only DoW-approved encryption ciphers employing FIPS 140-3-validated cryptographic hash algorithms to protect the confidentiality of SSH client connections.'
+  desc 'Without cryptographic integrity protections, information can be altered by unauthorized users without detection. 
 
-Remote access (e.g., RDP) is access to DOD nonpublic information systems by an authorized user (or an information system) communicating through an external, nonorganization-controlled network. Remote access methods include, for example, dial-up, broadband, and wireless.
+Remote access (e.g., RDP) is access to DoW nonpublic information systems by an authorized user (or an information system) communicating through an external, nonorganization-controlled network. Remote access methods include, for example, dial-up, broadband, and wireless. 
 
-Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash functions using asymmetric cryptography, enabling distribution of the public key to verify the hash information while maintaining the confidentiality of the secret key used to generate the hash.
+Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash functions using asymmetric cryptography, enabling distribution of the public key to verify the hash information while maintaining the confidentiality of the secret key used to generate the hash. 
 
 RHEL 8 incorporates systemwide crypto policies by default. The SSH configuration file has no effect on the ciphers, MACs, or algorithms unless specifically defined in the /etc/sysconfig/sshd file. The employed algorithms can be viewed in the /etc/crypto-policies/back-ends/openssh.config file.'
   desc 'check', 'Verify the RHEL 8 SSH client is configured to use only ciphers employing FIPS 140-3-approved algorithms.
@@ -33,13 +33,14 @@ Note: Systemwide crypto policies are applied on application startup. It is recom
   tag check_id: 'C-76537r1155359_chk'
   tag severity: 'high'
   tag gid: 'V-272483'
-  tag rid: 'SV-272483r1184243_rule'
+  tag rid: 'SV-272483r1262198_rule'
   tag stig_id: 'RHEL-08-010297'
   tag gtitle: 'SRG-OS-000250-GPOS-00093'
+  tag satisfies: ['SRG-OS-000250-GPOS-00093', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174', 'SRG-OS-000125-GPOS-00066']
   tag fix_id: 'F-76443r1155360_fix'
   tag 'documentable'
-  tag cci: ['CCI-001453', 'CCI-000068', 'CCI-000877', 'CCI-002890', 'CCI-003123', 'CCI-002418']
-  tag nist: ['AC-17 (2)', 'MA-4 c', 'MA-4 (6)', 'SC-8']
+  tag cci: ['CCI-001453']
+  tag nist: ['AC-17 (2)']
   tag 'host'
   tag 'container-conditional'
 

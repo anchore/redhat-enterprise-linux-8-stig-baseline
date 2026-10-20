@@ -21,14 +21,15 @@ disable-user-list=true
 Update the system databases:
 $ sudo dconf update'
   impact 0.5
+  tag check_id: 'C-47811r743855_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244536'
   tag rid: 'SV-244536r1017343_rule'
   tag stig_id: 'RHEL-08-020032'
   tag fix_id: 'F-47768r743856_fix'
-  tag cci: ['CCI-000366', 'CCI-000381']
-  tag nist: ['CM-6 b', 'CM-7 a']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {

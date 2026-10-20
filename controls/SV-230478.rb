@@ -23,14 +23,15 @@ If the "rsyslog-gnutls" package is not installed, ask the administrator to indic
 
 $ sudo yum install rsyslog-gnutls'
   impact 0.5
+  tag check_id: 'C-33147r744009_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230478'
   tag rid: 'SV-230478r1017268_rule'
   tag stig_id: 'RHEL-08-030680'
   tag fix_id: 'F-33122r744010_fix'
-  tag cci: ['CCI-000366', 'CCI-000803']
-  tag nist: ['CM-6 b', 'IA-7']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

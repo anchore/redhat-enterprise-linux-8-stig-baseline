@@ -25,14 +25,15 @@ $ sudo chown smithj /home/smithj
 $ sudo chgrp users /home/smithj
 $ sudo chmod 0750 /home/smithj'
   impact 0.5
+  tag check_id: 'C-32992r567715_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230323'
   tag rid: 'SV-230323r1017134_rule'
   tag stig_id: 'RHEL-08-010750'
   tag fix_id: 'F-32967r567716_fix'
-  tag cci: ['CCI-000366', 'CCI-002385']
-  tag nist: ['CM-6 b', 'SC-5 a']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

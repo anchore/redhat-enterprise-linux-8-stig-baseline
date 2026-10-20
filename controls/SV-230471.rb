@@ -1,34 +1,38 @@
 control 'SV-230471' do
-  title 'RHEL 8 must allow only the Information System Security Manager (ISSM) (or individuals or roles appointed by the ISSM) to select which auditable events are to be audited.'
+  title 'RHEL 8 must allow only the information system security manager (ISSM) (or individuals or roles appointed by the ISSM) to select which auditable events are to be audited.'
   desc "Without the capability to restrict the roles and individuals that can
 select which events are audited, unauthorized personnel may be able to prevent
 the auditing of critical events. Misconfigured audits may degrade the system's
 performance by overwhelming the audit log. Misconfigured audits may also make
 it more difficult to establish, correlate, and investigate the events relating
 to an incident or identify those responsible for one."
-  desc 'check', 'Verify that the files in directory "/etc/audit/rules.d/" and "/etc/audit/auditd.conf" file have a mode of "0640" or less permissive by using the following commands:
+  desc 'check', 'Verify that the files in the directory /etc/audit/rules.d/ have a mode of 0600 or less permissive with the following command:
 
-$ sudo find /etc/audit/rules.d/ -type f -name *.rules -exec ls -al {} \\;
+$ sudo find /etc/audit/rules.d/ -type f -name "*.rules" -exec stat -c "%a %n" {} \\;
+600 /etc/audit/rules.d/audit.rules
 
--rw-r-----. 1 root root 284 May 1 20:30 /etc/audit/rules.d/audit.rules
+Verify that the files /etc/audit/audit.rules and /etc/audit/auditd.conf have a mode of 0600 or less permissive with the following command:
 
-$ sudo ls -l /etc/audit/auditd.conf
+$ sudo stat -c "%a %n" /etc/audit/audit.rules /etc/audit/auditd.conf
+600 /etc/audit/audit.rules
+600 /etc/audit/auditd.conf
 
--rw-r----- 1 root root 621 Sep 22 17:19 auditd.conf
+If any of the audit configuration files have a mode more permissive than "0600", this is a finding.'
+  desc 'fix', 'Configure the rules files in the directory /etc/audit/rules.d/, the /etc/audit/audit.rules file, and the /etc/audit/auditd.conf file to have a mode of 0600 with the following commands:
 
-If the files in the "/etc/audit/rules.d/" directory or the "/etc/audit/auditd.conf" file have a mode more permissive than "0640", this is a finding.'
-  desc 'fix', 'Configure the files in directory "/etc/audit/rules.d/" and the "/etc/audit/auditd.conf" file to have a mode of "0640" with the following commands:
+$ sudo find /etc/audit/rules.d/ -type f -name "*.rules" -exec chmod 0600 {} +
 
-$ sudo chmod 0640 /etc/audit/rules.d/audit.rules
-$ sudo chmod 0640 /etc/audit/rules.d/[customrulesfile].rules
-$ sudo chmod 0640 /etc/audit/auditd.conf'
+$ sudo chmod 0600 /etc/audit/audit.rules
+
+$ sudo chmod 0600 /etc/audit/auditd.conf'
   impact 0.5
+  tag check_id: 'C-33140r1261904_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000063-GPOS-00032'
   tag gid: 'V-230471'
-  tag rid: 'SV-230471r1069296_rule'
+  tag rid: 'SV-230471r1262175_rule'
   tag stig_id: 'RHEL-08-030610'
-  tag fix_id: 'F-33115r568160_fix'
+  tag fix_id: 'F-33115r1261905_fix'
   tag cci: ['CCI-000171']
   tag nist: ['AU-12 b']
   tag 'host'
@@ -37,7 +41,7 @@ $ sudo chmod 0640 /etc/audit/auditd.conf'
     !virtualization.container_system?
   }
 
-  rules_files = bash('ls -d /etc/audit/rules.d/*.rules').stdout.strip.split.append('/etc/audit/auditd.conf')
+  rules_files = bash('ls -d /etc/audit/rules.d/*.rules').stdout.strip.split.push('/etc/audit/audit.rules', '/etc/audit/auditd.conf')
 
   audit_conf_mode = input('audit_conf_mode')
   failing_files = rules_files.select { |rf| file(rf).more_permissive_than?(audit_conf_mode) }

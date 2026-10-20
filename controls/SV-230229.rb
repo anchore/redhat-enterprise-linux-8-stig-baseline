@@ -9,9 +9,9 @@ When there is a chain of trust, usually the top entity to be trusted becomes the
 This requirement verifies that a certification path to an accepted trust anchor is used for certificate validation and that the path includes status information. Path validation is necessary for a relying party to make an informed trust decision when presented with any certificate not already explicitly trusted. Status information for certification paths includes certificate revocation lists or online certificate status protocol responses. Validation of the certificate status information is out of scope for this requirement.'
   desc 'check', 'Verify RHEL 8 for PKI-based authentication has valid certificates by constructing a certification path (which includes status information) to an accepted trust anchor.
 
-Note: If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
+Note: If the system administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
 
-Check that the system has a valid DoD root CA installed with the following command:
+Check that the system has a valid DoW root CA installed with the following command:
 
 $ sudo openssl x509 -text -in /etc/sssd/pki/sssd_auth_ca_db.pem
 
@@ -20,30 +20,31 @@ Certificate:
       Version: 3 (0x2)
       Serial Number: 1 (0x1)
       Signature Algorithm: sha256WithRSAEncryption
-      Issuer: C = US, O = U.S. Government, OU = DoD, OU = PKI, CN = DoD Root CA 3
+      Issuer: C = US, O = U.S. Government, OU = DoW, OU = PKI, CN = DoD Root CA 3
       Validity
          Not Before: Mar 20 18:46:41 2012 GMT
          Not After   : Dec 30 18:46:41 2029 GMT
-      Subject: C = US, O = U.S. Government, OU = DoD, OU = PKI, CN = DoD Root CA 3
+      Subject: C = US, O = U.S. Government, OU = DoW, OU = PKI, CN = DoD Root CA 3
       Subject Public Key Info:
          Public Key Algorithm: rsaEncryption
 
-If the root ca file is not a DoD-issued certificate with a valid date and installed in the /etc/sssd/pki/sssd_auth_ca_db.pem location, this is a finding.'
+If the root ca file is not a DoW-issued certificate with a valid date and installed in the /etc/sssd/pki/sssd_auth_ca_db.pem location, this is a finding.'
   desc 'fix', 'Configure RHEL 8, for PKI-based authentication, to validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor.
 
-Obtain a valid copy of the DoD root CA file from the PKI CA certificate bundle at cyber.mil and copy into the following file:
+Obtain a valid copy of the DoW root CA file from the PKI CA certificate bundle at cyber.mil and copy into the following file:
 
 /etc/sssd/pki/sssd_auth_ca_db.pem'
   impact 0.5
+  tag check_id: 'C-32898r1261931_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000066-GPOS-00034'
-  tag satisfies: ['SRG-OS-000066-GPOS-00034', 'SRG-OS-000384-GPOS-00167', 'SRG-OS-000775-GPOS-00230', 'SRG-OS-000780-GPOS-00240']
+  tag satisfies: ['SRG-OS-000066-GPOS-00034', 'SRG-OS-000384-GPOS-00167']
   tag gid: 'V-230229'
-  tag rid: 'SV-230229r1017048_rule'
+  tag rid: 'SV-230229r1262186_rule'
   tag stig_id: 'RHEL-08-010090'
-  tag fix_id: 'F-32873r809269_fix'
-  tag cci: ['CCI-000185', 'CCI-001991', 'CCI-004068', 'CCI-004909', 'CCI-004910']
-  tag nist: ['IA-5 (2) (a)', 'IA-5 (2) (b) (1)', 'IA-5 (2) (d)', 'IA-5 (2) (b) (2)', 'SC-17 b', 'SC-28 (3)']
+  tag fix_id: 'F-32873r1261932_fix'
+  tag cci: ['CCI-000185']
+  tag nist: ['IA-5 (2) (a)', 'IA-5 (2) (b) (1)']
   tag 'host'
   tag 'container'
 

@@ -28,15 +28,16 @@ Add or modify the following line in "/etc/default/grub" to ensure the configurat
 
 GRUB_CMDLINE_LINUX="page_poison=1"'
   impact 0.5
+  tag check_id: 'C-32946r792883_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000134-GPOS-00068'
-  tag satisfies: ['SRG-OS-000134-GPOS-00068', 'SRG-OS-000433-GPOS-00192', 'SRG-OS-000480-GPOS-00227']
+  tag satisfies: ['SRG-OS-000134-GPOS-00068', 'SRG-OS-000433-GPOS-00192']
   tag gid: 'V-230277'
   tag rid: 'SV-230277r1017090_rule'
   tag stig_id: 'RHEL-08-010421'
   tag fix_id: 'F-32921r567578_fix'
-  tag cci: ['CCI-001084', 'CCI-000366']
-  tag nist: ['SC-3', 'CM-6 b']
+  tag cci: ['CCI-001084']
+  tag nist: ['SC-3']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {

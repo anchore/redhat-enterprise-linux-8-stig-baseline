@@ -1,6 +1,6 @@
 control 'SV-230504' do
   title 'A RHEL 8 firewall must employ a deny-all, allow-by-exception policy for allowing connections to other systems.'
-  desc 'Failure to restrict network connectivity only to authorized systems permits inbound connections from malicious systems. It also permits outbound connections that may facilitate exfiltration of DoD data.
+  desc 'Failure to restrict network connectivity only to authorized systems permits inbound connections from malicious systems. It also permits outbound connections that may facilitate exfiltration of DoW data.
 
 RHEL 8 incorporates the "firewalld" daemon, which allows for many different configurations. One of these configurations is zones. Zones can be utilized to a deny-all, allow-by-exception approach. The default "drop" zone will drop all incoming network packets unless it is explicitly allowed by the configuration file or is related to an outgoing network connection.'
   desc 'check', 'Verify "firewalld" is configured to employ a deny-all, allow-by-exception policy for allowing connections to other systems with the following commands:
@@ -17,7 +17,7 @@ RHEL 8 incorporates the "firewalld" daemon, which allows for many different conf
 
 If no zones are active on the RHEL 8 interfaces or if the target is set to a different option other than "DROP", this is a finding.
 
-If the "firewalld" package is not installed, ask the System Administrator if an alternate firewall (such as iptables) is installed and in use, and how is it configured to employ a deny-all, allow-by-exception policy.
+If the "firewalld" package is not installed, ask the system administrator if an alternate firewall (such as iptables) is installed and in use, and how is it configured to employ a deny-all, allow-by-exception policy. 
 
 If the alternate firewall is not configured to employ a deny-all, allow-by-exception policy, this is a finding.
 
@@ -45,15 +45,15 @@ Add any interfaces to the new [custom] zone:
 Reload the firewall rules for changes to take effect:
      $ sudo firewall-cmd --reload'
   impact 0.5
+  tag check_id: 'C-33173r1261975_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000297-GPOS-00115'
-  tag satisfies: ['SRG-OS-000368-GPOS-00154', 'SRG-OS-000370-GPOS-00155', 'SRG-OS-000480-GPOS-00232']
   tag gid: 'V-230504'
-  tag rid: 'SV-230504r958672_rule'
+  tag rid: 'SV-230504r1262220_rule'
   tag stig_id: 'RHEL-08-040090'
   tag fix_id: 'F-33148r942941_fix'
-  tag cci: ['CCI-001764', 'CCI-000366', 'CCI-002314']
-  tag nist: ['CM-7 (2)', 'CM-6 b', 'AC-17 (1)']
+  tag cci: ['CCI-002314']
+  tag nist: ['AC-17 (1)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

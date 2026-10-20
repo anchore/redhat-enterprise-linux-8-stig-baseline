@@ -24,8 +24,8 @@ $ sudo ip link set dev <devicename> multicast off promisc off'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33198r568409_fix'
   tag 'documentable'
-  tag cci: ['CCI-002418', 'CCI-000366']
-  tag nist: ['SC-8', 'CM-6 b']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

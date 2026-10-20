@@ -24,15 +24,16 @@ Add the following line to the top of the /etc/security/limits.conf or in a singl
 
 Remove or comment out any entries for users or groups with a value set to anything other than "0".'
   impact 0.5
+  tag check_id: 'C-32982r1155377_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230313'
   tag rid: 'SV-230313r1155379_rule'
   tag stig_id: 'RHEL-08-010673'
   tag fix_id: 'F-32957r1155378_fix'
-  tag cci: ['CCI-000366', 'CCI-000381']
+  tag cci: ['CCI-000366']
   tag legacy: []
-  tag nist: ['CM-6 b', 'CM-7 a']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

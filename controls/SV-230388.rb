@@ -27,10 +27,9 @@ action_mail_acct = root'
   tag stig_id: 'RHEL-08-030020'
   tag gtitle: 'SRG-OS-000046-GPOS-00022'
   tag fix_id: 'F-33032r567911_fix'
-  tag satisfies: ['SRG-OS-000046-GPOS-00022', 'SRG-OS-000343-GPOS-00134']
   tag 'documentable'
-  tag cci: ['CCI-000139', 'CCI-001855']
-  tag nist: ['AU-5 a', 'AU-5 (1)']
+  tag cci: ['CCI-000139']
+  tag nist: ['AU-5 a']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

@@ -19,14 +19,15 @@ Add or edit the line for the "UMASK" parameter in "/etc/login.defs" file to "077
 
 UMASK 077'
   impact 0.5
+  tag check_id: 'C-33052r567895_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00228'
   tag gid: 'V-230383'
   tag rid: 'SV-230383r1017192_rule'
   tag stig_id: 'RHEL-08-020351'
   tag fix_id: 'F-33027r567896_fix'
-  tag cci: ['CCI-000366', 'CCI-000213']
-  tag nist: ['CM-6 b', 'AC-3']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container'
 

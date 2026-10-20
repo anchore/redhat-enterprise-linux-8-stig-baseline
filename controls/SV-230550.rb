@@ -22,14 +22,15 @@ If the "smtpd_client_restrictions" parameter contains any entries other than "pe
 
 $ sudo postconf -e 'smtpd_client_restrictions = permit_mynetworks,reject')
   impact 0.5
+  tag check_id: 'C-33219r568396_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230550'
   tag rid: 'SV-230550r1017312_rule'
   tag stig_id: 'RHEL-08-040290'
   tag fix_id: 'F-33194r568397_fix'
-  tag cci: ['CCI-000366', 'CCI-000381']
-  tag nist: ['CM-6 b', 'CM-7 a']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
   tag 'container'
 

@@ -20,14 +20,15 @@ name_format = hostname
 
 The audit daemon must be restarted for changes to take effect.'
   impact 0.5
+  tag check_id: 'C-33063r567928_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag gid: 'V-230394'
   tag rid: 'SV-230394r958754_rule'
   tag stig_id: 'RHEL-08-030062'
   tag fix_id: 'F-33038r567929_fix'
-  tag cci: ['CCI-001851', 'CCI-000132']
-  tag nist: ['AU-4 (1)', 'AU-3 c']
+  tag cci: ['CCI-001851']
+  tag nist: ['AU-4 (1)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

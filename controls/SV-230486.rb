@@ -4,9 +4,9 @@ control 'SV-230486' do
 
 Not exposing the management interface of the chrony daemon on the network diminishes the attack space.
 
-RHEL 8 utilizes the "timedatectl" command to view the status of the "systemd-timesyncd.service". The "timedatectl" status will display the local time, UTC, and the offset from UTC.
+RHEL 8 utilizes the "timedatectl" command to view the status of the "systemd-timesyncd.service". The "timedatectl" status will display the local time, Coordinated Universal Time (UTC), and the offset from UTC.
 
-Note that USNO offers authenticated NTP service to DOD and U.S. Government agencies operating on the NIPR and SIPR networks. Visit https://www.usno.navy.mil/USNO/time/ntp/DOD-customers for more information.'
+Note that USNO offers authenticated NTP service to DoW and U.S. Government agencies operating on the NIPR and SIPR networks. Visit https://www.usno.navy.mil/USNO/time/ntp/DoW-customers for more information.'
   desc 'check', %q(Note: If the system is approved and documented by the information system security officer (ISSO) to function as an NTP time server, this requirement is Not Applicable.
 
 Verify RHEL 8 disables network management of the chrony daemon with the following command:
@@ -19,14 +19,15 @@ If the "cmdport" option is not set to "0", is commented out or missing, this is 
 
 cmdport 0'
   impact 0.3
+  tag check_id: 'C-33155r1014807_chk'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230486'
-  tag rid: 'SV-230486r1017270_rule'
+  tag rid: 'SV-230486r1262219_rule'
   tag stig_id: 'RHEL-08-030742'
   tag fix_id: 'F-33130r1014808_fix'
-  tag cci: ['CCI-000381', 'CCI-000382']
-  tag nist: ['CM-7 a', 'CM-7 b']
+  tag cci: ['CCI-000381']
+  tag nist: ['CM-7 a']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

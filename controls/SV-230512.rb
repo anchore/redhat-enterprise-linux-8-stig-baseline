@@ -22,6 +22,7 @@ If results are returned and the "nosuid" option is missing, or if /tmp is mounte
 
 /dev/mapper/rhel-tmp /tmp xfs defaults,nodev,nosuid,noexec 0 0'
   impact 0.5
+  tag check_id: 'C-33181r568282_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag gid: 'V-230512'

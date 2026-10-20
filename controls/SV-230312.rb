@@ -28,15 +28,16 @@ Reload the daemon for this change to take effect.
 
 $ sudo systemctl daemon-reload'
   impact 0.5
+  tag check_id: 'C-32981r1134876_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230312'
   tag rid: 'SV-230312r1134877_rule'
   tag stig_id: 'RHEL-08-010672'
   tag fix_id: 'F-32956r833307_fix'
-  tag cci: ['CCI-000366', 'CCI-002165']
+  tag cci: ['CCI-000366']
   tag legacy: []
-  tag nist: ['CM-6 b', 'AC-3 (4)']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

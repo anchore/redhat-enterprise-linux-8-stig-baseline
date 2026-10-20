@@ -1,15 +1,15 @@
 control 'SV-230274' do
   title 'RHEL 8 must implement certificate status checking for multifactor authentication.'
-  desc 'Using an authentication device, such as a DoD Common Access Card (CAC) or token that is separate from the information system, ensures that even if the information system is compromised, credentials stored on the authentication device will not be affected.
+  desc 'Using an authentication device, such as a DoW common access card (CAC) or token that is separate from the information system, ensures that even if the information system is compromised, credentials stored on the authentication device will not be affected.
 
-Multifactor solutions that require devices separate from information systems gaining access include, for example, hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S. Government Personal Identity Verification (PIV) card and the DoD CAC.
+Multifactor solutions that require devices separate from information systems gaining access include, for example, hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S. Government Personal Identity Verification (PIV) card and the DoW CAC.
 
 RHEL 8 includes multiple options for configuring certificate status checking, but for this requirement focuses on the System Security Services Daemon (SSSD). By default, sssd performs Online Certificate Status Protocol (OCSP) checking and certificate verification using a sha256 digest function.'
   desc 'check', 'Verify the operating system implements certificate status checking for multifactor authentication.
 
-Note: If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
+Note: If the system administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
 
-Check to see if Online Certificate Status Protocol (OCSP) is enabled and using the proper digest value on the system with the following command:
+Verify OCSP is enabled and using the proper digest value on the system with the following command:
 
 $ sudo grep certificate_verification /etc/sssd/sssd.conf /etc/sssd/conf.d/*.conf | grep -v "^#"
 
@@ -28,15 +28,16 @@ The "sssd" service must be restarted for the changes to take effect. To restart 
 
 $ sudo systemctl restart sssd.service'
   impact 0.5
+  tag check_id: 'C-32943r1261955_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
-  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000377-GPOS-00162', 'SRG-OS-000705-GPOS-00150']
+  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000377-GPOS-00162']
   tag gid: 'V-230274'
-  tag rid: 'SV-230274r1017089_rule'
+  tag rid: 'SV-230274r1262204_rule'
   tag stig_id: 'RHEL-08-010400'
   tag fix_id: 'F-32918r809280_fix'
-  tag cci: ['CCI-001948', 'CCI-001954', 'CCI-004046', 'CCI-004047']
-  tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (6) (a)', 'IA-2 (6) (b)']
+  tag cci: ['CCI-001948', 'CCI-004046']
+  tag nist: ['IA-2 (11)', 'IA-2 (6) (a)']
   tag 'host'
 
   only_if('This requirement is Not Applicable inside the container', impact: 0.0) {

@@ -16,14 +16,15 @@ If any local interactive user initialization files are found to have a umask sta
 
 If the account is for an application, the requirement for a umask less restrictive than "077" can be documented with the Information System Security Officer, but the user agreement for access to the account must specify that the local interactive user must log on to their account first and then switch the user to the application account with the correct option to gain the account's environment variables.)
   impact 0.5
+  tag check_id: 'C-33053r858731_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00228'
   tag gid: 'V-230384'
   tag rid: 'SV-230384r1017193_rule'
   tag stig_id: 'RHEL-08-020352'
   tag fix_id: 'F-33028r567899_fix'
-  tag cci: ['CCI-000366', 'CCI-000213']
-  tag nist: ['CM-6 b', 'AC-3']
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

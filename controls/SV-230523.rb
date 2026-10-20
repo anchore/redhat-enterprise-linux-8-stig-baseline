@@ -32,8 +32,8 @@ $ sudo yum install fapolicyd.x86_64'
   tag fix_id: 'F-33167r744022_fix'
   tag satisfies: ['SRG-OS-000370-GPOS-00155', 'SRG-OS-000368-GPOS-00154', 'SRG-OS-000480-GPOS-00232']
   tag 'documentable'
-  tag cci: ['CCI-001774', 'CCI-001764']
-  tag nist: ['CM-7 (5) (b)', 'CM-7 (2)']
+  tag cci: ['CCI-001764']
+  tag nist: ['CM-7 (2)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

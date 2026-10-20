@@ -20,14 +20,15 @@ If the system is a virtual machine with no virtual or physical USB peripherals a
 
 $ sudo yum install usbguard.x86_64'
   impact 0.5
+  tag check_id: 'C-47822r1014810_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-244547'
   tag rid: 'SV-244547r1014811_rule'
   tag stig_id: 'RHEL-08-040139'
   tag fix_id: 'F-47779r743889_fix'
-  tag cci: ['CCI-001958', 'CCI-003959']
-  tag nist: ['IA-3', 'CM-7 (9) (b)']
+  tag cci: ['CCI-001958']
+  tag nist: ['IA-3']
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {

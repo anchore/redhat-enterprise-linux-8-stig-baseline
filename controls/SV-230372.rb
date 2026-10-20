@@ -1,15 +1,13 @@
 control 'SV-230372' do
   title 'RHEL 8 must implement smart card logon for multifactor authentication for access to interactive accounts.'
-  desc 'Using an authentication device, such as a Common Access Card (CAC) or token that is separate from the information system, ensures that even if the information system is compromised, that compromise will not affect credentials stored on the authentication device.
+  desc 'Using an authentication device, such as a common access Ccard (CAC) or token that is separate from the information system, ensures that even if the information system is compromised, that compromise will not affect credentials stored on the authentication device.
 
-Multifactor solutions that require devices separate from information systems gaining access include, for example, hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S. Government Personal Identity Verification card and the DoD CAC.
+Multifactor solutions that require devices separate from information systems gaining access include, for example, hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S. Government Personal Identity Verification card and the DoW CAC.
 
-There are various methods of implementing multifactor authentication for RHEL 8. Some methods include a local system multifactor account mapping or joining the system to a domain and utilizing a Red Hat idM server or Microsoft Windows Active Directory server. Any of these methods will require that the client operating system handle the multifactor authentication correctly.
-
-'
+There are various methods of implementing multifactor authentication for RHEL 8. Some methods include a local system multifactor account mapping or joining the system to a domain and utilizing a Red Hat idM server or Microsoft Windows Active Directory server. Any of these methods will require that the client operating system handle the multifactor authentication correctly.'
   desc 'check', 'Verify RHEL 8 uses multifactor authentication for local access to accounts.
 
-Note: If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
+Note: If the system administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
 
 Check that the "pam_cert_auth" setting is set to "true" in the "/etc/sssd/sssd.conf" file.
 
@@ -40,10 +38,10 @@ The "sssd" service must be restarted for the changes to take effect. To restart 
 
      $ sudo systemctl restart sssd.service'
   impact 0.5
-  tag check_id: 'C-33041r942943_chk'
+  tag check_id: 'C-33041r1261961_chk'
   tag severity: 'medium'
   tag gid: 'V-230372'
-  tag rid: 'SV-230372r1017184_rule'
+  tag rid: 'SV-230372r1262209_rule'
   tag stig_id: 'RHEL-08-020250'
   tag gtitle: 'SRG-OS-000105-GPOS-00052'
   tag fix_id: 'F-33016r942944_fix'

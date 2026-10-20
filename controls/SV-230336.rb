@@ -45,8 +45,8 @@ $ sudo systemctl restart sssd.service'
   tag fix_id: 'F-32980r567755_fix'
   tag satisfies: ['SRG-OS-000329-GPOS-00128', 'SRG-OS-000021-GPOS-00005']
   tag 'documentable'
-  tag cci: ['CCI-000044', 'CCI-002238']
-  tag nist: ['AC-7 a', 'AC-7 b']
+  tag cci: ['CCI-000044']
+  tag nist: ['AC-7 a']
   tag 'host'
   tag 'container'
 

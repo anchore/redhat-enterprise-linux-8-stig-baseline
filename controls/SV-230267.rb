@@ -43,8 +43,8 @@ $ sudo sysctl --system'
   tag fix_id: 'F-32911r1184248_fix'
   tag satisfies: ['SRG-OS-000312-GPOS-00122', 'SRG-OS-000312-GPOS-00123', 'SRG-OS-000324-GPOS-00125', 'SRG-OS-000312-GPOS-00124']
   tag 'documentable'
-  tag cci: ['CCI-002165', 'CCI-002235']
-  tag nist: ['AC-3 (4)', 'AC-6 (10)']
+  tag cci: ['CCI-002165']
+  tag nist: ['AC-3 (4)']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {

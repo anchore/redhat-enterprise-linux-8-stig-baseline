@@ -44,14 +44,15 @@ The system configuration files need to be reloaded for the changes to take effec
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-47829r1210515_chk'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244554'
-  tag rid: 'SV-244554r1017354_rule'
+  tag rid: 'SV-244554r1210517_rule'
   tag stig_id: 'RHEL-08-040286'
-  tag fix_id: 'F-47786r858831_fix'
-  tag cci: ['CCI-000366', 'CCI-002824']
-  tag nist: ['CM-6 b', 'SI-16']
+  tag fix_id: 'F-47786r1210516_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {

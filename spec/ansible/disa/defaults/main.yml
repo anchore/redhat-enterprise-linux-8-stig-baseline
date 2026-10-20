@@ -1,33 +1,35 @@
 # R-230225 RHEL-08-010040
 rhel8STIG_stigrule_230225_Manage: True
-rhel8STIG_stigrule_230225_banner_Line: banner /etc/issue
+rhel8STIG_stigrule_230225_Banner_Line: Banner /etc/issue
 # R-230226 RHEL-08-010050
 rhel8STIG_stigrule_230226_Manage: True
-rhel8STIG_stigrule_230226__etc_dconf_db_local_d_01_banner_message_Value: '''You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.\nBy using this IS (which includes any device attached to this IS), you consent to the following conditions:\n-The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.\n-At any time, the USG may inspect and seize data stored on this IS.\n-Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.\n-This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.\n-Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.'''
+rhel8STIG_stigrule_230226__etc_dconf_db_local_d_01_banner_message_Value: "''You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.\nBy using this IS (which includes any device attached to this IS), you consent to the following conditions:\n-The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.\n-At any time, the USG may inspect and seize data stored on this IS.\n-Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.\n-This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.\n-Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.''"
 # R-230227 RHEL-08-010060
 rhel8STIG_stigrule_230227_Manage: True
 rhel8STIG_stigrule_230227__etc_issue_Dest: /etc/issue
-rhel8STIG_stigrule_230227__etc_issue_Content: 'You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
+rhel8STIG_stigrule_230227__etc_issue_Content: |
+  You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
 
-By using this IS (which includes any device attached to this IS), you consent to the following conditions:
+  By using this IS (which includes any device attached to this IS), you consent to the following conditions:
 
--The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
+  -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
 
--At any time, the USG may inspect and seize data stored on this IS.
+  -At any time, the USG may inspect and seize data stored on this IS.
 
--Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
+  -Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
 
--This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
+  -This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
 
--Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
-
-'
+  -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
 # R-230228 RHEL-08-010070
 rhel8STIG_stigrule_230228_Manage: True
 rhel8STIG_stigrule_230228__etc_rsyslog_conf_Line: 'auth.*;authpriv.*;daemon.* /var/log/secure'
 # R-230231 RHEL-08-010110
 rhel8STIG_stigrule_230231_Manage: True
 rhel8STIG_stigrule_230231__etc_login_defs_Line: 'ENCRYPT_METHOD SHA512'
+# R-230233 RHEL-08-010130
+rhel8STIG_stigrule_230233_Manage: True
+rhel8STIG_stigrule_230233__etc_login_defs_Line: 'SHA_CRYPT_MIN_ROUNDS 100000'
 # R-230236 RHEL-08-010151
 rhel8STIG_stigrule_230236_Manage: True
 rhel8STIG_stigrule_230236__usr_lib_systemd_system_rescue_service_Value: '-/usr/lib/systemd/systemd-sulogin-shell rescue'
@@ -43,53 +45,39 @@ rhel8STIG_stigrule_230241_policycoreutils_State: installed
 # R-230244 RHEL-08-010200
 rhel8STIG_stigrule_230244_Manage: True
 rhel8STIG_stigrule_230244_ClientAliveCountMax_Line: ClientAliveCountMax 1
-# R-230252 RHEL-08-010291
-rhel8STIG_stigrule_230252_Manage: True
-rhel8STIG_stigrule_230252__etc_sysconfig_sshd_Line: '# CRYPTO_POLICY='
-# R-230255 RHEL-08-010294
-rhel8STIG_stigrule_230255_Manage: True
-rhel8STIG_stigrule_230255__etc_crypto_policies_back_ends_opensslcnf_config_Line: 'MinProtocol = TLSv1.2'
-# R-230256 RHEL-08-010295
-rhel8STIG_stigrule_230256_Manage: True
-rhel8STIG_stigrule_230256__etc_crypto_policies_back_ends_gnutls_config_Line: '+VERS-ALL:-VERS-DTLS0.9:-VERS-SSL3.0:-VERS-TLS1.0:-VERS-TLS1.1:-VERS-DTLS1.0'
 # R-230265 RHEL-08-010371
 rhel8STIG_stigrule_230265_Manage: True
 rhel8STIG_stigrule_230265__etc_dnf_dnf_conf_Value: '1'
 # R-230266 RHEL-08-010372
 rhel8STIG_stigrule_230266_Manage: True
-rhel8STIG_stigrule_230266__etc_sysctl_d_99_sysctl_conf_Line: 'kernel.kexec_load_disabled = 1'
+rhel8STIG_stigrule_230266__etc_sysctl_d_99_kernel_kexec_load_disabled_conf_Line: 'kernel.kexec_load_disabled = 1'
 # R-230267 RHEL-08-010373
 rhel8STIG_stigrule_230267_Manage: True
-rhel8STIG_stigrule_230267__etc_sysctl_d_99_sysctl_conf_Line: 'fs.protected_symlinks = 1'
+rhel8STIG_stigrule_230267__etc_sysctl_d_99_fs_protected_symlinks_conf_Line: 'fs.protected_symlinks = 1'
 # R-230268 RHEL-08-010374
 rhel8STIG_stigrule_230268_Manage: True
-rhel8STIG_stigrule_230268__etc_sysctl_d_99_sysctl_conf_Line: 'fs.protected_hardlinks = 1'
+rhel8STIG_stigrule_230268__etc_sysctl_d_99_fs_protected_hardlinks_conf_Line: 'fs.protected_hardlinks = 1'
 # R-230269 RHEL-08-010375
 rhel8STIG_stigrule_230269_Manage: True
-rhel8STIG_stigrule_230269__etc_sysctl_d_99_sysctl_conf_Line: 'kernel.dmesg_restrict = 1'
+rhel8STIG_stigrule_230269__etc_sysctl_d_99_dmesg_restrict_conf_Line: 'kernel.dmesg_restrict = 1'
 # R-230270 RHEL-08-010376
 rhel8STIG_stigrule_230270_Manage: True
-rhel8STIG_stigrule_230270__etc_sysctl_d_99_sysctl_conf_Line: 'kernel.perf_event_paranoid = 2'
+rhel8STIG_stigrule_230270__etc_sysctl_d_99_kernel_perf_event_paranoid_conf_Line: 'kernel.perf_event_paranoid = 2'
 # R-230273 RHEL-08-010390
 rhel8STIG_stigrule_230273_Manage: True
-rhel8STIG_stigrule_230273_esc_State: installed
 rhel8STIG_stigrule_230273_openssl_pkcs11_State: installed
 # R-230275 RHEL-08-010410
 rhel8STIG_stigrule_230275_Manage: True
 rhel8STIG_stigrule_230275_opensc_State: installed
 # R-230280 RHEL-08-010430
 rhel8STIG_stigrule_230280_Manage: True
-rhel8STIG_stigrule_230280__etc_sysctl_d_99_sysctl_conf_Line: 'kernel.randomize_va_space = 2'
+rhel8STIG_stigrule_230280__etc_sysctl_d_99_kernel_randomize_va_space_conf_Line: 'kernel.randomize_va_space = 2'
 # R-230281 RHEL-08-010440
 rhel8STIG_stigrule_230281_Manage: True
 rhel8STIG_stigrule_230281__etc_dnf_dnf_conf_Value: 'True'
 # R-230282 RHEL-08-010450
 rhel8STIG_stigrule_230282_Manage: True
 rhel8STIG_stigrule_230282__etc_selinux_config_Line: 'SELINUXTYPE=targeted'
-# R-230285 RHEL-08-010471
-rhel8STIG_stigrule_230285_Manage: True
-rhel8STIG_stigrule_230285_rngd_enable_Enabled: yes
-rhel8STIG_stigrule_230285_rngd_start_State: started
 # R-230288 RHEL-08-010500
 rhel8STIG_stigrule_230288_Manage: True
 rhel8STIG_stigrule_230288_StrictModes_Line: StrictModes yes
@@ -112,8 +100,8 @@ rhel8STIG_stigrule_230310_Manage: True
 rhel8STIG_stigrule_230310_kdump_disable_Enabled: no
 # R-230311 RHEL-08-010671
 rhel8STIG_stigrule_230311_Manage: True
-rhel8STIG_stigrule_230311__etc_sysctl_d_99_sysctl_conf_Line: 'kernel.core_pattern=|/bin/false'
 rhel8STIG_stigrule_230311_kernel_core_pattern_Value: '|/bin/false'
+rhel8STIG_stigrule_230311_kernel_core_pattern_File: /etc/sysctl.d/99-disable-coredump.conf
 # R-230313 RHEL-08-010673
 rhel8STIG_stigrule_230313_Manage: True
 rhel8STIG_stigrule_230313__etc_security_limits_conf_Line: '* hard core 0'
@@ -138,16 +126,9 @@ rhel8STIG_stigrule_230346__etc_security_limits_conf_Line: '* hard maxlogins 10'
 # R-230347 RHEL-08-020030
 rhel8STIG_stigrule_230347_Manage: True
 rhel8STIG_stigrule_230347__etc_dconf_db_local_d_00_screensaver_Value: 'true'
-# R-230348 RHEL-08-020040
-rhel8STIG_stigrule_230348_Manage: True
-rhel8STIG_stigrule_230348_ensure_tmux_is_installed_State: installed
-rhel8STIG_stigrule_230348__etc_tmux_conf_Line: 'set -g lock-command vlock'
 # R-230352 RHEL-08-020060
 rhel8STIG_stigrule_230352_Manage: True
-rhel8STIG_stigrule_230352__etc_dconf_db_local_d_00_screensaver_Value: 'uint32 900'
-# R-230353 RHEL-08-020070
-rhel8STIG_stigrule_230353_Manage: True
-rhel8STIG_stigrule_230353__etc_tmux_conf_Line: 'set -g lock-after-time 900'
+rhel8STIG_stigrule_230352__etc_dconf_db_local_d_00_screensaver_Value: 'uint32 600'
 # R-230354 RHEL-08-020080
 rhel8STIG_stigrule_230354_Manage: True
 rhel8STIG_stigrule_230354__etc_dconf_db_local_d_locks_session_Line: '/org/gnome/desktop/screensaver/lock-delay'
@@ -177,7 +158,7 @@ rhel8STIG_stigrule_230365_Manage: True
 rhel8STIG_stigrule_230365__etc_login_defs_Line: 'PASS_MIN_DAYS 1'
 # R-230366 RHEL-08-020200
 rhel8STIG_stigrule_230366_Manage: True
-rhel8STIG_stigrule_230366__etc_login_defs_Line: 'PASS_MAX_DAYS 60'
+rhel8STIG_stigrule_230366__etc_login_defs_Line: 'PASS_MAX_DAYS 180'
 # R-230369 RHEL-08-020230
 rhel8STIG_stigrule_230369_Manage: True
 rhel8STIG_stigrule_230369__etc_security_pwquality_conf_Line: 'minlen = 15'
@@ -335,8 +316,8 @@ rhel8STIG_stigrule_230438__etc_audit_rules_d_audit_rules_init_module_b32_Line: '
 rhel8STIG_stigrule_230438__etc_audit_rules_d_audit_rules_init_module_b64_Line: '-a always,exit -F arch=b64 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k module_chng'
 # R-230439 RHEL-08-030361
 rhel8STIG_stigrule_230439_Manage: True
-rhel8STIG_stigrule_230439__etc_audit_rules_d_audit_rules_rename_b32_Line: '-a always,exit -F arch=b32 -S rename -F auid>=1000 -F auid!=unset -k module_chng'
-rhel8STIG_stigrule_230439__etc_audit_rules_d_audit_rules_rename_b64_Line: '-a always,exit -F arch=b64 -S rename -F auid>=1000 -F auid!=unset -k module_chng'
+rhel8STIG_stigrule_230439__etc_audit_rules_d_audit_rules_rename_b32_Line: '-a always,exit -F arch=b32 -S rename,unlink,rmdir,renameat,unlinkat -F auid>=1000 -F auid!=unset -k delete'
+rhel8STIG_stigrule_230439__etc_audit_rules_d_audit_rules_rename_b64_Line: '-a always,exit -F arch=b64 -S rename,unlink,rmdir,renameat,unlinkat -F auid>=1000 -F auid!=unset -k delete'
 # R-230444 RHEL-08-030370
 rhel8STIG_stigrule_230444_Manage: True
 rhel8STIG_stigrule_230444__etc_audit_rules_d_audit_rules__usr_bin_gpasswd_Line: '-a always,exit -F path=/usr/bin/gpasswd -F perm=x -F auid>=1000 -F auid!=unset -k privileged-gpasswd'
@@ -412,7 +393,7 @@ rhel8STIG_stigrule_230489_Manage: True
 rhel8STIG_stigrule_230489_sendmail_State: removed
 # R-230492 RHEL-08-040010
 rhel8STIG_stigrule_230492_Manage: True
-rhel8STIG_stigrule_230492_rsh_server_State: removed
+rhel8STIG_stigrule_230492_epel_release_State: removed
 # R-230502 RHEL-08-040070
 rhel8STIG_stigrule_230502_Manage: True
 rhel8STIG_stigrule_230502_autofs_stop_State: stopped
@@ -432,10 +413,11 @@ rhel8STIG_stigrule_230527_Manage: True
 rhel8STIG_stigrule_230527_RekeyLimit_Line: RekeyLimit 1G 1h
 # R-230529 RHEL-08-040170
 rhel8STIG_stigrule_230529_Manage: True
-rhel8STIG_stigrule_230529_systemctl_mask_ctrl_alt_del_target_Command: systemctl mask ctrl-alt-del.target
+rhel8STIG_stigrule_230529_ctrl_alt_del_target_disable_Enabled: false
+rhel8STIG_stigrule_230529_ctrl_alt_del_target_mask_Masked: true
 # R-230531 RHEL-08-040172
 rhel8STIG_stigrule_230531_Manage: True
-rhel8STIG_stigrule_230531__etc_systemd_system_conf_Value: 'none'
+rhel8STIG_stigrule_230531__etc_systemd_system_conf_d_55_CtrlAltDel_BurstAction_conf_Value: 'none'
 # R-230533 RHEL-08-040190
 rhel8STIG_stigrule_230533_Manage: True
 rhel8STIG_stigrule_230533_tftp_server_State: removed
@@ -475,18 +457,19 @@ rhel8STIG_stigrule_230545_Manage: True
 rhel8STIG_stigrule_230545__etc_sysctl_d_99_sysctl_conf_Line: 'kernel.unprivileged_bpf_disabled = 1'
 # R-230546 RHEL-08-040282
 rhel8STIG_stigrule_230546_Manage: True
-rhel8STIG_stigrule_230546__etc_sysctl_d_99_sysctl_conf_Line: 'kernel.yama.ptrace_scope = 1'
 rhel8STIG_stigrule_230546_kernel_yama_ptrace_scope_Value: 1
+rhel8STIG_stigrule_230546_kernel_yama_ptrace_scope_File: /etc/sysctl.d/99-ptrace-restrict.conf
 # R-230547 RHEL-08-040283
 rhel8STIG_stigrule_230547_Manage: True
-rhel8STIG_stigrule_230547__etc_sysctl_d_99_sysctl_conf_Line: 'kernel.kptr_restrict = 1'
+rhel8STIG_stigrule_230547__etc_sysctl_d_99_kernel_kptr_restrict_conf_Line: 'kernel.kptr_restrict = 1'
 # R-230548 RHEL-08-040284
 rhel8STIG_stigrule_230548_Manage: True
 rhel8STIG_stigrule_230548__etc_sysctl_d_99_sysctl_conf_Line: 'user.max_user_namespaces = 0'
 rhel8STIG_stigrule_230548_user_max_user_namespaces_Value: 0
 # R-230549 RHEL-08-040285
 rhel8STIG_stigrule_230549_Manage: True
-rhel8STIG_stigrule_230549__etc_sysctl_d_99_sysctl_conf_Line: 'net.ipv4.conf.all.rp_filter = 1'
+rhel8STIG_stigrule_230549_net_ipv4_conf_all_rp_filter_Value: 1
+rhel8STIG_stigrule_230549_net_ipv4_conf_all_rp_filter_File: /etc/sysctl.d/ipv4_rp_filter.conf
 # R-230555 RHEL-08-040340
 rhel8STIG_stigrule_230555_Manage: True
 rhel8STIG_stigrule_230555_X11Forwarding_Line: X11Forwarding no
@@ -526,9 +509,6 @@ rhel8STIG_stigrule_244535__etc_dconf_db_local_d_00_screensaver_Value: 'uint32 5'
 # R-244536 RHEL-08-020032
 rhel8STIG_stigrule_244536_Manage: True
 rhel8STIG_stigrule_244536__etc_dconf_db_local_d_02_login_screen_Value: 'true'
-# R-244537 RHEL-08-020039
-rhel8STIG_stigrule_244537_Manage: True
-rhel8STIG_stigrule_244537_tmux_State: installed
 # R-244538 RHEL-08-020081
 rhel8STIG_stigrule_244538_Manage: True
 rhel8STIG_stigrule_244538__etc_dconf_db_local_d_locks_session_idle_delay_Line: '/org/gnome/desktop/session/idle-delay'
@@ -566,3 +546,38 @@ rhel8STIG_stigrule_244554__etc_sysctl_d_99_sysctl_conf_Line: 'net.core.bpf_jit_h
 # R-256974 RHEL-08-010358
 rhel8STIG_stigrule_256974_Manage: True
 rhel8STIG_stigrule_256974_mailx_State: installed
+# R-274877 RHEL-08-030655
+rhel8STIG_stigrule_274877_Manage: True
+rhel8STIG_stigrule_274877__etc_audit_rules_d_audit_rules__etc_cron_d__cronjobs_Line: '-w /etc/cron.d/ -p wa -k cronjobs'
+rhel8STIG_stigrule_274877__etc_audit_rules_d_audit_rules__var_spool_cron__cronjobs_Line: '-w /var/spool/cron/ -p wa -k cronjobs'
+# R-279929 RHEL-08-020360
+rhel8STIG_stigrule_279929_Manage: True
+rhel8STIG_stigrule_279929__etc_profile_d_tmout_sh_Dest: /etc/profile.d/tmout.sh
+rhel8STIG_stigrule_279929__etc_profile_d_tmout_sh_Content: |
+  #!/bin/bash
+
+  declare -xr TMOUT=600
+# R-279933 RHEL-08-010015
+rhel8STIG_stigrule_279933_Manage: True
+rhel8STIG_stigrule_279933_crypto_policies_State: installed
+# R-284947 RHEL-08-040287
+rhel8STIG_stigrule_284947_Manage: True
+rhel8STIG_stigrule_284947_net_ipv4_conf_default_rp_filter_Value: 1
+rhel8STIG_stigrule_284947_net_ipv4_conf_default_rp_filter_File: /etc/sysctl.d/ipv4_rp_filter.conf
+# R-284948 RHEL-08-040221
+rhel8STIG_stigrule_284948_Manage: True
+rhel8STIG_stigrule_284948_net_ipv4_conf_all_log_martians_Value: 1
+rhel8STIG_stigrule_284948_net_ipv4_conf_all_log_martians_File: /etc/sysctl.d/ipv4_log_martians.conf
+# R-284949 RHEL-08-040222
+rhel8STIG_stigrule_284949_Manage: True
+rhel8STIG_stigrule_284949_net_ipv4_conf_default_log_martians_Value: 1
+rhel8STIG_stigrule_284949_net_ipv4_conf_default_log_martians_File: /etc/sysctl.d/ipv4_log_martians.conf
+# R-288829 
+rhel8STIG_stigrule_288829_Manage: True
+rhel8STIG_stigrule_288829__etc_pki_tls_openssl_cnf_Line: '.include = /etc/crypto-policies/back-ends/opensslcnf.config'
+# R-288830 
+rhel8STIG_stigrule_288830_Manage: True
+rhel8STIG_stigrule_288830__etc_sysconfig_sshd_Line: '# CRYPTO_POLICY='
+# R-288831 
+rhel8STIG_stigrule_288831_Manage: True
+rhel8STIG_stigrule_288831__etc_audit_rules_d_audit_rules__usr_sbin_useradd_Line: '-a always,exit -F path=/usr/sbin/useradd -F perm=x -F auid>=1000 -F auid!=unset -k privileged-useradd'
